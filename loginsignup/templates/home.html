@@ -1,0 +1,297 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bike Rental - Bikeeez</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <style>
+      h1 {
+        font-size: 40px;
+        text-align: center;
+        font-weight: bold;
+        max-width: 700px;
+        margin: 0 auto 20px;
+        line-height: 1.3;
+      }
+
+      .language-currency {
+        display: flex;
+        align-items: center;
+      }
+
+      .language-currency select {
+        padding: 8px;
+        margin-right: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      .user-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* Frequently Booked Section */
+      .frequently-booked {
+        margin-bottom: 40px;
+      }
+
+      .frequently-booked h2 {
+        font-size: 24px;
+        padding: 20px;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      .card-container {
+        display: grid;
+        padding-left: 20px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+        padding-bottom: 10px;
+      }
+      .card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background: white;
+        text-align: center;
+        padding-bottom: 10px;
+      }
+      .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+      .card-content {
+        padding: 10px;
+      }
+      @media (max-width: 1024px) {
+        .card-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 768px) {
+        .card-container {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+
+      .price {
+        color: #e67e22;
+      }
+
+      .rating {
+        color: #f39c12;
+      }
+
+      .location {
+        font-size: 12px;
+      }
+
+      /* Footer */
+      footer {
+        background-color: #f9f9f9;
+        color: #333;
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        bottom: 0;
+        width: 100%;
+        margin-top: auto;
+      }
+      footer a {
+        color: #007bff;
+        text-decoration: none;
+      }
+      footer a:hover {
+        text-decoration: underline;
+      }
+      
+    </style>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
+      <div class="language-currency">
+        <select>
+          <option value="en">EN</option>
+          <option value="np">NP</option>
+        </select>
+        <button id="loginBtn" onclick="redirectToLogin()">Login</button>
+        <div class="user-icon"></div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>Rent bikes from Kathmandu's largest online bike rental platform</h1>
+      <div class="search-box">
+        <input type="text" placeholder="Where do you want to go?" />
+        <input type="date" />
+        <input type="number" placeholder="Number of bikes" />
+        <button>🔍</button>
+      </div>
+    </section>
+
+    <!-- Frequently Booked Bikes -->
+    <!-- Frequently Booked Section -->
+    <section class="frequently-booked">
+      <h2>Frequently Booked</h2>
+      <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card">
+          <img src="bike2.jpeg" alt="Bike" />
+          <div class="card-content">
+            <h3>CANYON</h3>
+            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
+            <p class="price">39€ | 2126€/week</p>
+            <p class="rating">⭐ 5.00 (14)</p>
+            <p class="location">Altorws</p>
+          </div>
+        </div>
+        <!-- More Cards -->
+        <div class="card">
+          <img src="bike2.jpeg" alt="Bike" />
+          <div class="card-content">
+            <h3>CANYON</h3>
+            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
+            <p class="price">39€ | 2126€/week</p>
+            <p class="rating">⭐ 5.00 (14)</p>
+            <p class="location">Altorws</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="bike2.jpeg" alt="Bike" />
+          <div class="card-content">
+            <h3>CANYON</h3>
+            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
+            <p class="price">39€ | 2126€/week</p>
+            <p class="rating">⭐ 5.00 (14)</p>
+            <p class="location">Altorws</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="bike2.jpeg" alt="Bike" />
+          <div class="card-content">
+            <h3>CANYON</h3>
+            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
+            <p class="price">39€ | 2126€/week</p>
+            <p class="rating">⭐ 5.00 (14)</p>
+            <p class="location">Altorws</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Places -->
+    <section class="popular-places">
+      <h2>Popular Places</h2>
+      <div class="places-container">
+        <span>Kalanki</span>
+        <span>Jhamsikhel</span>
+        <span>Naikap</span>
+        <span>Baneshwor</span>
+        <span>Naxal</span>
+        <span>Kapan</span>
+        <span>Chabahil</span>
+        <span>Gongabu</span>
+        <span>Sukedhara</span>
+        <span>Thamel</span>
+        <span>Dhumbahari</span>
+      </div>
+    </section>
+
+    <!-- Recently Booked -->
+    <section class="bikes-section">
+      <h2>Recently Booked</h2>
+      <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card">
+          <img src="bike2.jpeg" alt="Bike" />
+          <div class="card-content">
+            <h3>CANYON</h3>
+            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
+            <p class="price">39€ | 2126€/week</p>
+            <p class="rating">⭐ 5.00 (14)</p>
+            <p class="location">Altorws</p>
+          </div>
+        </div>
+        <!-- More Cards -->
+        <div class="card">
+          <img src="bike2.jpeg" alt="Bike" />
+          <div class="card-content">
+            <h3>CANYON</h3>
+            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
+            <p class="price">39€ | 2126€/week</p>
+            <p class="rating">⭐ 5.00 (14)</p>
+            <p class="location">Altorws</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="bike2.jpeg" alt="Bike" />
+          <div class="card-content">
+            <h3>CANYON</h3>
+            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
+            <p class="price">39€ | 2126€/week</p>
+            <p class="rating">⭐ 5.00 (14)</p>
+            <p class="location">Altorws</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="bike2.jpeg" alt="Bike" />
+          <div class="card-content">
+            <h3>CANYON</h3>
+            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
+            <p class="price">39€ | 2126€/week</p>
+            <p class="rating">⭐ 5.00 (14)</p>
+            <p class="location">Altorws</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Us -->
+    <section class="about">
+      <div class="about-content">
+        <h2>About Us</h2>
+        <p>
+          Welcome to Bikeeez, your go-to platform for hassle-free, affordable,
+          and eco-friendly bike rentals! At Bikeeez, we believe that riding a
+          bike is more than just a mode of transport — it’s a lifestyle. Whether
+          you’re exploring the city, commuting to work, or enjoying a weekend
+          ride, we make it easy to find the perfect bike whenever you need
+          it.<br />
+          Our platform connects bike owners with riders, offering a wide range
+          of bicycles — from city cruisers to mountain bikes and e-bikes — ready
+          for you to rent with just a few clicks.
+        </p>
+
+        <h3>🚴 Why Choose Bikeeez?</h3>
+        <ul>
+          <li>User-friendly platform to list and book bikes easily</li>
+          <li>Affordable rental options for every budget</li>
+          <li>Verified owners and riders for your safety and peace of mind</li>
+          <li>Support local bike owners and promote a sharing community</li>
+          <li>Eco-friendly choice to reduce your carbon footprint</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <p>
+        © 2025 LR Mobility GmbH | <a href="/imprint">Imprint</a> |
+        <a href="/terms">Terms</a> | <a href="/policies">Policies</a>
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
