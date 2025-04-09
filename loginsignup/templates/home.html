@@ -1,122 +1,229 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bike Rental - Bikeeez</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% static 'css/style.css' %}
+    <style>
+      /* Orange-themed Live Chat Styles */
+      .chat-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 30px;
+        font-weight: 500;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        display: flex;
+        align-items: center;
+        z-index: 999;
+        transition: all 0.3s ease;
+      }
+
+      .chat-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+      }
+
+      .chat-container {
+        position: fixed;
+        bottom: 90px;
+        right: 30px;
+        width: 350px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        z-index: 1000;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        border: 2px solid #ff6b00;
+      }
+
+      .chat-header {
+        background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
+        color: white;
+        padding: 15px;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .close-chat {
+        cursor: pointer;
+        font-size: 1.5rem;
+        line-height: 1;
+        transition: transform 0.3s ease;
+      }
+
+      .close-chat:hover {
+        transform: scale(1.2);
+      }
+
+      .chat-body {
+        padding: 15px;
+        height: 300px;
+        overflow-y: auto;
+        background-color: #fff3e8;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-message {
+        margin-bottom: 15px;
+        padding: 10px 15px;
+        border-radius: 18px;
+        max-width: 80%;
+        font-size: 14px;
+        line-height: 1.4;
+        position: relative;
+      }
+
+      .bot {
+        background-color: white;
+        border-bottom-left-radius: 5px;
+        align-self: flex-start;
+        box-shadow: 0 2px 5px rgba(255, 107, 0, 0.1);
+        border: 1px solid #ff9e4d;
+      }
+
+      .bot:before {
+        content: "Bikeeez Bot";
+        display: block;
+        font-size: 0.7rem;
+        color: #ff6b00;
+        margin-bottom: 3px;
+        font-weight: bold;
+      }
+
+      .user {
+        background-color: #ff6b00;
+        color: white;
+        border-bottom-right-radius: 5px;
+        align-self: flex-end;
+      }
+
+      .chat-suggestions {
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        background-color: white;
+        border-top: 1px solid #ff9e4d;
+      }
+
+      .chat-suggestions button {
+        background-color: #fff3e0;
+        border: none;
+        border-radius: 15px;
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #e65100;
+        border: 1px solid #ff9e4d;
+      }
+
+      .chat-suggestions button:hover {
+        background-color: #ff6b00;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .chat-input {
+        display: flex;
+        padding: 10px;
+        background-color: white;
+        border-top: 1px solid #ff9e4d;
+      }
+
+      .chat-input input {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ff9e4d;
+        border-radius: 30px;
+        outline: none;
+        font-size: 0.9rem;
+        transition: border-color 0.3s ease;
+        background-color: #fff3e0;
+      }
+
+      .chat-input input:focus {
+        border-color: #ff6b00;
+      }
+
+      .chat-input button {
+        background-color: #ff6b00;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 0 15px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .chat-input button:hover {
+        background-color: #e65100;
+        transform: scale(1.05);
+      }
+
+      /* Typing indicator */
+      .typing-indicator {
+        display: none;
+        padding: 10px 15px;
+        background-color: white;
+        border-radius: 18px;
+        border-bottom-left-radius: 5px;
+        align-self: flex-start;
+        box-shadow: 0 2px 5px rgba(255, 107, 0, 0.1);
+        border: 1px solid #ff9e4d;
+        margin-bottom: 15px;
+        width: fit-content;
+      }
+
+      .typing-indicator span {
+        height: 8px;
+        width: 8px;
+        background-color: #ff6b00;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0 2px;
+        animation: bounce 1.5s infinite ease-in-out;
+      }
+
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes bounce {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-5px);
+        }
+      }
+    </style>
   </head>
   <body>
-    <style>
-      h1 {
-        font-size: 40px;
-        text-align: center;
-        font-weight: bold;
-        max-width: 700px;
-        margin: 0 auto 20px;
-        line-height: 1.3;
-      }
-
-      .language-currency {
-        display: flex;
-        align-items: center;
-      }
-
-      .language-currency select {
-        padding: 8px;
-        margin-right: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-
-      .user-icon {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background-color: #f0f0f0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      /* Frequently Booked Section */
-      .frequently-booked {
-        margin-bottom: 40px;
-      }
-
-      .frequently-booked h2 {
-        font-size: 24px;
-        padding: 20px;
-        color: #333;
-        margin-bottom: 20px;
-      }
-
-      .card-container {
-        display: grid;
-        padding-left: 20px;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
-        padding-bottom: 10px;
-      }
-      .card {
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        background: white;
-        text-align: center;
-        padding-bottom: 10px;
-      }
-      .card img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-      }
-      .card-content {
-        padding: 10px;
-      }
-      @media (max-width: 1024px) {
-        .card-container {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (max-width: 768px) {
-        .card-container {
-          grid-template-columns: repeat(1, 1fr);
-        }
-      }
-
-      .price {
-        color: #e67e22;
-      }
-
-      .rating {
-        color: #f39c12;
-      }
-
-      .location {
-        font-size: 12px;
-      }
-
-      /* Footer */
-      footer {
-        background-color: #f9f9f9;
-        color: #333;
-        text-align: center;
-        padding: 20px;
-        font-size: 14px;
-        bottom: 0;
-        width: 100%;
-        margin-top: auto;
-      }
-      footer a {
-        color: #007bff;
-        text-decoration: none;
-      }
-      footer a:hover {
-        text-decoration: underline;
-      }
-      
-    </style>
     <!-- Header -->
     <header class="header">
       <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
@@ -125,67 +232,109 @@
           <option value="en">EN</option>
           <option value="np">NP</option>
         </select>
-        <button id="loginBtn" onclick="redirectToLogin()">Login</button>
-        <div class="user-icon"></div>
+        <a href="login.html" id="loginBtn">Login</a>
+
+        <div class="user-icon">👤</div>
       </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
-      <h1>Rent bikes from Kathmandu's largest online bike rental platform</h1>
+      <h1 style="color: #ff6b00; font-weight: bolder">
+        Rent bikes from Kathmandu's largest online bike rental platform
+      </h1>
       <div class="search-box">
-        <input type="text" placeholder="Where do you want to go?" />
-        <input type="date" />
-        <input type="number" placeholder="Number of bikes" />
-        <button>🔍</button>
+        <div class="search-container">
+          <div class="search-item">
+            <!-- <span class="icon">🔍</span> -->
+            <input type="text" placeholder="Select places" />
+          </div>
+          <div class="divider"></div>
+          <div class="search-item">
+            <input
+              type="text"
+              id="dateRange"
+              class="date-range-box"
+              placeholder="Select dates"
+            />
+          </div>
+          <div class="divider"></div>
+          <div class="search-item">
+            <input type="number" placeholder="Number of bikes" min="1" />
+          </div>
+          <button class="search-btn">➔</button>
+        </div>
       </div>
     </section>
 
     <!-- Frequently Booked Bikes -->
-    <!-- Frequently Booked Section -->
     <section class="frequently-booked">
       <h2>Frequently Booked</h2>
       <div class="card-container">
         <!-- Card 1 -->
         <div class="card">
-          <img src="bike2.jpeg" alt="Bike" />
+          <img src="Mountainbike.jpeg" alt="Mountain Bike" />
           <div class="card-content">
-            <h3>CANYON</h3>
-            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
-            <p class="price">39€ | 2126€/week</p>
-            <p class="rating">⭐ 5.00 (14)</p>
-            <p class="location">Altorws</p>
+            <h3>CANYON Mountain Bike</h3>
+            <p>
+              Premium suspension, 21-speed gears<br />Suitable for all terrains
+            </p>
+            <p class="price">Rs. 1500/day | Rs. 8000/week</p>
+            <p class="rating">⭐ 4.9 (24 reviews)</p>
+            <p class="location">Thamel, Kathmandu</p>
           </div>
         </div>
-        <!-- More Cards -->
+
+        <!-- Card 2 -->
         <div class="card">
-          <img src="bike2.jpeg" alt="Bike" />
+          <img src="Roadbike.jpeg" alt="Road Bike" />
           <div class="card-content">
-            <h3>CANYON</h3>
-            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
-            <p class="price">39€ | 2126€/week</p>
-            <p class="rating">⭐ 5.00 (14)</p>
-            <p class="location">Altorws</p>
+            <h3>GIANT Road Bike</h3>
+            <p>Lightweight frame, 18-speed gears<br />Perfect for city rides</p>
+            <p class="price">Rs. 1200/day | Rs. 6500/week</p>
+            <p class="rating">⭐ 4.7 (18 reviews)</p>
+            <p class="location">Jhamsikhel, Lalitpur</p>
           </div>
         </div>
+
+        <!-- Card 3 -->
         <div class="card">
-          <img src="bike2.jpeg" alt="Bike" />
+          <img src="Electricbike.jpeg" alt="Electric Bike" />
           <div class="card-content">
-            <h3>CANYON</h3>
-            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
-            <p class="price">39€ | 2126€/week</p>
-            <p class="rating">⭐ 5.00 (14)</p>
-            <p class="location">Altorws</p>
+            <h3>E-RIDER Electric Bike</h3>
+            <p>
+              60km range, 25km/h max speed<br />With helmet and lock included
+            </p>
+            <p class="price">Rs. 2000/day | Rs. 10000/week</p>
+            <p class="rating">⭐ 4.8 (32 reviews)</p>
+            <p class="location">Boudha, Kathmandu</p>
           </div>
         </div>
+
+        <!-- Card 4 -->
         <div class="card">
-          <img src="bike2.jpeg" alt="Bike" />
+          <img src="Citybike.jpeg" alt="City Bike" />
           <div class="card-content">
-            <h3>CANYON</h3>
-            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
-            <p class="price">39€ | 2126€/week</p>
-            <p class="rating">⭐ 5.00 (14)</p>
-            <p class="location">Altorws</p>
+            <h3>HERO City Bike</h3>
+            <p>Comfortable seat, 7-speed gears<br />Basket and bell included</p>
+            <p class="price">Rs. 800/day | Rs. 4500/week</p>
+            <p class="rating">⭐ 4.5 (15 reviews)</p>
+            <p class="location">Patan, Lalitpur</p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card">
+          <img src="Hybridbike.jpeg" alt="Hybrid Bike" />
+          <div class="card-content">
+            <h3>TREK Hybrid Bike</h3>
+            <p>
+              Versatile for road and light trails<br />Comfortable upright
+              position
+            </p>
+            <p class="price">Rs. 1300/day | Rs. 7000/week</p>
+            <p class="rating">⭐ 4.8 (21 reviews)</p>
+            <p class="location">Kapan, Kathmandu</p>
           </div>
         </div>
       </div>
@@ -193,19 +342,18 @@
 
     <!-- Popular Places -->
     <section class="popular-places">
-      <h2>Popular Places</h2>
+      <h2>Popular Rental Locations</h2>
       <div class="places-container">
-        <span>Kalanki</span>
-        <span>Jhamsikhel</span>
-        <span>Naikap</span>
-        <span>Baneshwor</span>
-        <span>Naxal</span>
-        <span>Kapan</span>
-        <span>Chabahil</span>
-        <span>Gongabu</span>
-        <span>Sukedhara</span>
         <span>Thamel</span>
-        <span>Dhumbahari</span>
+        <span>Jhamsikhel</span>
+        <span>Boudha</span>
+        <span>Patan</span>
+        <span>Bhaktapur</span>
+        <span>Kirtipur</span>
+        <span>Gongabu</span>
+        <span>Kalanki</span>
+        <span>Chabahil</span>
+        <span>Swayambhu</span>
       </div>
     </section>
 
@@ -215,83 +363,314 @@
       <div class="card-container">
         <!-- Card 1 -->
         <div class="card">
-          <img src="bike2.jpeg" alt="Bike" />
+          <img src="Hybridbike.jpeg" alt="Hybrid Bike" />
           <div class="card-content">
-            <h3>CANYON</h3>
-            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
-            <p class="price">39€ | 2126€/week</p>
-            <p class="rating">⭐ 5.00 (14)</p>
-            <p class="location">Altorws</p>
+            <h3>TREK Hybrid Bike</h3>
+            <p>
+              Versatile for road and light trails<br />Comfortable upright
+              position
+            </p>
+            <p class="price">Rs. 1300/day | Rs. 7000/week</p>
+            <p class="rating">⭐ 4.8 (21 reviews)</p>
+            <p class="location">Kapan, Kathmandu</p>
           </div>
         </div>
-        <!-- More Cards -->
+
+        <!-- Card 2 -->
         <div class="card">
-          <img src="bike2.jpeg" alt="Bike" />
+          <img src="Kidsbike.jpeg" alt="Kids Bike" />
           <div class="card-content">
-            <h3>CANYON</h3>
-            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
-            <p class="price">39€ | 2126€/week</p>
-            <p class="rating">⭐ 5.00 (14)</p>
-            <p class="location">Altorws</p>
+            <h3>BMX Kids Bike</h3>
+            <p>
+              Small frame, training wheels available<br />Perfect for young
+              riders
+            </p>
+            <p class="price">Rs. 600/day | Rs. 3000/week</p>
+            <p class="rating">⭐ 4.6 (12 reviews)</p>
+            <p class="location">Dhumbarahi, Kathmandu</p>
           </div>
         </div>
+
+        <!-- Card 3 -->
         <div class="card">
-          <img src="bike2.jpeg" alt="Bike" />
+          <img src="Foldingbike.jpeg" alt="Folding Bike" />
           <div class="card-content">
-            <h3>CANYON</h3>
-            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
-            <p class="price">39€ | 2126€/week</p>
-            <p class="rating">⭐ 5.00 (14)</p>
-            <p class="location">Altorws</p>
+            <h3>DAHON Folding Bike</h3>
+            <p>Compact when folded, 16-inch wheels<br />Great for commuting</p>
+            <p class="price">Rs. 1100/day | Rs. 6000/week</p>
+            <p class="rating">⭐ 4.4 (17 reviews)</p>
+            <p class="location">New Baneshwor, Kathmandu</p>
           </div>
         </div>
+
+        <!-- Card 4 -->
         <div class="card">
-          <img src="bike2.jpeg" alt="Bike" />
+          <img src="Tandenbike.jpeg" alt="Tandem Bike" />
           <div class="card-content">
-            <h3>CANYON</h3>
-            <p>Uttrate CP 54.DC<br />Roed 8kn5:mec 185+175.cm 15MALL</p>
-            <p class="price">39€ | 2126€/week</p>
-            <p class="rating">⭐ 5.00 (14)</p>
-            <p class="location">Altorws</p>
+            <h3>SCHWINN Tandem Bike</h3>
+            <p>Ride together, double seats<br />Perfect for couples</p>
+            <p class="price">Rs. 1800/day | Rs. 9500/week</p>
+            <p class="rating">⭐ 4.7 (9 reviews)</p>
+            <p class="location">Lazimpat, Kathmandu</p>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card">
+          <img src="Mountainbike.jpeg" alt="Mountain Bike" />
+          <div class="card-content">
+            <h3>CANYON Mountain Bike</h3>
+            <p>
+              Premium suspension, 21-speed gears<br />Suitable for all terrains
+            </p>
+            <p class="price">Rs. 1500/day | Rs. 8000/week</p>
+            <p class="rating">⭐ 4.9 (24 reviews)</p>
+            <p class="location">Thamel, Kathmandu</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- About Us -->
-    <section class="about">
-      <div class="about-content">
-        <h2>About Us</h2>
-        <p>
-          Welcome to Bikeeez, your go-to platform for hassle-free, affordable,
-          and eco-friendly bike rentals! At Bikeeez, we believe that riding a
-          bike is more than just a mode of transport — it’s a lifestyle. Whether
-          you’re exploring the city, commuting to work, or enjoying a weekend
-          ride, we make it easy to find the perfect bike whenever you need
-          it.<br />
-          Our platform connects bike owners with riders, offering a wide range
-          of bicycles — from city cruisers to mountain bikes and e-bikes — ready
-          for you to rent with just a few clicks.
-        </p>
+    <!-- Live Chat Button -->
+    <button class="chat-button" onclick="toggleChat()">
+      <span style="margin-right: 8px">🚴‍♂️</span> Bikeeez Support
+    </button>
 
-        <h3>🚴 Why Choose Bikeeez?</h3>
-        <ul>
-          <li>User-friendly platform to list and book bikes easily</li>
-          <li>Affordable rental options for every budget</li>
-          <li>Verified owners and riders for your safety and peace of mind</li>
-          <li>Support local bike owners and promote a sharing community</li>
-          <li>Eco-friendly choice to reduce your carbon footprint</li>
-        </ul>
+    <!-- Live Chat Container -->
+    <div class="chat-container" id="chatContainer">
+      <div class="chat-header">
+        <span><span style="margin-right: 8px">🚴‍♂️</span> Bikeeez Support</span>
+        <span class="close-chat" onclick="toggleChat()">×</span>
       </div>
-    </section>
+      <div class="chat-body" id="chatBody">
+        <div class="chat-message bot">
+          Hello! I'm here to help with your bike rental questions. What do you
+          need assistance with today?
+        </div>
+      </div>
+      <div class="chat-suggestions">
+        <button
+          onclick="sendSuggestedMessage('What types of bikes do you offer?')"
+        >
+          Bike Types
+        </button>
+        <button onclick="sendSuggestedMessage('What are your rental rates?')">
+          Rental Rates
+        </button>
+        <button
+          onclick="sendSuggestedMessage('Where are your pickup locations?')"
+        >
+          Locations
+        </button>
+      </div>
+      <div class="typing-indicator" id="typingIndicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="chat-input">
+        <input
+          type="text"
+          id="chatInput"
+          placeholder="Ask about bikes, rentals..."
+          onkeypress="if(event.key === 'Enter') sendMessage()"
+        />
+        <button onclick="sendMessage()">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </div>
 
-    <footer>
-      <p>
-        © 2025 LR Mobility GmbH | <a href="/imprint">Imprint</a> |
-        <a href="/terms">Terms</a> | <a href="/policies">Policies</a>
-      </p>
+    <script>
+      // Toggle chat visibility
+      function toggleChat() {
+        const chatContainer = document.getElementById("chatContainer");
+        if (chatContainer.style.display === "flex") {
+          chatContainer.style.display = "none";
+        } else {
+          chatContainer.style.display = "flex";
+          // Auto-focus input when chat opens
+          document.getElementById("chatInput").focus();
+        }
+      }
+
+      // Show typing indicator
+      function showTyping() {
+        const typing = document.getElementById("typingIndicator");
+        typing.style.display = "block";
+        // Scroll to bottom
+        document.getElementById("chatBody").scrollTop =
+          document.getElementById("chatBody").scrollHeight;
+      }
+
+      // Hide typing indicator
+      function hideTyping() {
+        document.getElementById("typingIndicator").style.display = "none";
+      }
+
+      // Send a message from the input field
+      function sendMessage() {
+        const input = document.getElementById("chatInput");
+        const message = input.value.trim();
+
+        if (message) {
+          addMessage(message, "user");
+          input.value = "";
+
+          // Show typing indicator
+          showTyping();
+
+          // Simulate bot response after a short delay
+          setTimeout(() => {
+            hideTyping();
+            const responses = [
+              "I can help with your bike rental question about '" +
+                message +
+                "'. Let me check that for you.",
+              "Thanks for your message! Our bike specialists will get back to you shortly.",
+              "Great question about bike rentals! Here's what I know...",
+              "I'll find the best bike rental information for you. One moment please.",
+            ];
+            const randomResponse =
+              responses[Math.floor(Math.random() * responses.length)];
+            addMessage(randomResponse, "bot");
+          }, 1500 + Math.random() * 2000); // Random delay between 1.5-3.5 seconds
+        }
+      }
+
+      // Send a suggested message
+      function sendSuggestedMessage(message) {
+        addMessage(message, "user");
+
+        // Show typing indicator
+        showTyping();
+
+        // Simulate bot response after a short delay
+        setTimeout(() => {
+          hideTyping();
+          let response;
+
+          if (message.includes("types of bikes")) {
+            response =
+              "We offer mountain bikes, road bikes, hybrid bikes, and e-bikes. Our premium models include the Trek Fuel EX and Specialized Turbo Levo for e-bikes. All bikes are serviced regularly for your safety!";
+          } else if (message.includes("rental rates")) {
+            response =
+              "Our rates start at ₨5650/day for standard bikes. E-bikes are ₨6500/day. Weekly discounts available! Check our website for current promotions and package deals."; // Updated to NPR
+          } else if (message.includes("pickup locations")) {
+            response =
+              "We have convenient locations in Kathmandu, Nepal. Check our website for exact addresses and opening hours."; // Updated to Nepal
+          } else {
+            response =
+              "Thanks for your bike rental question! Let me connect you with the best information.";
+          }
+
+          addMessage(response, "bot");
+        }, 1000 + Math.random() * 1500); // Random delay between 1-2.5 seconds
+      }
+
+      // Add a message to the chat
+      function addMessage(text, sender) {
+        const chatBody = document.getElementById("chatBody");
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("chat-message", sender);
+
+        // Add bike emoji for bot messages
+        if (sender === "bot") {
+          messageDiv.innerHTML =
+            '<span style="margin-right: 5px;">🚴‍♂️</span>' + text;
+        } else {
+          messageDiv.textContent = text;
+        }
+
+        chatBody.appendChild(messageDiv);
+
+        // Scroll to the bottom of the chat
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+
+      // Initialize with a welcome message if chat is empty
+      document.addEventListener("DOMContentLoaded", function () {
+        const chatBody = document.getElementById("chatBody");
+        if (chatBody.children.length === 0) {
+          addMessage(
+            "Hello! I'm here to help with your bike rental questions. What do you need assistance with today?",
+            "bot"
+          );
+        }
+      });
+    </script>
+
+    <!-- Footer -->
+    <footer class="footer" style="width: 100%">
+      <div class="footer-container">
+        <!-- Logo Section -->
+        <div class="footer-logo">
+          <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
+          <p>Kathmandu's premier bike rental platform</p>
+        </div>
+
+        <!-- Quick Links Section -->
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+            <li><a href="/admin/adminlogin.html">Admin</a></li>
+            <li><a href="/privacy">Privacy</a></li>
+          </ul>
+        </div>
+
+        <!-- Top Places Section -->
+        <div class="footer-links">
+          <h3>Top Places</h3>
+          <ul>
+            <li><a href="#">Thamel</a></li>
+            <li><a href="#">Jhamsikhel</a></li>
+            <li><a href="#">Boudha</a></li>
+            <li><a href="#">Patan</a></li>
+            <li><a href="#">Bhaktapur</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright Section -->
+      <div class="footer-bottom">
+        <p>© 2025 Bikeeez Nepal. All rights reserved.</p>
+      </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      // Initialize date picker
+      flatpickr("#dateRange", {
+        mode: "range",
+        minDate: "today",
+        dateFormat: "M j, Y",
+        altInput: true,
+        altFormat: "M j, Y",
+        onChange: function (selectedDates, dateStr, instance) {
+          if (selectedDates.length === 2) {
+            const start = instance.formatDate(selectedDates[0], "M j");
+            const end = instance.formatDate(selectedDates[1], "M j");
+            instance.input.value = `${start} - ${end}`;
+          }
+        },
+      });
+
+      // Login button functionality
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", function () {
+          window.location.href = "/login";
+        });
+
+      // Place click handlers
+      document.querySelectorAll(".places-container span").forEach((place) => {
+        place.addEventListener("click", function () {
+          document.querySelector('input[type="text"]').value = this.textContent;
+        });
+      });
+    </script>
   </body>
 </html>

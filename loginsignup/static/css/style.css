@@ -1,117 +1,456 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Arial", sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f8f8;
-  }
-  
-  /* Header */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 24px 20px;
-    background-color: #ffffff;
-    color: #ff7f50;
-    font-size: 20px;
-  }
-  
-  .header button {
-    background: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  /* Hero Section */
-  .hero {
-    background-color: #ff5200;
-    padding: 40px;
-    text-align: center;
-    color: white;
-  }
-  
-  .search-box {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .search-box input,
-  .search-box button {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  /* Bikes Section */
-  .bikes-section {
-    padding: 20px;
-  }
-  
-  .bikes-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .bike-card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    text-align: center;
-  }
-  
-  .bike-card img {
-    width: 100%;
-    border-radius: 5px;
-  }
-  
-  /* Popular Places */
-  .popular-places {
-    background: #ff5200;
-  
-    color: white;
-    padding: 20px;
-    text-align: left;
-  }
-  
-  .places-container span {
-    display: inline-block;
-    background: white;
-    color: #ff7f50;
-    padding: 8px 12px;
-    border-radius: 5px;
-    margin: 5px;
-  }
-  
-  /* About Us */
-  .about {
-    background: #ddd;
-    padding: 40px 20px;
-    text-align: center;
-    display: flex;
+  color: #333;
+  line-height: 1.6;
+  background-color: #fff8f2;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%;
+  background-color: #ff6b00;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.language-currency {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.language-currency select {
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+#loginBtn {
+  padding: 8px 20px;
+  background-color: white;
+  color: #ff6b00;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+#loginBtn:hover {
+  background-color: #ffe0cc;
+  transform: translateY(-2px);
+}
+
+.user-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s;
+}
+
+.user-icon:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 60px 5% 80px;
+  background: linear-gradient(rgba(255, 107, 0, 0.1), rgba(255, 107, 0, 0.1));
+  background-size: cover;
+  background-position: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #333;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Search Box */
+.search-box {
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+}
+
+.search-item {
+  flex: 1;
+  padding: 15px 20px;
+  position: relative;
+}
+
+.search-item input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  color: #333;
+  background-color: transparent;
+}
+
+.search-item input::placeholder {
+  color: #999;
+}
+
+.icon {
+  margin-right: 10px;
+  color: #999;
+}
+
+.divider {
+  width: 1px;
+  height: 30px;
+  background-color: #ddd;
+}
+
+.search-btn {
+  background-color: #ff6b00;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  transition: all 0.3s;
+}
+
+.search-btn:hover {
+  background-color: #e65100;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(255, 107, 0, 0.4);
+}
+
+/* Date Range Picker */
+.date-range-box {
+  padding: 0; /* Remove padding to align with other inputs */
+  border: none; /* Remove border */
+  border-radius: 0; /* Remove border-radius */
+  background: transparent; /* Match the search-container background */
+  color: #333; /* Match the color of other inputs */
+  font-family: Arial;
+  width: 100%; /* Ensure it takes full width of the search-item */
+  cursor: pointer;
+  font-weight: normal; /* Match the weight of other inputs */
+}
+
+.date-range-box:hover {
+  border: none; /* Remove border on hover */
+  background: transparent; /* Keep background transparent */
+}
+
+.date-range-box:focus {
+  outline: none;
+  box-shadow: none; /* Remove focus shadow */
+}
+
+.date-range-box::placeholder {
+  color: #999; /* Match placeholder color with other inputs */
+}
+
+/* Orange Calendar Theme */
+.flatpickr-calendar {
+  --fp-primary-color: #ff6b00;
+  --fp-primary-text-color: #fff;
+}
+
+.flatpickr-day.selected {
+  background: #ff6b00;
+  border-color: #ff6b00;
+}
+
+.flatpickr-day:hover {
+  background: #ffd699;
+}
+
+/* Bike Listing Sections */
+section {
+  padding: 40px 5%;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #ff6b00;
+  text-align: center;
+  position: relative;
+}
+
+h2:after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #ff6b00;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+  background: white;
+  transition: all 0.3s;
+  border: 1px solid #ffe0cc;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+  border-color: #ff6b00;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+.card-content {
+  padding: 15px;
+}
+
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.card p {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+.price {
+  color: #ff6b00;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.rating {
+  color: #ff9e00;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.location {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Popular Places */
+.popular-places {
+  background-color: #fff3e8;
+}
+
+.places-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.places-container span {
+  padding: 8px 15px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(255, 107, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 1px solid #ffc299;
+}
+
+.places-container span:hover {
+  background-color: #ff6b00;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* About Section */
+.about {
+  background-color: #fff8f2;
+  padding: 60px 5%;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about h2 {
+  margin-bottom: 20px;
+}
+
+.about h3 {
+  margin: 25px 0 15px;
+  color: #ff6b00;
+}
+
+.about ul {
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+  list-style-position: inside;
+}
+
+.about li {
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #fbebd9;
+  padding: 40px 20px;
+  width: 1800px;
+  margin-top: 50px;
+  /* margin-left: -250px; */
+  margin-bottom: -50px;
+  margin-right: -250px;
+  border-top: 1px solid #ffe0b2;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1500px;
+  margin: 0 auto;
+  gap: 40px;
+  justify-content: space-between;
+}
+
+/* Logo Section */
+.footer-logo {
+  flex: 0 0 200px;
+}
+
+.footer-logo .logo {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  color: #ff6b00;
+}
+
+.footer-logo p {
+  line-height: 1.6;
+  color: #666;
+}
+
+/* Links Sections */
+.footer-links {
+  min-width: 150px;
+}
+
+.footer-links h3 {
+  color: #ff6b00;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #ff6b00;
+}
+
+/* Copyright Section */
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #ffe0b2;
+  color: #999;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-container {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    gap: 30px;
   }
-  
-  .about-content {
-    max-width: 800px; /* Adjust for better readability */
+
+  .footer-logo {
+    flex: 1;
     text-align: center;
   }
-  
-  .about p {
-    text-align: justify;
-    margin-bottom: 10px;
+
+  .footer-links {
+    text-align: center;
   }
-  
-  .about ul {
-    text-align: left;
-    display: inline-block;
-    margin-top: 10px;
-  }
+}
