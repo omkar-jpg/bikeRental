@@ -1,15 +1,15 @@
 <!-- templates/login.html -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login</title>
   </head>
-  <body>
-    <!--Updated-->
+  <body> -->
+<!--Updated-->
 
-    <h2>Login</h2>
+<!-- <h2>Login</h2>
 
     {% if messages %}
     <ul>
@@ -33,5 +33,283 @@
     </form>
 
     <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Bikeeez</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        display: flex;
+        height: 100vh;
+        background-color: #fff3e8; /* Light orange background */
+      }
+
+      /* Back Button Styling */
+      .back-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 50%; /* Circular button */
+        font-size: 20px;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        transition: all 0.3s ease;
+        z-index: 1000; /* Ensure it stays on top */
+      }
+
+      .back-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+      }
+
+      .back-btn::before {
+        content: "➔"; /* Right arrow */
+        transform: rotate(180deg); /* Rotates it to point left */
+        display: inline-block; /* Ensures transform works */
+      }
+
+      /* Left section - Login form */
+      .left-container {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .form-box {
+        background: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        width: 350px;
+        border: 2px solid #ff6b00; /* Orange border */
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #ff6b00; /* Orange title */
+      }
+
+      h2::before {
+        content: "🚴‍♂️ "; /* Bike emoji */
+      }
+
+      p {
+        text-align: center;
+        color: #e65100;
+        margin-bottom: 20px;
+        font-size: 14px;
+      }
+
+      .form-box input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ff9e4d;
+        border-radius: 30px; /* Rounded like chat input */
+        font-size: 14px;
+        background-color: #fff3e0;
+        transition: border-color 0.3s ease;
+      }
+
+      .form-box input:focus {
+        outline: none;
+        border-color: #ff6b00;
+      }
+
+      .form-box input::placeholder {
+        color: #e65100;
+      }
+
+      .forgot-password {
+        text-align: right;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+      .forgot-password a {
+        text-decoration: none;
+        color: #ff6b00;
+        font-weight: bold;
+      }
+
+      .forgot-password a:hover {
+        text-decoration: underline;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+      }
+
+      .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+      }
+
+      .or {
+        text-align: center;
+        color: #e65100;
+        margin: 20px 0;
+        font-size: 14px;
+        position: relative;
+      }
+
+      .or:before,
+      .or:after {
+        content: "";
+        display: inline-block;
+        width: 30%;
+        height: 1px;
+        background: #ff9e4d;
+        position: absolute;
+        top: 50%;
+      }
+
+      .or:before {
+        left: 0;
+      }
+
+      .or:after {
+        right: 0;
+      }
+
+      .social-buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .social-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48%;
+        padding: 10px;
+        border: 1px solid #ff9e4d;
+        border-radius: 15px;
+        cursor: pointer;
+        background: #fff3e0;
+        transition: all 0.3s ease;
+        color: #e65100;
+        font-weight: bold;
+        font-size: 14px;
+      }
+
+      .social-btn:hover {
+        background-color: #ff6b00;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .social-btn img {
+        width: 16px;
+        margin-right: 5px;
+      }
+
+      .signup-link {
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #e65100;
+      }
+
+      .signup-link a {
+        text-decoration: none;
+        color: #ff6b00;
+        font-weight: bold;
+      }
+
+      .signup-link a:hover {
+        text-decoration: underline;
+      }
+
+      /* Right section - Image */
+      .right-container {
+        width: 50%;
+        background: url("bike.jpg") center/cover no-repeat;
+        height: 100vh;
+        position: fixed;
+        right: 0;
+        top: 0;
+      }
+      input::placeholder {
+        color: slategray;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Back Button -->
+    <a href="home.html" class="back-btn" title="Back to Home"></a>
+
+    <!-- Left Container: Login Form -->
+    <div class="left-container">
+      <div class="form-box">
+        <h2>Login to Bikeeez</h2>
+        <p>Welcome back to Bikeeez!</p>
+
+        <form>
+          <input type="email" placeholder="Enter your email" required />
+          <input type="password" placeholder="Enter your password" required />
+
+          <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+          </div>
+
+          <button class="btn" type="submit">Login</button>
+
+          <p class="or">Or login with</p>
+
+          <div class="social-buttons">
+            <div class="social-btn">
+              <img src="google.png" alt="Google" /> Google
+            </div>
+            <div class="social-btn">
+              <img src="apple.png" alt="Apple" /> Apple
+            </div>
+          </div>
+
+          <p class="signup-link">
+            Don't have a Bikeeez account?<a href="{% url 'signup' %}"
+              >Sign up</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right Container: Image -->
+    <div class="right-container"></div>
   </body>
 </html>
