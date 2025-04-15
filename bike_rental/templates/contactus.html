@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - Bikeeez</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Header Styles */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+        background-color: #ff6b00;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+      }
+
+      .language-currency {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .language-currency select {
+        padding: 8px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      #loginBtn {
+        padding: 8px 20px;
+        background-color: white;
+        color: #ff6b00;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      #loginBtn:hover {
+        background-color: #ffe0cc;
+        transform: translateY(-2px);
+      }
+
+      .user-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: white;
+        transition: all 0.3s;
+      }
+
+      .user-icon:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+      /* Contact Page Specific Styles */
+      .contact-hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+        background-size: cover;
+        background-position: center;
+        color: white;
+        padding: 100px 20px;
+        text-align: center;
+      }
+
+      .contact-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: white;
+      }
+
+      .contact-hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .contact-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 0 20px;
+        gap: 30px;
+      }
+
+      .contact-info {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .contact-info h2 {
+        color: #ff6b00;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+      }
+
+      .contact-card {
+        background-color: #fff3e0;
+        border-radius: 10px;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-left: 4px solid #ff6b00;
+      }
+
+      .contact-card h3 {
+        color: #e65100;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .contact-card h3 span {
+        margin-right: 10px;
+        font-size: 1.2rem;
+      }
+
+      .contact-card p {
+        margin: 10px 0;
+        line-height: 1.6;
+      }
+
+      .contact-form {
+        flex: 1;
+        min-width: 300px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(255, 107, 0, 0.1);
+      }
+
+      .contact-form h2 {
+        color: #ff6b00;
+        margin-top: 0;
+        margin-bottom: 25px;
+        font-size: 1.8rem;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid #ff9e4d;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+        background-color: #fff3e0;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #ff6b00;
+      }
+
+      .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 100%;
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(255, 107, 0, 0.3);
+      }
+
+      .contact-map {
+        width: 100%;
+        height: 400px;
+        margin-top: 30px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-map iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      @media (max-width: 768px) {
+        .contact-hero {
+          padding: 70px 20px;
+        }
+
+        .contact-hero h1 {
+          font-size: 2rem;
+        }
+
+        .contact-container {
+          flex-direction: column;
+        }
+      }
+
+      /* Footer Styles */
+      .footer {
+        background-color: #fbebd9;
+        padding: 40px 20px;
+        border-top: 1px solid #ffe0b2;
+        /* width: 100%; Full width of viewport */
+        margin: 0; /* Remove unnecessary margins */
+      }
+
+      .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1500px;
+        margin: 0 auto;
+        gap: 40px;
+        justify-content: space-between;
+      }
+
+      /* Logo Section */
+      .footer-logo {
+        flex: 0 0 200px;
+      }
+
+      .footer-logo .logo {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        color: #ff6b00;
+      }
+
+      .footer-logo p {
+        line-height: 1.6;
+        color: #666;
+      }
+
+      /* Links Sections */
+      .footer-links {
+        min-width: 150px;
+      }
+
+      .footer-links h3 {
+        color: #ff6b00;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+      }
+
+      .footer-links ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 8px;
+      }
+
+      .footer-links a {
+        color: #666;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: #ff6b00;
+      }
+
+      /* Copyright Section */
+      .footer-bottom {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #ffe0b2;
+        color: #999;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .footer-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .footer-logo {
+          flex: 1;
+          text-align: center;
+        }
+
+        .footer-links {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
+      <div class="language-currency">
+        <select>
+          <option value="en">EN</option>
+          <option value="np">NP</option>
+        </select>
+        <button id="loginBtn">Login</button>
+        <div class="user-icon">👤</div>
+      </div>
+    </header>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+      <h1>We're Here to Help</h1>
+      <p>
+        Have questions about bike rentals, pricing, or availability? Our team is
+        ready to assist you with all your cycling needs in Kathmandu.
+      </p>
+    </section>
+
+    <!-- Main Contact Content -->
+    <div class="contact-container">
+      <!-- Contact Information -->
+      <div class="contact-info">
+        <h2>Get in Touch</h2>
+
+        <div class="contact-card">
+          <h3><span>📞</span> Phone Support</h3>
+          <p><strong>Customer Service:</strong> +977-1-4567890</p>
+          <p><strong>WhatsApp:</strong> +977-9801234567</p>
+          <p>Available daily from 7:00 AM to 8:00 PM NPT</p>
+        </div>
+
+        <div class="contact-card">
+          <h3><span>✉️</span> Email Us</h3>
+          <p><strong>General Inquiries:</strong> info@bikeeez.com</p>
+          <p><strong>Support:</strong> support@bikeeez.com</p>
+          <p><strong>Business:</strong> partners@bikeeez.com</p>
+          <p>We typically respond within 24 hours</p>
+        </div>
+
+        <div class="contact-card">
+          <h3><span>🏢</span> Our Locations</h3>
+          <p>
+            <strong>Head Office:</strong><br />
+            Jhamsikhel, Lalitpur<br />
+            Kathmandu Valley, Nepal
+          </p>
+          <p>
+            <strong>Rental Hub:</strong><br />
+            Thamel, Kathmandu<br />
+            Near Garden of Dreams
+          </p>
+        </div>
+
+        <!-- <div class="contact-card">
+          <h3><span>🕒</span> Operating Hours</h3>
+          <p><strong>Monday-Friday:</strong> 7:00 AM - 7:00 PM</p>
+          <p><strong>Weekends & Holidays:</strong> 8:00 AM - 6:00 PM</p>
+          <p>Online booking available 24/7</p>
+        </div>
+      </div> -->
+
+        <!-- Contact Form -->
+        <div class="contact-form">
+          <h2>Send Us a Message</h2>
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number (Optional)</label>
+              <input type="tel" id="phone" name="phone" />
+            </div>
+
+            <!-- <div class="form-group">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject" required>
+              <option value="">Select a topic</option>
+              <option value="booking">Booking Inquiry</option>
+              <option value="bikes">Bike Information</option>
+              <option value="pricing">Pricing Question</option>
+              <option value="locations">Rental Locations</option>
+              <option value="feedback">Feedback/Suggestion</option>
+              <option value="other">Other</option>
+            </select>
+          </div> -->
+
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" name="message" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="width: 100%">
+      <div class="footer-container">
+        <div class="footer-logo">
+          <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
+          <p>Kathmandu's premier bike rental platform</p>
+        </div>
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+            <li><a href="/admin/adminlogin.html">Admin</a></li>
+            <li><a href="/privacy">Privacy</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Top Places</h3>
+          <ul>
+            <li><a href="#">Thamel</a></li>
+            <li><a href="#">Jhamsikhel</a></li>
+            <li><a href="#">Boudha</a></li>
+            <li><a href="#">Patan</a></li>
+            <li><a href="#">Bhaktapur</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Bikeeez Nepal. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Form Submission
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Here you would typically send the form data to your server
+          // For demonstration, we'll just show an alert
+          alert("Thank you for your message! We will get back to you soon.");
+          this.reset();
+        });
+
+      // Login button functionality
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", function () {
+          window.location.href = "/login";
+        });
+    </script>
+  </body>
+</html>
