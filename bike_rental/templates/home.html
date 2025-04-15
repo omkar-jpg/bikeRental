@@ -235,7 +235,7 @@
         <option value="en">EN</option>
         <option value="np">NP</option>
       </select>
-      <a href="login.html" id="loginBtn">Login</a>
+      <a href="{% url 'logout' %}" id="loginBtn">Logout</a>
 
       <div class="user-icon">👤</div>
     </div>
@@ -271,70 +271,153 @@
     <div class="card-container">
       <!-- Card 1 -->
       <div class="card">
-        <img src="Mountainbike.jpeg" alt="Mountain Bike" />
-        <div class="card-content">
-          <h3>CANYON Mountain Bike</h3>
-          <p>
-            Premium suspension, 21-speed gears<br />Suitable for all terrains
-          </p>
-          <p class="price">Rs. 1500/day | Rs. 8000/week</p>
-          <p class="rating">⭐ 4.9 (24 reviews)</p>
-          <p class="location">Thamel, Kathmandu</p>
-        </div>
-      </div>
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+            <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}" />
+            
+            <div class="card-content">
+                <h3>{{ random_bikes.0.name }}</h3>
+                
+                <!-- Bike description, with a default message if not available -->
+                <p>{{ random_bikes.0.short_description | default:"No description available." }}</p>
+                
+                <p class="price">
+                    Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{ random_bikes.0.weekly_rate }} /week
+                </p>
+                
+                <!-- Rating -->
+                <p class="rating">
+                    ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{ random_bikes.0.reviews_count }} reviews)
+                </p>
+                
+                <p class="location">
+                    {{ random_bikes.0.location | default:"Location not available" }}
+                </p>
+            </div>
+        {% else %}
+            <p>No bike data available.</p>
+        {% endif %}
+    </div>
 
       <!-- Card 2 -->
       <div class="card">
-        <img src="Roadbike.jpeg" alt="Road Bike" />
-        <div class="card-content">
-          <h3>GIANT Road Bike</h3>
-          <p>Lightweight frame, 18-speed gears<br />Perfect for city rides</p>
-          <p class="price">Rs. 1200/day | Rs. 6500/week</p>
-          <p class="rating">⭐ 4.7 (18 reviews)</p>
-          <p class="location">Jhamsikhel, Lalitpur</p>
-        </div>
-      </div>
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+            <img src="{{ random_bikes.1.image.url }}" alt="{{ random_bikes.1.name }}" />
+            
+            <div class="card-content">
+                <h3>{{ random_bikes.1.name }}</h3>
+                
+                <!-- Bike description, with a default message if not available -->
+                <p>{{ random_bikes.1.short_description | default:"No description available." }}</p>
+                
+                <p class="price">
+                    Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{ random_bikes.1.weekly_rate }} /week
+                </p>
+                
+                <!-- Rating -->
+                <p class="rating">
+                    ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{ random_bikes.1.reviews_count }} reviews)
+                </p>
+                
+                <p class="location">
+                    {{ random_bikes.1.location | default:"Location not available" }}
+                </p>
+            </div>
+        {% else %}
+            <p>No bike data available.</p>
+        {% endif %}
+    </div>
 
       <!-- Card 3 -->
       <div class="card">
-        <img src="Electricbike.jpeg" alt="Electric Bike" />
-        <div class="card-content">
-          <h3>E-RIDER Electric Bike</h3>
-          <p>
-            60km range, 25km/h max speed<br />With helmet and lock included
-          </p>
-          <p class="price">Rs. 2000/day | Rs. 10000/week</p>
-          <p class="rating">⭐ 4.8 (32 reviews)</p>
-          <p class="location">Boudha, Kathmandu</p>
-        </div>
-      </div>
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+            <img src="{{ random_bikes.2.image.url }}" alt="{{ random_bikes.2.name }}" />
+            
+            <div class="card-content">
+                <h3>{{ random_bikes.2.name }}</h3>
+                
+                <!-- Bike description, with a default message if not available -->
+                <p>{{ random_bikes.2.short_description | default:"No description available." }}</p>
+                
+                <p class="price">
+                    Rs. {{ random_bikes.2.daily_rate }} /day | Rs. {{ random_bikes.2.weekly_rate }} /week
+                </p>
+                
+                <!-- Rating -->
+                <p class="rating">
+                    ⭐ {{ random_bikes.2.rating | default:"N/A" }} ({{ random_bikes.2.reviews_count }} reviews)
+                </p>
+                
+                <p class="location">
+                    {{ random_bikes.2.location | default:"Location not available" }}
+                </p>
+            </div>
+        {% else %}
+            <p>No bike data available.</p>
+        {% endif %}
+    </div>
 
       <!-- Card 4 -->
       <div class="card">
-        <img src="Citybike.jpeg" alt="City Bike" />
-        <div class="card-content">
-          <h3>HERO City Bike</h3>
-          <p>Comfortable seat, 7-speed gears<br />Basket and bell included</p>
-          <p class="price">Rs. 800/day | Rs. 4500/week</p>
-          <p class="rating">⭐ 4.5 (15 reviews)</p>
-          <p class="location">Patan, Lalitpur</p>
-        </div>
-      </div>
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+            <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}" />
+            
+            <div class="card-content">
+                <h3>{{ random_bikes.0.name }}</h3>
+                
+                <!-- Bike description, with a default message if not available -->
+                <p>{{ random_bikes.0.short_description | default:"No description available." }}</p>
+                
+                <p class="price">
+                    Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{ random_bikes.0.weekly_rate }} /week
+                </p>
+                
+                <!-- Rating -->
+                <p class="rating">
+                    ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{ random_bikes.0.reviews_count }} reviews)
+                </p>
+                
+                <p class="location">
+                    {{ random_bikes.0.location | default:"Location not available" }}
+                </p>
+            </div>
+        {% else %}
+            <p>No bike data available.</p>
+        {% endif %}
+    </div>
 
       <!-- Card 5 -->
       <div class="card">
-        <img src="Hybridbike.jpeg" alt="Hybrid Bike" />
-        <div class="card-content">
-          <h3>TREK Hybrid Bike</h3>
-          <p>
-            Versatile for road and light trails<br />Comfortable upright
-            position
-          </p>
-          <p class="price">Rs. 1300/day | Rs. 7000/week</p>
-          <p class="rating">⭐ 4.8 (21 reviews)</p>
-          <p class="location">Kapan, Kathmandu</p>
-        </div>
-      </div>
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+            <img src="{{ random_bikes.1.image.url }}" alt="{{ random_bikes.1.name }}" />
+            
+            <div class="card-content">
+                <h3>{{ random_bikes.1.name }}</h3>
+                
+                <!-- Bike description, with a default message if not available -->
+                <p>{{ random_bikes.1.short_description | default:"No description available." }}</p>
+                
+                <p class="price">
+                    Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{ random_bikes.1.weekly_rate }} /week
+                </p>
+                
+                <!-- Rating -->
+                <p class="rating">
+                    ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{ random_bikes.1.reviews_count }} reviews)
+                </p>
+                
+                <p class="location">
+                    {{ random_bikes.1.location | default:"Location not available" }}
+                </p>
+            </div>
+        {% else %}
+            <p>No bike data available.</p>
+        {% endif %}
+    </div>
     </div>
   </section>
 
@@ -361,69 +444,153 @@
     <div class="card-container">
       <!-- Card 1 -->
       <div class="card">
-        {% if random_bikes.0 %}
-        <!-- Bike data exists, show it -->
-        <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}">
-        <h3>{{ random_bikes.0.name }}</h3>
-        <p>${{ random_bikes.0.daily_rate }}</p>
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+            <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}" />
+            
+            <div class="card-content">
+                <h3>{{ random_bikes.0.name }}</h3>
+                
+                <!-- Bike description, with a default message if not available -->
+                <p>{{ random_bikes.0.short_description | default:"No description available." }}</p>
+                
+                <p class="price">
+                    Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{ random_bikes.0.weekly_rate }} /week
+                </p>
+                
+                <!-- Rating -->
+                <p class="rating">
+                    ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{ random_bikes.0.reviews_count }} reviews)
+                </p>
+                
+                <p class="location">
+                    {{ random_bikes.0.location | default:"Location not available" }}
+                </p>
+            </div>
         {% else %}
-        <!-- No bike data passed -->
-        <p>No bike data available.</p>
+            <p>No bike data available.</p>
         {% endif %}
-      </div>
+    </div>
 
       <!-- Card 2 -->
       <div class="card">
-        <img src="Kidsbike.jpeg" alt="Kids Bike" />
-        <div class="card-content">
-          <h3>BMX Kids Bike</h3>
-          <p>
-            Small frame, training wheels available<br />Perfect for young
-            riders
-          </p>
-          <p class="price">Rs. 600/day | Rs. 3000/week</p>
-          <p class="rating">⭐ 4.6 (12 reviews)</p>
-          <p class="location">Dhumbarahi, Kathmandu</p>
-        </div>
-      </div>
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+            <img src="{{ random_bikes.1.image.url }}" alt="{{ random_bikes.1.name }}" />
+            
+            <div class="card-content">
+                <h3>{{ random_bikes.1.name }}</h3>
+                
+                <!-- Bike description, with a default message if not available -->
+                <p>{{ random_bikes.1.short_description | default:"No description available." }}</p>
+                
+                <p class="price">
+                    Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{ random_bikes.1.weekly_rate }} /week
+                </p>
+                
+                <!-- Rating -->
+                <p class="rating">
+                    ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{ random_bikes.1.reviews_count }} reviews)
+                </p>
+                
+                <p class="location">
+                    {{ random_bikes.1.location | default:"Location not available" }}
+                </p>
+            </div>
+        {% else %}
+            <p>No bike data available.</p>
+        {% endif %}
+    </div>
 
       <!-- Card 3 -->
       <div class="card">
-        <img src="Foldingbike.jpeg" alt="Folding Bike" />
-        <div class="card-content">
-          <h3>DAHON Folding Bike</h3>
-          <p>Compact when folded, 16-inch wheels<br />Great for commuting</p>
-          <p class="price">Rs. 1100/day | Rs. 6000/week</p>
-          <p class="rating">⭐ 4.4 (17 reviews)</p>
-          <p class="location">New Baneshwor, Kathmandu</p>
-        </div>
-      </div>
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+            <img src="{{ random_bikes.2.image.url }}" alt="{{ random_bikes.2.name }}" />
+            
+            <div class="card-content">
+                <h3>{{ random_bikes.2.name }}</h3>
+                
+                <!-- Bike description, with a default message if not available -->
+                <p>{{ random_bikes.2.short_description | default:"No description available." }}</p>
+                
+                <p class="price">
+                    Rs. {{ random_bikes.2.daily_rate }} /day | Rs. {{ random_bikes.2.weekly_rate }} /week
+                </p>
+                
+                <!-- Rating -->
+                <p class="rating">
+                    ⭐ {{ random_bikes.2.rating | default:"N/A" }} ({{ random_bikes.2.reviews_count }} reviews)
+                </p>
+                
+                <p class="location">
+                    {{ random_bikes.2.location | default:"Location not available" }}
+                </p>
+            </div>
+        {% else %}
+            <p>No bike data available.</p>
+        {% endif %}
+    </div>
 
       <!-- Card 4 -->
       <div class="card">
-        <img src="Tandenbike.jpeg" alt="Tandem Bike" />
-        <div class="card-content">
-          <h3>SCHWINN Tandem Bike</h3>
-          <p>Ride together, double seats<br />Perfect for couples</p>
-          <p class="price">Rs. 1800/day | Rs. 9500/week</p>
-          <p class="rating">⭐ 4.7 (9 reviews)</p>
-          <p class="location">Lazimpat, Kathmandu</p>
-        </div>
-      </div>
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+            <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}" />
+            
+            <div class="card-content">
+                <h3>{{ random_bikes.0.name }}</h3>
+                
+                <!-- Bike description, with a default message if not available -->
+                <p>{{ random_bikes.0.short_description | default:"No description available." }}</p>
+                
+                <p class="price">
+                    Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{ random_bikes.0.weekly_rate }} /week
+                </p>
+                
+                <!-- Rating -->
+                <p class="rating">
+                    ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{ random_bikes.0.reviews_count }} reviews)
+                </p>
+                
+                <p class="location">
+                    {{ random_bikes.0.location | default:"Location not available" }}
+                </p>
+            </div>
+        {% else %}
+            <p>No bike data available.</p>
+        {% endif %}
+    </div>
 
       <!-- Card 5 -->
       <div class="card">
-        <img src="Mountainbike.jpeg" alt="Mountain Bike" />
-        <div class="card-content">
-          <h3>CANYON Mountain Bike</h3>
-          <p>
-            Premium suspension, 21-speed gears<br />Suitable for all terrains
-          </p>
-          <p class="price">Rs. 1500/day | Rs. 8000/week</p>
-          <p class="rating">⭐ 4.9 (24 reviews)</p>
-          <p class="location">Thamel, Kathmandu</p>
-        </div>
-      </div>
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+            <img src="{{ random_bikes.1.image.url }}" alt="{{ random_bikes.1.name }}" />
+            
+            <div class="card-content">
+                <h3>{{ random_bikes.1.name }}</h3>
+                
+                <!-- Bike description, with a default message if not available -->
+                <p>{{ random_bikes.1.short_description | default:"No description available." }}</p>
+                
+                <p class="price">
+                    Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{ random_bikes.1.weekly_rate }} /week
+                </p>
+                
+                <!-- Rating -->
+                <p class="rating">
+                    ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{ random_bikes.1.reviews_count }} reviews)
+                </p>
+                
+                <p class="location">
+                    {{ random_bikes.1.location | default:"Location not available" }}
+                </p>
+            </div>
+        {% else %}
+            <p>No bike data available.</p>
+        {% endif %}
+    </div>
     </div>
   </section>
 

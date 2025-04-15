@@ -3,6 +3,9 @@ from django.db import models
 class Bikes(models.Model):
     name = models.CharField(max_length = 100)
     description = models.TextField(blank = True)
+    
+    short_description = models.TextField(blank = True)
+
     category = models.CharField(max_length=50, choices=[
         ('mountain','Mountain'),
         ('city','City'),

@@ -4,11 +4,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import SignUpForm
+from bikes.views import bike_list
 
 # Home page view - protected by login_required
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    return bike_list(request)
 
 # Signup view
 def signup_view(request):
