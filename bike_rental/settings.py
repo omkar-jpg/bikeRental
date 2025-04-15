@@ -67,11 +67,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'bike_rental.urls'
 
+MASTER_BASE_DIR = os.path.dirname(__file__)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates"],  # Directory for HTML files
-        'APP_DIRS': True,
+        'DIRS': [os.path.join(MASTER_BASE_DIR, 'templates'),],
+        'APP_DIRS': True,  # This tells Django to look inside app's templates folder
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -82,6 +84,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'bike_rental.wsgi.application'
 
@@ -151,4 +154,4 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-SOCIALACCOUNT_ADAPTER = 'loginsignup.adapter.CustomSocialAccountAdapter'
+SOCIALACCOUNT_LOGIN_ON_GET = True

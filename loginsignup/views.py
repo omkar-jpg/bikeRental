@@ -48,7 +48,7 @@ def login_view(request):
             messages.success(request, 'You are now logged in!')
             return redirect('home')  # Redirect to home after successful login
         else:
-            messages.error(request, 'Invalid credentials')
+            messages.error(request, "Invalid username or password.")
 
     return render(request, 'login.html')
 

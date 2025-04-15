@@ -1,6 +1,6 @@
 from django.db import models
 
-class Bike(models.Model):
+class Bikes(models.Model):
     name = models.CharField(max_length = 100)
     description = models.TextField(blank = True)
     category = models.CharField(max_length=50, choices=[
@@ -13,8 +13,8 @@ class Bike(models.Model):
     
     image = models.ImageField(upload_to = 'bike_image/', null=True, blank=True)
 
-    hourly_rate = models.DecimalField(max_digits=6, decimal_places=2)
     daily_rate = models.DecimalField(max_digits=6, decimal_places=2)
+    weekly_rate = models.DecimalField(max_digits=6, decimal_places=2)
 
     is_available = models.BooleanField(default = True)
 

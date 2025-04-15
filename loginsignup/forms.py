@@ -10,6 +10,12 @@ class SignUpForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'password']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter your first name'}),
+            'last_name': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter your last name'}),
+            'username': forms.TextInput(attrs={'class': 'input-field', 'placeholder': 'Enter your username'}),
+            'password': forms.PasswordInput(attrs={'class': 'input-field', 'placeholder': 'Enter your password'}),
+        }
     
     def clean(self):
         cleaned_data = super().clean()
