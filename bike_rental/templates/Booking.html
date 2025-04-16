@@ -619,101 +619,83 @@
     <!-- Body -->
     <div class="container">
       <div class="image-container">
-        <!-- Bike image would go here -->
-        <div
-          style="background-color: #dddada; height: 400px; border-radius: 8px"
-        >
+        <!-- Bike image dynamically populated from the database -->
+        <div style="background-color: #dddada; height: 400px; border-radius: 8px">
           <img
-            src="bike2.jpeg"
-            alt="Bike"
-            style="
-              width: 100%;
-              height: 100%;
-              object-fit: cover;
-              border-radius: 8px;
-            "
+            src="{{ bike.image.url }}"  
+            alt="{{ bike.name }}"  
+            style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
           />
         </div>
-
+    
         <div class="bike-info">
-          <div class="bike-title">Yellow Panther</div>
-          <div class="bike-model">| Maja - City Bike</div>
+          <div class="bike-title">{{ bike.name }}</div>  <!-- Dynamically display bike name -->
+          <div class="bike-model">| {{ bike.model_name }}</div>  <!-- Dynamically display bike model -->
         </div>
+    
         <div class="location">
-          <span>Tulum, Mexico </span>
+          <span>{{ bike.location }}</span>  <!-- Dynamically display bike location -->
           <span style="margin: 0 5px">•</span>
-          <span class="rating">5.00(14)</span>
+          <span class="rating">{{ bike.rating }} ({{ bike.reviews_count }})</span>  <!-- Dynamically display rating and reviews count -->
         </div>
-
+    
         <div class="bike-description">
-          Bicicleta Black Panther Maja Equipada Rodada 26, Azul; <br />
-          perfecta para dar una vuelta en los alrededores de Tulum.
+          {{ bike.description }}  <!-- Dynamically display bike description -->
         </div>
-
+    
         <div class="user-info">
-          <div class="user-avatar"></div>
+          <div class="user-avatar">
+            <img src="{{ bike.user.avatar.url }}" alt="{{ bike.user.name }}" class="avatar" />  <!-- Dynamically display user's avatar -->
+          </div>
           <div class="user-details">
-            <div class="user-name" style="font-size: 20px">Kp oil</div>
-            <div class="user-response">Response time ~1h</div>
-            <div class="user-reviews">3 Reviews</div>
+            <div class="user-name" style="font-size: 20px">{{ bike.user.name }}</div>  <!-- Dynamically display user's name -->
+            <div class="user-response">Response time ~{{ bike.user.response_time }}h</div>  <!-- Dynamically display user's response time -->
+            <div class="user-reviews">{{ bike.user.reviews_count }} Reviews</div>  <!-- Dynamically display number of reviews -->
           </div>
           <button class="profile-btn">Profile</button>
         </div>
       </div>
-
+    
       <div class="details-container">
-        <div class="price" style="font-size: 30px">39€ / day</div>
-        <div class="price-week">218€ / week</div>
-
+        <div class="price" style="font-size: 30px">{{ bike.daily_rate }}€ / day</div>  <!-- Dynamically display daily price -->
+        <div class="price-week">{{ bike.weekly_rate }}€ / week</div>  <!-- Dynamically display weekly price -->
+    
         <div class="action-links">
           <a href="#" class="share">Share</a>
-          <a
-            href="#"
-            class="wishlist"
-            style="margin-left: 300px; font-weight: bolder"
-            >Add to wishlist</a
-          >
+          <a href="#" class="wishlist" style="margin-left: 300px; font-weight: bolder">Add to wishlist</a>
         </div>
-
+    
         <div class="section">
           <div class="section-title">Select Date Range</div>
           <label>Start Date:</label>
           <input type="date" id="start-date" class="date-range-input" />
-
+    
           <label>End Date:</label>
           <input type="date" id="end-date" class="date-range-input" />
         </div>
-
+    
         <script>
-          document
-            .getElementById("start-date")
-            .addEventListener("change", function () {
-              document.getElementById("end-date").min = this.value;
-            });
+          document.getElementById("start-date").addEventListener("change", function () {
+            document.getElementById("end-date").min = this.value;
+          });
         </script>
-
+    
         <div class="section">
           <div class="section-title">Bike size and quantity</div>
           <div class="bike-size-row">
-            <input
-              type="text"
-              class="bike-size-input"
-              value="165-175 cm"
-              readonly
-            />
+            <input type="text" class="bike-size-input" value="{{ bike.size }}" readonly />  <!-- Dynamically display bike size -->
             <input type="number" value="1" min="1" class="quantity-input" />
           </div>
         </div>
-
+    
         <hr />
-
+    
         <button class="check-availability">Check availability</button>
-
+    
         <div class="discount-box">
           <div class="discount-title">Weekend discount</div>
           <div>
-            Enjoy a weekend discount by booking from Friday 15:00 till Monday
-            12:00
+            Enjoy a weekend discount by booking from Friday 15:00 till Monday 12:00
           </div>
         </div>
       </div>
