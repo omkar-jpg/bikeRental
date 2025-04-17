@@ -2,29 +2,56 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import BookingForm
 from .models import Booking
 from bikes.models import Bikes 
+from bikes.views import bike_list
 from django.contrib.auth.decorators import login_required
-from datetime import datetime 
+from datetime import timedelta 
+import random
+
 
 @login_required
 def book_bike(request, bike_id):
-    bike = get_object_or_404(Bikes, id=bike_id)  # Ensure the 'Bike' model is correctly imported
+    # Get the specific bike to be booked
+    bike = get_object_or_404(Bikes, id=bike_id)
 
-    # Initialize the form regardless of the request method
-    form = BookingForm(request.POST or None)  # Initialize with POST data if available
+    # Get all bikes and pick 3 random ones for display
+    bikes = Bikes.objects.all()
+    random_bikes = random.sample(list(bikes), min(3, len(bikes)))
+
+    # Initialize the form (pre-filled with POST data if available)
+    form = BookingForm(request.POST or None)
 
     if request.method == 'POST':
         if form.is_valid():
             booking = form.save(commit=False)
             booking.user = request.user
             booking.bike = bike
-            booking.total_price = 100  # Adjust price logic if needed
+
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+            quantity = form.cleaned_data['quantity']
+
+            rental_days = (end_date - start_date).days + 1
+            if rental_days <= 0:
+                form.add_error('end_date', "End date must be after start date.")
+                return render(request, 'booking.html', {
+                    'form': form,
+                    'bike': bike,
+                    'random_bikes': random_bikes,
+                })
+
+            booking.total_price = rental_days * quantity * bike.daily_rate
             booking.save()
+
             return redirect('booking_confirmation', booking_id=booking.id)
-    
-    # This return statement is for both GET and invalid POST requests
-    return render(request, 'booking.html', {'form': form, 'bike': bike})
+
+    # Render booking page with bike details and random bikes
+    return render(request, 'booking.html', {
+        'form': form,
+        'bike': bike,
+        'random_bikes': random_bikes,
+    })
 
 
 
 
-# Create your views here.
+

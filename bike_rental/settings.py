@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount.providers.google",
     "bikes",
     "booking",  
+    'widget_tweaks',
 ]
 SOCIALACCOUNT_PROVIDERS ={
     "google":{

@@ -1,836 +1,970 @@
+{% load widget_tweaks %}
+{% csrf_token %}
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Book a Bike - Bikeeez</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #fff8f2; /* Updated to match homepage */
-        color: #333; /* Homepage text color */
-      }
 
-      /* Header */
-      .user-icon {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        background-color: rgba(
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Bike - Bikeeez</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #fff8f2;
+      /* Updated to match homepage */
+      color: #333;
+      /* Homepage text color */
+    }
+
+    /* Header */
+    .user-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: rgba(255,
           255,
           255,
-          255,
-          0.3
-        ); /* Adjusted for visibility on orange background */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white; /* For better contrast */
-        transition: all 0.3s; /* Homepage hover effect */
+          0.3);
+      /* Adjusted for visibility on orange background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      /* For better contrast */
+      transition: all 0.3s;
+      /* Homepage hover effect */
+    }
+
+    .user-icon:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .language-currency {
+      display: flex;
+      align-items: center;
+    }
+
+    .language-currency select {
+      padding: 8px;
+      margin-right: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      /* Adjusted for orange background */
+      border-radius: 4px;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      padding: 24px 20px;
+      background-color: #ff6b00;
+      /* Updated to match homepage */
+      color: white;
+      /* Adjusted for contrast */
+      font-size: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      /* Homepage shadow */
+    }
+
+    .header button {
+      background: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #ff6b00;
+      /* Homepage button text color */
+      font-weight: bold;
+      transition: all 0.3s;
+      /* Homepage hover effect */
+    }
+
+    .header button:hover {
+      background-color: #ffe0cc;
+      /* Homepage hover color */
+      transform: translateY(-2px);
+    }
+
+    /* Body */
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .image-container {
+      width: 60%;
+      padding-right: 20px;
+    }
+
+    .details-container {
+      width: 40%;
+      padding-left: 20px;
+      border-left: 1px solid #eee;
+    }
+
+    .price {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #ff6b00;
+      /* Updated to match homepage */
+    }
+
+    .price-week {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .action-links {
+      display: flex;
+      margin-bottom: 30px;
+    }
+
+    .action-links a {
+      color: #ff6b00;
+      /* Updated to match homepage */
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .section {
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: #ff6b00;
+      /* Updated to match homepage */
+    }
+
+    .date-range-input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ff9e4d;
+      /* Homepage input border color */
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      color: #666;
+      background-color: #fff3e0;
+      /* Homepage input background */
+      transition: all 0.3s;
+      /* Homepage transition */
+    }
+
+    .date-range-input:focus {
+      border-color: #ff6b00;
+      outline: none;
+      box-shadow: 0 0 5px rgba(255, 107, 0, 0.3);
+    }
+
+    .bike-size-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bike-size-input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ff9e4d;
+      /* Homepage input border color */
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      color: #666;
+      background-color: #fff3e0;
+      /* Homepage input background */
+    }
+
+    .quantity-input {
+      width: 60px;
+      padding: 10px;
+      border: 1px solid #ff9e4d;
+      /* Homepage input border color */
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      background-color: #fff3e0;
+      /* Homepage input background */
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 25px 0;
+    }
+
+    .check-availability {
+      background-color: #ff9800;
+      /* Preserved as per original */
+      color: white;
+      padding: 12px 0;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .check-availability:hover {
+      background-color: #f57c00;
+      /* Preserved as per original */
+    }
+
+    .discount-box {
+      background-color: #fff3e0;
+      /* Updated to match homepage input background */
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .discount-title {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #ff6b00;
+      /* Updated to match homepage */
+    }
+
+    .bike-title {
+      font-size: 23px;
+      font-weight: bold;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      color: #ff6b00;
+      /* Updated to match homepage */
+    }
+
+    .location {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    .bike-info {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 25px;
+    }
+
+    .rating {
+      color: #ff6b00;
+      /* Updated to match homepage */
+      font-weight: bold;
+    }
+
+    .bike-model {
+      font-weight: lighter;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .bike-description {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .look-link {
+      color: #ff6b00;
+      /* Updated to match homepage */
+      text-decoration: none;
+      font-size: 14px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #ddd;
+      margin-right: 10px;
+    }
+
+    .user-details {
+      flex-grow: 1;
+    }
+
+    .user-name {
+      font-weight: bold;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .user-response {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .user-reviews {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .profile-btn {
+      background-color: #ff9800;
+      /* Preserved as per original */
+      color: white;
+      padding: 12px 0;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      width: 200px;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.2s;
+      margin-right: 280px;
+    }
+
+    /* Map Section */
+    .map-section {
+      padding: 40px 5%;
+      background-color: #fff3e8;
+      /* Updated to match homepage alternating section */
+    }
+
+    .map-section h3 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      margin-left: 140px;
+      color: #ff6b00;
+      /* Updated to match homepage */
+    }
+
+    .map-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .map-container span {
+      border-radius: 10%;
+      overflow: hidden;
+      width: 90%;
+    }
+
+    .map-container iframe {
+      border: 0;
+      height: 320px;
+      width: 100%;
+    }
+
+    /* Frequently Booked Section */
+    .frequently-booked {
+      background-color: #fff8f2;
+      /* Updated to match homepage body */
+      margin-bottom: 40px;
+      padding: 40px 5%;
+    }
+
+    .frequently-booked h2 {
+      font-size: 28px;
+      padding: 0;
+      color: #ff6b00;
+      /* Updated to match homepage */
+      margin-bottom: 20px;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+
+    .card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+      background: white;
+      transition: all 0.3s;
+      border: 1px solid #ffe0cc;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+      border-color: #ff6b00;
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    .card-content {
+      padding: 15px;
+    }
+
+    .card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .card p {
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .price {
+      color: #ff6b00;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .rating {
+      color: #ff9e00;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .location {
+      font-size: 12px;
+      color: #888;
+    }
+
+    @media (max-width: 1024px) {
+      .card-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .card-container {
+        grid-template-columns: repeat(1, 1fr);
       }
 
-      .user-icon:hover {
-        background-color: rgba(255, 255, 255, 0.5);
-      }
-
-      .language-currency {
-        display: flex;
-        align-items: center;
-      }
-
-      .language-currency select {
-        padding: 8px;
-        margin-right: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.3); /* Adjusted for orange background */
-        border-radius: 4px;
-        background-color: rgba(255, 255, 255, 0.2);
-        color: white;
-      }
-
-      .header {
-        display: flex;
-        justify-content: space-between;
-        padding: 24px 20px;
-        background-color: #ff6b00; /* Updated to match homepage */
-        color: white; /* Adjusted for contrast */
-        font-size: 20px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Homepage shadow */
-      }
-
-      .header button {
-        background: white;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        color: #ff6b00; /* Homepage button text color */
-        font-weight: bold;
-        transition: all 0.3s; /* Homepage hover effect */
-      }
-
-      .header button:hover {
-        background-color: #ffe0cc; /* Homepage hover color */
-        transform: translateY(-2px);
-      }
-
-      /* Body */
       .container {
-        display: flex;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
+        flex-direction: column;
       }
 
-      .image-container {
-        width: 60%;
-        padding-right: 20px;
+      .image-container,
+      .details-container {
+        width: 100%;
+        padding: 0;
       }
 
       .details-container {
-        width: 40%;
-        padding-left: 20px;
-        border-left: 1px solid #eee;
-      }
-
-      .price {
-        font-size: 28px;
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: #ff6b00; /* Updated to match homepage */
-      }
-
-      .price-week {
-        font-size: 16px;
-        color: #666;
-        margin-bottom: 20px;
-      }
-
-      .action-links {
-        display: flex;
-        margin-bottom: 30px;
-      }
-
-      .action-links a {
-        color: #ff6b00; /* Updated to match homepage */
-        text-decoration: none;
-        font-size: 14px;
-      }
-
-      .section {
-        margin-bottom: 25px;
-      }
-
-      .section-title {
-        font-weight: bold;
-        margin-bottom: 10px;
-        font-size: 15px;
-        color: #ff6b00; /* Updated to match homepage */
-      }
-
-      .date-range-input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ff9e4d; /* Homepage input border color */
-        border-radius: 4px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        font-size: 14px;
-        color: #666;
-        background-color: #fff3e0; /* Homepage input background */
-        transition: all 0.3s; /* Homepage transition */
-      }
-
-      .date-range-input:focus {
-        border-color: #ff6b00;
-        outline: none;
-        box-shadow: 0 0 5px rgba(255, 107, 0, 0.3);
-      }
-
-      .bike-size-row {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .bike-size-input {
-        flex: 1;
-        padding: 10px;
-        border: 1px solid #ff9e4d; /* Homepage input border color */
-        border-radius: 4px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        font-size: 14px;
-        color: #666;
-        background-color: #fff3e0; /* Homepage input background */
-      }
-
-      .quantity-input {
-        width: 60px;
-        padding: 10px;
-        border: 1px solid #ff9e4d; /* Homepage input border color */
-        border-radius: 4px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        background-color: #fff3e0; /* Homepage input background */
-      }
-
-      hr {
-        border: none;
+        border-left: none;
         border-top: 1px solid #eee;
-        margin: 25px 0;
-      }
-
-      .check-availability {
-        background-color: #ff9800; /* Preserved as per original */
-        color: white;
-        padding: 12px 0;
-        border: none;
-        border-radius: 16px;
-        cursor: pointer;
-        margin-bottom: 20px;
-        width: 100%;
-        font-size: 16px;
-        font-weight: bold;
-        transition: background-color 0.2s;
-      }
-
-      .check-availability:hover {
-        background-color: #f57c00; /* Preserved as per original */
-      }
-
-      .discount-box {
-        background-color: #fff3e0; /* Updated to match homepage input background */
-        padding: 15px;
-        border-radius: 6px;
-        font-size: 14px;
-        margin-bottom: 25px;
-      }
-
-      .discount-title {
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: #ff6b00; /* Updated to match homepage */
-      }
-
-      .bike-title {
-        font-size: 23px;
-        font-weight: bold;
-        margin-top: 10px;
-        margin-bottom: 5px;
-        color: #ff6b00; /* Updated to match homepage */
-      }
-
-      .location {
-        display: flex;
-        align-items: center;
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 15px;
-      }
-
-      .bike-info {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin-top: 25px;
-      }
-
-      .rating {
-        color: #ff6b00; /* Updated to match homepage */
-        font-weight: bold;
-      }
-
-      .bike-model {
-        font-weight: lighter;
-        font-size: 14px;
-        color: #666;
-      }
-
-      .bike-description {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 20px;
-        line-height: 1.5;
-      }
-
-      .look-link {
-        color: #ff6b00; /* Updated to match homepage */
-        text-decoration: none;
-        font-size: 14px;
-        display: inline-block;
-        margin-bottom: 20px;
-      }
-
-      .user-info {
-        display: flex;
-        align-items: center;
-        margin-top: 30px;
-      }
-
-      .user-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: #ddd;
-        margin-right: 10px;
-      }
-
-      .user-details {
-        flex-grow: 1;
-      }
-
-      .user-name {
-        font-weight: bold;
-        font-size: 14px;
-        color: #333;
-      }
-
-      .user-response {
-        font-size: 12px;
-        color: #666;
-      }
-
-      .user-reviews {
-        font-size: 12px;
-        color: #666;
+        padding-top: 20px;
       }
 
       .profile-btn {
-        background-color: #ff9800; /* Preserved as per original */
-        color: white;
-        padding: 12px 0;
-        border: none;
-        border-radius: 16px;
-        cursor: pointer;
-        width: 200px;
-        font-size: 16px;
-        font-weight: bold;
-        transition: background-color 0.2s;
-        margin-right: 280px;
+        margin-right: 0;
+        width: 100%;
       }
 
-      /* Map Section */
-      .map-section {
-        padding: 40px 5%;
-        background-color: #fff3e8; /* Updated to match homepage alternating section */
+      .action-links a.wishlist {
+        margin-left: auto;
       }
 
       .map-section h3 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        margin-left: 140px;
-        color: #ff6b00; /* Updated to match homepage */
+        margin-left: 0;
       }
+    }
 
-      .map-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-      }
+    /* About Us */
+    .about {
+      background: #fff3e8;
+      /* Updated to match homepage alternating section */
+      padding: 40px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-      .map-container span {
-        border-radius: 10%;
-        overflow: hidden;
-        width: 90%;
-      }
+    .about-content {
+      max-width: 800px;
+      text-align: center;
+    }
 
-      .map-container iframe {
-        border: 0;
-        height: 320px;
-        width: 100%;
-      }
+    .about h2 {
+      font-size: 28px;
+      color: #ff6b00;
+      /* Updated to match homepage */
+      margin-bottom: 15px;
+    }
 
-      /* Frequently Booked Section */
-      .frequently-booked {
-        background-color: #fff8f2; /* Updated to match homepage body */
-        margin-bottom: 40px;
-        padding: 40px 5%;
-      }
+    .about h3 {
+      font-size: 18px;
+      color: #ff6b00;
+      /* Updated to match homepage */
+      margin-bottom: 10px;
+    }
 
-      .frequently-booked h2 {
-        font-size: 28px;
-        padding: 0;
-        color: #ff6b00; /* Updated to match homepage */
-        margin-bottom: 20px;
-      }
+    .about p {
+      text-align: justify;
+      margin-bottom: 10px;
+      color: #333;
+    }
 
-      .card-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 25px;
-        margin-top: 20px;
-      }
+    .about ul {
+      text-align: left;
+      display: inline-block;
+      margin-top: 10px;
+      color: #333;
+    }
 
-      .card {
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
-        background: white;
-        transition: all 0.3s;
-        border: 1px solid #ffe0cc;
-      }
+    /* Footer Styles */
+    .footer {
+      background-color: #fbebd9;
+      padding: 40px 20px;
+      width: 1800px;
+      margin-top: 50px;
+      /* margin-left: -250px; */
+      margin-bottom: -50px;
+      margin-right: -250px;
+      border-top: 1px solid #ffe0b2;
+    }
 
-      .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
-        border-color: #ff6b00;
-      }
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 1500px;
+      margin: 0 auto;
+      gap: 40px;
+      justify-content: space-between;
+    }
 
-      .card img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-        transition: transform 0.5s;
-      }
+    /* Logo Section */
+    .footer-logo {
+      flex: 0 0 200px;
+    }
 
-      .card:hover img {
-        transform: scale(1.05);
-      }
+    .footer-logo .logo {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      color: #ff6b00;
+    }
 
-      .card-content {
-        padding: 15px;
-      }
+    .footer-logo p {
+      line-height: 1.6;
+      color: #666;
+    }
 
-      .card h3 {
-        font-size: 18px;
-        margin-bottom: 8px;
-        color: #333;
-      }
+    /* Links Sections */
+    .footer-links {
+      min-width: 150px;
+    }
 
-      .card p {
-        margin-bottom: 8px;
-        font-size: 14px;
-        color: #666;
-      }
+    .footer-links h3 {
+      color: #ff6b00;
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
 
-      .price {
-        color: #ff6b00;
-        font-weight: bold;
-        font-size: 16px;
-      }
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-      .rating {
-        color: #ff9e00;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-      }
+    .footer-links li {
+      margin-bottom: 8px;
+    }
 
-      .location {
-        font-size: 12px;
-        color: #888;
-      }
+    .footer-links a {
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
 
-      @media (max-width: 1024px) {
-        .card-container {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
+    .footer-links a:hover {
+      color: #ff6b00;
+    }
 
-      @media (max-width: 768px) {
-        .card-container {
-          grid-template-columns: repeat(1, 1fr);
-        }
+    /* Copyright Section */
+    .footer-bottom {
+      text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #ffe0b2;
+      color: #999;
+    }
 
-        .container {
-          flex-direction: column;
-        }
-
-        .image-container,
-        .details-container {
-          width: 100%;
-          padding: 0;
-        }
-
-        .details-container {
-          border-left: none;
-          border-top: 1px solid #eee;
-          padding-top: 20px;
-        }
-
-        .profile-btn {
-          margin-right: 0;
-          width: 100%;
-        }
-
-        .action-links a.wishlist {
-          margin-left: auto;
-        }
-
-        .map-section h3 {
-          margin-left: 0;
-        }
-      }
-
-      /* About Us */
-      .about {
-        background: #fff3e8; /* Updated to match homepage alternating section */
-        padding: 40px 20px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .about-content {
-        max-width: 800px;
-        text-align: center;
-      }
-
-      .about h2 {
-        font-size: 28px;
-        color: #ff6b00; /* Updated to match homepage */
-        margin-bottom: 15px;
-      }
-
-      .about h3 {
-        font-size: 18px;
-        color: #ff6b00; /* Updated to match homepage */
-        margin-bottom: 10px;
-      }
-
-      .about p {
-        text-align: justify;
-        margin-bottom: 10px;
-        color: #333;
-      }
-
-      .about ul {
-        text-align: left;
-        display: inline-block;
-        margin-top: 10px;
-        color: #333;
-      }
-
-      /* Footer Styles */
-      .footer {
-        background-color: #fbebd9;
-        padding: 40px 20px;
-        width: 1800px;
-        margin-top: 50px;
-        /* margin-left: -250px; */
-        margin-bottom: -50px;
-        margin-right: -250px;
-        border-top: 1px solid #ffe0b2;
-      }
-
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
       .footer-container {
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 1500px;
-        margin: 0 auto;
-        gap: 40px;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 30px;
       }
 
-      /* Logo Section */
       .footer-logo {
-        flex: 0 0 200px;
-      }
-
-      .footer-logo .logo {
-        font-size: 1.8rem;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        color: #ff6b00;
-      }
-
-      .footer-logo p {
-        line-height: 1.6;
-        color: #666;
-      }
-
-      /* Links Sections */
-      .footer-links {
-        min-width: 150px;
-      }
-
-      .footer-links h3 {
-        color: #ff6b00;
-        margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 1.1rem;
-      }
-
-      .footer-links ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .footer-links li {
-        margin-bottom: 8px;
-      }
-
-      .footer-links a {
-        color: #666;
-        text-decoration: none;
-        transition: color 0.3s;
-      }
-
-      .footer-links a:hover {
-        color: #ff6b00;
-      }
-
-      /* Copyright Section */
-      .footer-bottom {
+        flex: 1;
         text-align: center;
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px solid #ffe0b2;
-        color: #999;
       }
 
-      /* Responsive adjustments */
-      @media (max-width: 768px) {
-        .footer-container {
-          flex-direction: column;
-          gap: 30px;
-        }
-
-        .footer-logo {
-          flex: 1;
-          text-align: center;
-        }
-
-        .footer-links {
-          text-align: center;
-        }
+      .footer-links {
+        text-align: center;
       }
-    </style>
-  </head>
-  <body>
-    <!-- Header -->
-    <header class="header">
-      <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
-      <div class="language-currency">
-        <select>
-          <option value="en">EN</option>
-          <option value="np">NP</option>
-        </select>
-        <button id="loginBtn" onclick="redirectToLogin()">Login</button>
-        <div class="user-icon">👤</div>
-      </div>
-    </header>
+    }
+  </style>
+</head>
 
-    <!-- Body -->
-    <div class="container">
-      <div class="image-container">
-        <!-- Bike image dynamically populated from the database -->
-        <div style="background-color: #dddada; height: 400px; border-radius: 8px">
-          <img
-            src="{{ bike.image.url }}"  
-            alt="{{ bike.name }}"  
-            style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;"
-          />
-        </div>
-    
-        <div class="bike-info">
-          <div class="bike-title">{{ bike.name }}</div>  <!-- Dynamically display bike name -->
-          <div class="bike-model">| {{ bike.model_name }}</div>  <!-- Dynamically display bike model -->
-        </div>
-    
-        <div class="location">
-          <span>{{ bike.location }}</span>  <!-- Dynamically display bike location -->
-          <span style="margin: 0 5px">•</span>
-          <span class="rating">{{ bike.rating }} ({{ bike.reviews_count }})</span>  <!-- Dynamically display rating and reviews count -->
-        </div>
-    
-        <div class="bike-description">
-          {{ bike.description }}  <!-- Dynamically display bike description -->
-        </div>
-    
-        <div class="user-info">
-          <div class="user-avatar">
-            <img src="{{ bike.user.avatar.url }}" alt="{{ bike.user.name }}" class="avatar" />  <!-- Dynamically display user's avatar -->
-          </div>
-          <div class="user-details">
-            <div class="user-name" style="font-size: 20px">{{ bike.user.name }}</div>  <!-- Dynamically display user's name -->
-            <div class="user-response">Response time ~{{ bike.user.response_time }}h</div>  <!-- Dynamically display user's response time -->
-            <div class="user-reviews">{{ bike.user.reviews_count }} Reviews</div>  <!-- Dynamically display number of reviews -->
-          </div>
-          <button class="profile-btn">Profile</button>
-        </div>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
+    <div class="language-currency">
+      <select>
+        <option value="en">EN</option>
+        <option value="np">NP</option>
+      </select>
+      <button id="loginBtn" onclick="redirectToLogin()">Login</button>
+      <div class="user-icon">👤</div>
+    </div>
+  </header>
+
+  <!-- Body -->
+  <div class="container">
+    <div class="image-container">
+      <!-- Bike image dynamically populated from the database -->
+      <div style="background-color: #dddada; height: 400px; border-radius: 8px">
+        <img src="{{ bike.image.url }}" alt="{{ bike.name }}"
+          style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;" />
       </div>
-    
-      <div class="details-container">
-        <div class="price" style="font-size: 30px">{{ bike.daily_rate }}€ / day</div>  <!-- Dynamically display daily price -->
-        <div class="price-week">{{ bike.weekly_rate }}€ / week</div>  <!-- Dynamically display weekly price -->
-    
-        <div class="action-links">
-          <a href="#" class="share">Share</a>
-          <a href="#" class="wishlist" style="margin-left: 300px; font-weight: bolder">Add to wishlist</a>
+
+      <div class="bike-info">
+        <div class="bike-title">{{ bike.name }}</div> <!-- Dynamically display bike name -->
+        <div class="bike-model">| {{ bike.model_name }}</div> <!-- Dynamically display bike model -->
+      </div>
+
+      <div class="location">
+        <span>{{ bike.location }}</span> <!-- Dynamically display bike location -->
+        <span style="margin: 0 5px">•</span>
+        <span class="rating">{{ bike.rating }} ({{ bike.reviews_count }})</span>
+        <!-- Dynamically display rating and reviews count -->
+      </div>
+
+      <div class="bike-description">
+        {{ bike.description }} <!-- Dynamically display bike description -->
+      </div>
+
+      <div class="user-info">
+        <div class="user-avatar">
+          <img src="{{ bike.user.avatar.url }}" alt="{{ bike.user.name }}" class="avatar" />
+          <!-- Dynamically display user's avatar -->
         </div>
-    
-        <div class="section">
-          <div class="section-title">Select Date Range</div>
-          <label>Start Date:</label>
-          <input type="date" id="start-date" class="date-range-input" />
-    
-          <label>End Date:</label>
-          <input type="date" id="end-date" class="date-range-input" />
+        <div class="user-details">
+          <div class="user-name" style="font-size: 20px">{{ bike.user.name }}</div>
+          <!-- Dynamically display user's name -->
+          <div class="user-response">Response time ~{{ bike.user.response_time }}h</div>
+          <!-- Dynamically display user's response time -->
+          <div class="user-reviews">{{ bike.user.reviews_count }} Reviews</div>
+          <!-- Dynamically display number of reviews -->
         </div>
-    
-        <script>
-          document.getElementById("start-date").addEventListener("change", function () {
-            document.getElementById("end-date").min = this.value;
-          });
-        </script>
-    
-        <div class="section">
-          <div class="section-title">Bike size and quantity</div>
-          <div class="bike-size-row">
-            <input type="text" class="bike-size-input" value="{{ bike.size }}" readonly />  <!-- Dynamically display bike size -->
-            <input type="number" value="1" min="1" class="quantity-input" />
-          </div>
-        </div>
-    
-        <hr />
-    
-        <button class="check-availability">Check availability</button>
-    
-        <div class="discount-box">
-          <div class="discount-title">Weekend discount</div>
-          <div>
-            Enjoy a weekend discount by booking from Friday 15:00 till Monday 12:00
-          </div>
-        </div>
+        <button class="profile-btn">Profile</button>
       </div>
     </div>
 
-    <!-- Map Section -->
-    <section class="map-section">
-      <h3>Current bike location</h3>
-      <div class="map-container">
-        <span>
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.1681541846983!2d85.32819117616627!3d27.7120939761798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb196de5da5741%3A0x652792640c70ede9!2sHerald%20College%20Kathmandu!5e0!3m2!1sen!2snp!4v1743692441935!5m2!1sen!2snp"
-            height="320"
-            width="100%"
-            style="border: 0"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </span>
-      </div>
-    </section>
+    <div class="details-container">
+      <form method = "POST" action ="{% url 'Booking' bike_id=bike.id %}">
+      {% csrf_token %}
+        
+      <div class="price" style="font-size: 30px">Rs.{{ bike.daily_rate }} / day</div>
+      <!-- Dynamically display daily price -->
+      <div class="price-week">Rs.{{ bike.weekly_rate }}/ week</div> <!-- Dynamically display weekly price -->
 
-    <!-- Frequently Booked Section -->
-    <section class="frequently-booked">
-      <h2>Frequently Booked</h2>
-      <div class="card-container">
-        <!-- Card 1 -->
-        <!-- Card 1 -->
-        <div class="card">
-          <img src="Mountainbike.jpeg" alt="Mountain Bike" />
-          <div class="card-content">
-            <h3>CANYON Mountain Bike</h3>
-            <p>
-              Premium suspension, 21-speed gears<br />Suitable for all terrains
-            </p>
-            <p class="price">Rs. 1500/day | Rs. 8000/week</p>
-            <p class="rating">⭐ 4.9 (24 reviews)</p>
-            <p class="location">Thamel, Kathmandu</p>
-          </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="card">
-          <img src="Roadbike.jpeg" alt="Road Bike" />
-          <div class="card-content">
-            <h3>GIANT Road Bike</h3>
-            <p>Lightweight frame, 18-speed gears<br />Perfect for city rides</p>
-            <p class="price">Rs. 1200/day | Rs. 6500/week</p>
-            <p class="rating">⭐ 4.7 (18 reviews)</p>
-            <p class="location">Jhamsikhel, Lalitpur</p>
-          </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card">
-          <img src="Electricbike.jpeg" alt="Electric Bike" />
-          <div class="card-content">
-            <h3>E-RIDER Electric Bike</h3>
-            <p>
-              60km range, 25km/h max speed<br />With helmet and lock included
-            </p>
-            <p class="price">Rs. 2000/day | Rs. 10000/week</p>
-            <p class="rating">⭐ 4.8 (32 reviews)</p>
-            <p class="location">Boudha, Kathmandu</p>
-          </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="card">
-          <img src="Citybike.jpeg" alt="City Bike" />
-          <div class="card-content">
-            <h3>HERO City Bike</h3>
-            <p>Comfortable seat, 7-speed gears<br />Basket and bell included</p>
-            <p class="price">Rs. 800/day | Rs. 4500/week</p>
-            <p class="rating">⭐ 4.5 (15 reviews)</p>
-            <p class="location">Patan, Lalitpur</p>
-          </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="card">
-          <img src="Hybridbike.jpeg" alt="Hybrid Bike" />
-          <div class="card-content">
-            <h3>TREK Hybrid Bike</h3>
-            <p>
-              Versatile for road and light trails<br />Comfortable upright
-              position
-            </p>
-            <p class="price">Rs. 1300/day | Rs. 7000/week</p>
-            <p class="rating">⭐ 4.8 (21 reviews)</p>
-            <p class="location">Kapan, Kathmandu</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer" style="width: 100%">
-      <div class="footer-container">
-        <!-- Logo Section -->
-        <div class="footer-logo">
-          <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
-          <p>Kathmandu's premier bike rental platform</p>
-        </div>
-
-        <!-- Quick Links Section -->
-        <div class="footer-links">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="contactus.html">Contact Us</a></li>
-            <li><a href="/admin/adminlogin.html">Admin</a></li>
-            <li><a href="/privacy">Privacy</a></li>
-          </ul>
-        </div>
-
-        <!-- Top Places Section -->
-        <div class="footer-links">
-          <h3>Top Places</h3>
-          <ul>
-            <li><a href="#">Thamel</a></li>
-            <li><a href="#">Jhamsikhel</a></li>
-            <li><a href="#">Boudha</a></li>
-            <li><a href="#">Patan</a></li>
-            <li><a href="#">Bhaktapur</a></li>
-          </ul>
-        </div>
+      <div class="action-links">
+        <a href="#" class="share">Share</a>
+        <a href="#" class="wishlist" style="margin-left: 300px; font-weight: bolder">Add to wishlist</a>
       </div>
 
-      <!-- Copyright Section -->
-      <div class="footer-bottom">
-        <p>© 2025 Bikeeez Nepal. All rights reserved.</p>
+      <div class="section">
+        <div class="section-title">Select Date Range</div>
+        {% load widget_tweaks %}
+      
+        <label>Start Date:</label>
+        {{ form.start_date|add_class:"date-range-input"|attr:"id:start-date" }}
+      
+        <label>End Date:</label>
+        {{ form.end_date|add_class:"date-range-input"|attr:"id:end-date" }}
       </div>
-    </footer>
-  </body>
+      
+      <script>
+        document.getElementById("start-date").addEventListener("change", function () {
+          document.getElementById("end-date").min = this.value;
+        });
+      </script>
+      
+
+      <div class="section">
+        <div class="section-title">Quantity</div>
+        <input type="number" name="quantity" value="1" min="1" class="quantity-input" />
+      </div>
+  
+      <hr />
+  
+      <button type="submit" class="check-availability">Check availability</button>
+    </form>
+      <div class="discount-box">
+        <div class="discount-title">Weekend discount</div>
+        <div>
+          Enjoy a weekend discount by booking from Friday 15:00 till Monday 12:00
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Section -->
+  <section class="map-section">
+    <h3>Current bike location</h3>
+    <div class="map-container">
+      <span>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.1681541846983!2d85.32819117616627!3d27.7120939761798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb196de5da5741%3A0x652792640c70ede9!2sHerald%20College%20Kathmandu!5e0!3m2!1sen!2snp!4v1743692441935!5m2!1sen!2snp"
+          height="320" width="100%" style="border: 0" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </span>
+    </div>
+  </section>
+
+  <!-- Frequently Booked Section -->
+  <section class="frequently-booked">
+    <h2>Frequently Booked</h2>
+    <div class="card-container">
+      <!-- Card 1 -->
+      <div class="card">
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+        <a href="{% url 'Booking' random_bikes.0.id %}"style="text-decoration: none; color: inherit;">
+        <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}" />
+
+        <div class="card-content">
+          <h3>{{ random_bikes.0.name }}</h3>
+
+          <!-- Bike description, with a default message if not available -->
+          <p>{{ random_bikes.0.short_description | default:"No description available." }}</p>
+
+          <p class="price">
+            Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{ random_bikes.0.weekly_rate }} /week
+          </p>
+
+          <!-- Rating -->
+          <p class="rating">
+            ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{ random_bikes.0.reviews_count }} reviews)
+          </p>
+
+          <p class="location">
+            {{ random_bikes.0.location | default:"Location not available" }}
+          </p>
+        </div>
+        </a>
+        {% else %}
+        <p>No bike data available.</p>
+        {% endif %}
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card">
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+        <a href="{% url 'Booking' random_bikes.1.id %}"style="text-decoration: none; color: inherit;">
+        <img src="{{ random_bikes.1.image.url }}" alt="{{ random_bikes.1.name }}" />
+
+        <div class="card-content">
+          <h3>{{ random_bikes.1.name }}</h3>
+
+          <!-- Bike description, with a default message if not available -->
+          <p>{{ random_bikes.1.short_description | default:"No description available." }}</p>
+
+          <p class="price">
+            Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{ random_bikes.1.weekly_rate }} /week
+          </p>
+
+          <!-- Rating -->
+          <p class="rating">
+            ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{ random_bikes.1.reviews_count }} reviews)
+          </p>
+
+          <p class="location">
+            {{ random_bikes.1.location | default:"Location not available" }}
+          </p>
+        </div>
+        </a>
+        {% else %}
+        <p>No bike data available.</p>
+        {% endif %}
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card">
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+        <a href="{% url 'Booking' random_bikes.2.id %}"style="text-decoration: none; color: inherit;">
+        <img src="{{ random_bikes.2.image.url }}" alt="{{ random_bikes.2.name }}" />
+
+        <div class="card-content">
+          <h3>{{ random_bikes.2.name }}</h3>
+
+          <!-- Bike description, with a default message if not available -->
+          <p>{{ random_bikes.2.short_description | default:"No description available." }}</p>
+
+          <p class="price">
+            Rs. {{ random_bikes.2.daily_rate }} /day | Rs. {{ random_bikes.2.weekly_rate }} /week
+          </p>
+
+          <!-- Rating -->
+          <p class="rating">
+            ⭐ {{ random_bikes.2.rating | default:"N/A" }} ({{ random_bikes.2.reviews_count }} reviews)
+          </p>
+
+          <p class="location">
+            {{ random_bikes.2.location | default:"Location not available" }}
+          </p>
+        </div>
+        </a>
+        {% else %}
+        <p>No bike data available.</p>
+        {% endif %}
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card">
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+        <a href="{% url 'Booking' random_bikes.0.id %}"style="text-decoration: none; color: inherit;">
+        <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}" />
+
+        <div class="card-content">
+          <h3>{{ random_bikes.0.name }}</h3>
+
+          <!-- Bike description, with a default message if not available -->
+          <p>{{ random_bikes.0.short_description | default:"No description available." }}</p>
+
+          <p class="price">
+            Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{ random_bikes.0.weekly_rate }} /week
+          </p>
+
+          <!-- Rating -->
+          <p class="rating">
+            ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{ random_bikes.0.reviews_count }} reviews)
+          </p>
+
+          <p class="location">
+            {{ random_bikes.0.location | default:"Location not available" }}
+          </p>
+        </div>
+        </a>
+        {% else %}
+        <p>No bike data available.</p>
+        {% endif %}
+      </div>
+
+      <!-- Card 5 -->
+      <div class="card">
+        <!-- Check if there are bikes and use the first one (random_bike.0) -->
+        {% if random_bikes %}
+        <a href="{% url 'Booking' random_bikes.1.id %}"style="text-decoration: none; color: inherit;">
+        <img src="{{ random_bikes.1.image.url }}" alt="{{ random_bikes.1.name }}" />
+
+        <div class="card-content">
+          <h3>{{ random_bikes.1.name }}</h3>
+
+          <!-- Bike description, with a default message if not available -->
+          <p>{{ random_bikes.1.short_description | default:"No description available." }}</p>
+
+          <p class="price">
+            Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{ random_bikes.1.weekly_rate }} /week
+          </p>
+
+          <!-- Rating -->
+          <p class="rating">
+            ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{ random_bikes.1.reviews_count }} reviews)
+          </p>
+
+          <p class="location">
+            {{ random_bikes.1.location | default:"Location not available" }}
+          </p>
+        </div>
+        </a>
+        {% else %}
+        <p>No bike data available.</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" style="width: 100%">
+    <div class="footer-container">
+      <!-- Logo Section -->
+      <div class="footer-logo">
+        <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
+        <p>Kathmandu's premier bike rental platform</p>
+      </div>
+
+      <!-- Quick Links Section -->
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contactus.html">Contact Us</a></li>
+          <li><a href="/admin/adminlogin.html">Admin</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
+      </div>
+
+      <!-- Top Places Section -->
+      <div class="footer-links">
+        <h3>Top Places</h3>
+        <ul>
+          <li><a href="#">Thamel</a></li>
+          <li><a href="#">Jhamsikhel</a></li>
+          <li><a href="#">Boudha</a></li>
+          <li><a href="#">Patan</a></li>
+          <li><a href="#">Bhaktapur</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright Section -->
+    <div class="footer-bottom">
+      <p>© 2025 Bikeeez Nepal. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+
 </html>

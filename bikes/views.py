@@ -6,7 +6,7 @@ def bike_list(request):
     print("✅ bike_list view triggered!")
     bikes = Bikes.objects.all()
 
-    random_bikes = random.sample(list(bikes), min(3, len(bikes)))
+    random_bikes = random.sample(list(bikes), min(5, len(bikes)))
 
     print("Random bikes:", random_bikes) 
 
