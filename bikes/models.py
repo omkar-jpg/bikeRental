@@ -25,8 +25,7 @@ class Bikes(models.Model):
 
     rating = models.FloatField(default = 0)
 
-    quantitiy_in_stock = models.PositiveIntegerField(default=1)
-
+    quantity = models.PositiveIntegerField(default=1)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now = True)
     
