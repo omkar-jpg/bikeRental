@@ -1,3 +1,5 @@
+{% load socialaccount %}
+{% load static %}
 <!-- templates/login.html -->
 <!-- <!DOCTYPE html>
 <html lang="en">
@@ -238,15 +240,33 @@
       }
 
       .social-btn:hover {
-        background-color: #ff6b00;
-        color: white;
-        transform: translateY(-2px);
-      }
+      background-color: #ff6b00;
+      color: white;
+      transform: translateY(-2px);
+    }
 
-      .social-btn img {
-        width: 16px;
-        margin-right: 5px;
-      }
+    .social-btn.google::before {
+      content: url("https://www.google.com/favicon.ico");
+      width: 14px;
+      height: 14px;
+      margin-right: 20px;
+      margin-bottom: 13px;
+    }
+
+    .social-btn.phone::before {
+      content: "📞";
+      margin-right: 5px;
+    }
+
+    .social-btn.google a {
+      color: #e65100;
+      text-decoration: none;
+    }
+
+    .social-btn.google a:hover {
+      color: white;
+      text-decoration: none;
+    }
 
       .signup-link {
         text-align: center;
@@ -320,10 +340,12 @@
           <p class="or">Or login with</p>
 
           <div class="social-buttons">
-            <div class="social-btn">
-              <img src="https://www.google.com/favicon.ico" alt="Google" /> Google 
+            <div class="social-btn google">
+              <a href="{% provider_login_url 'google' %}">Log in with Google</a>
             </div>
+            <!-- <div class="social-btn phone">Phone no</div> -->
           </div>
+  
 
           <p class="signup-link">
             Don't have a Bikeeez account?

@@ -50,6 +50,22 @@
       border: 2px solid #ff6b00;
     }
 
+    .loginBtn {
+            padding: 8px 20px;
+            background-color: white;
+            color: #ff6b00;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+      }
+
+      .loginBtn:hover {
+            background-color: #ffe0cc;
+            transform: translateY(-2px);
+        }
+
     .chat-header {
       background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
       color: white;
@@ -235,7 +251,18 @@
         <option value="en">EN</option>
         <option value="np">NP</option>
       </select> -->
-      <a href="{% url 'logout' %}" id="loginBtn">Logout</a>
+      <div class="language-currency">
+        <button type="button" class="loginBtn" data-url="{% url 'logout' %}" onclick="redirectToLogout()">
+            Logout
+        </button>
+
+        <script>
+            function redirectToLogout() {
+                var logoutUrl = document.querySelector('.loginBtn').getAttribute('data-url');
+                setTimeout(() => { window.location.href = logoutUrl; }, 500);
+            }
+        </script>
+    </div>
 
       <a href="{% url 'profile' %}">
         <div class="user-icon">👤</div>
@@ -274,7 +301,7 @@
       <!-- Card 1 -->
       <div class="card">
         <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes %}
+        {% if random_bikes|length > 0 %}
         <a href="{% url 'Booking' random_bikes.0.id %}"style="text-decoration: none; color: inherit;">
         <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}" />
 
@@ -306,7 +333,7 @@
       <!-- Card 2 -->
       <div class="card">
         <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes %}
+        {% if random_bikes|length > 1 %}
         <a href="{% url 'Booking' random_bikes.1.id %}"style="text-decoration: none; color: inherit;">
         <img src="{{ random_bikes.1.image.url }}" alt="{{ random_bikes.1.name }}" />
 
@@ -338,7 +365,7 @@
       <!-- Card 3 -->
       <div class="card">
         <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes %}
+        {% if random_bikes|length > 2 %}
         <a href="{% url 'Booking' random_bikes.2.id %}"style="text-decoration: none; color: inherit;">
         <img src="{{ random_bikes.2.image.url }}" alt="{{ random_bikes.2.name }}" />
 
@@ -370,7 +397,7 @@
       <!-- Card 4 -->
       <div class="card">
         <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes %}
+        {% if random_bikes|length > 3 %}
         <a href="{% url 'Booking' random_bikes.3.id %}"style="text-decoration: none; color: inherit;">
         <img src="{{ random_bikes.3.image.url }}" alt="{{ random_bikes.3.name }}" />
 
@@ -402,7 +429,7 @@
       <!-- Card 5 -->
       <div class="card">
         <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes %}
+        {% if random_bikes|length > 4 %}
         <a href="{% url 'Booking' random_bikes.4.id %}"style="text-decoration: none; color: inherit;">
         <img src="{{ random_bikes.4.image.url }}" alt="{{ random_bikes.1.name }}" />
 
@@ -455,7 +482,7 @@
     <div class="card-container">
       <!-- Card 1 -->
       <div class="card">
-        {% if random_bikes %}
+        {% if random_bikes|length > 0 %}
         <a href="{% url 'Booking' random_bikes.0.id %}"style="text-decoration: none; color: inherit;">
           <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}" />
           <div class="card-content">
@@ -481,7 +508,7 @@
       <!-- Card 2 -->
       <div class="card">
         <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes %}
+        {% if random_bikes|length > 1 %}
         <a href="{% url 'Booking' random_bikes.1.id %}"style="text-decoration: none; color: inherit;">
           <img src="{{ random_bikes.1.image.url }}" alt="{{ random_bikes.1.name }}" />
 
@@ -513,7 +540,7 @@
       <!-- Card 3 -->
       <div class="card">
         <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes %}
+        {% if random_bikes|length > 2 %}
         <a href="{% url 'Booking' random_bikes.2.id %}"style="text-decoration: none; color: inherit;">
         <img src="{{ random_bikes.2.image.url }}" alt="{{ random_bikes.2.name }}" />
 
@@ -545,7 +572,7 @@
       <!-- Card 4 -->
       <div class="card">
         <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes %}
+        {% if random_bikes|length > 3 %}
         <a href="{% url 'Booking' random_bikes.3.id %}"style="text-decoration: none; color: inherit;">
         <img src="{{ random_bikes.3.image.url }}" alt="{{ random_bikes.3.name }}" />
 
@@ -577,7 +604,7 @@
       <!-- Card 5 -->
       <div class="card">
         <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes %}
+        {% if random_bikes|length > 4 %}
         <a href="{% url 'Booking' random_bikes.4.id %}"style="text-decoration: none; color: inherit;">
         <img src="{{ random_bikes.4.image.url }}" alt="{{ random_bikes.1.name }}" />
 
