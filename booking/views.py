@@ -8,63 +8,43 @@ from datetime import timedelta
 import random
 from django.http import HttpResponse
 
+def booking_confirmation(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)  # Get booking or 404
+    return render(request, 'booking_confirmation.html', {'booking': booking})  # Render confirmation page
 
-@login_required
+@login_required  # Ensure the user is logged in
 def book_bike(request, bike_id):
-    # Get the specific bike to be booked
-    bike = get_object_or_404(Bikes, id=bike_id)
+    bike = get_object_or_404(Bikes, id=bike_id)  # Get the specific bike
 
-    # Get all bikes and pick 3 random ones for display
-    bikes = Bikes.objects.all()
-    random_bikes = random.sample(list(bikes), min(3, len(bikes)))
+    bikes = Bikes.objects.all()  # Retrieve all bikes
+    random_bikes = random.sample(list(bikes), min(3, len(bikes)))  # Pick 3 random bikes
 
-    # Initialize the form (pre-filled with POST data if available)
-    form = BookingForm(request.POST or None)
+    form = BookingForm(request.POST or None)  # Initialize form with POST data if available
 
-    if request.method == 'POST':
-        if form.is_valid():
-            booking = form.save(commit=False)
-            booking.user = request.user
-            booking.bike = bike
+    if request.method == 'POST':  # If form is submitted
+        if form.is_valid():  # Validate form data
+            booking = form.save(commit=False)  # Create booking object without saving
+            booking.user = request.user  # Assign the logged-in user
+            booking.bike = bike  # Assign the selected bike
 
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
             quantity = form.cleaned_data['quantity']
-            
-            if quantity > bike.quantity:
-                return HttpResponse("Invalid qunatitiy selected.",status=400)
 
-            rental_days = (end_date - start_date).days + 1
-            if rental_days <= 0:
+            if quantity > bike.quantity:  # Check if requested quantity exceeds available bikes
+                return HttpResponse("Invalid quantity selected.", status=400)
+
+            rental_days = (end_date - start_date).days + 1  # Calculate rental duration
+            if rental_days <= 0:  # Ensure end date is after start date
                 form.add_error('end_date', "End date must be after start date.")
-                return render(request, 'booking.html', {
-                    'form': form,
-                    'bike': bike,
-                    'random_bikes': random_bikes,
-                })
+                return render(request, 'booking.html', {'form': form, 'bike': bike, 'random_bikes': random_bikes})
 
-            booking.total_price = rental_days * quantity * bike.daily_rate
-            booking.save()
+            booking.total_price = rental_days * quantity * bike.daily_rate  # Calculate total price
+            booking.save()  # Save the booking
 
-            bike.quantity -= quantity 
-            bike.save()
+            bike.quantity -= quantity  # Update bike availability
+            bike.save()  # Save the updated bike
 
-            return redirect('booking_confirmation', booking_id=booking.id)
+            return redirect('booking_confirmation', booking_id=booking.id)  # Redirect to confirmation page
 
-    # Render booking page with bike details and random bikes
-    return render(request, 'booking.html', {
-        'form': form,
-        'bike': bike,
-        'random_bikes': random_bikes,
-    })
-
-from django.shortcuts import render
-
-def booking_confirmation(request, booking_id):
-    booking = get_object_or_404(Booking, id=booking_id)
-    return render(request, 'booking_confirmation.html', {'booking': booking})
-
-
-
-
-
+    return render(request, 'booking.html', {'form': form, 'bike': bike, 'random_bikes': random_bikes})  # Render booking page

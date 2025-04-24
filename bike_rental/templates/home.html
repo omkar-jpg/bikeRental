@@ -229,13 +229,13 @@
 <body>
   <!-- Header -->
   <header class="header">
-    <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
+    <a href="{% url 'home' %}" class="logo" style="text-decoration: none;">🚴‍♂️ <b>Bikeeez</b></a>
     <div class="language-currency">
       <select>
         <option value="en">EN</option>
         <option value="np">NP</option>
       </select>
-      <a href="{% url 'logout' %}" id="loginBtn">Logout</a>
+      <a href="{% url 'logout' %}" id="loginBtn"  style="text-decoration: none;">Logout</a>
 
       <div class="user-icon">👤</div>
     </div>

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "bikes",
     "booking",  
     'widget_tweaks',
+   # 'users',
 ]
 SOCIALACCOUNT_PROVIDERS ={
     "google":{
