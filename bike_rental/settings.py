@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "bikes",
     "booking",  
     'widget_tweaks',
-   # 'users',
+    'users',
 ]
 SOCIALACCOUNT_PROVIDERS ={
     "google":{
@@ -158,3 +158,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
