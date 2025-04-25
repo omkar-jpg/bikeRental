@@ -13,7 +13,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     profile_pic = models.ImageField(upload_to='profile_pics/', blank=True, null=True, default='default_profile_pic.png')
     phone_number = models.CharField(max_length=20, blank=True, null=True)  # <--- Added this line
-    street_number = models.CharField(max_length = 10)
+    street_number = models.CharField(max_length = 10) #hello
     zipcode = models.CharField(max_length = 10)
     city = models.CharField(max_length=50)
     country = models.CharField(max_length = 50)
