@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment - Bikeeez</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        color: #333;
+        line-height: 1.6;
+        background-color: #fff8f2;
+      }
+
+      /* Container */
+      .container {
+        width: 80%;
+        max-width: 600px;
+        margin: 40px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        border: 1px solid #ffe0cc;
+      }
+
+      h2 {
+        font-size: 28px;
+        color: #ff6b00;
+        margin-bottom: 20px;
+        text-align: center;
+        position: relative;
+      }
+
+      h2:after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: #ff6b00;
+        margin: 10px auto 0;
+        border-radius: 2px;
+      }
+
+      h3 {
+        font-size: 18px;
+        color: #333;
+        margin: 25px 0 15px;
+      }
+
+      /* Table Styles */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background: white;
+        border: 1px solid #ffe0cc;
+        border-radius: 6px;
+      }
+
+      td {
+        padding: 15px;
+        vertical-align: top;
+      }
+
+      /* Payment Section */
+      .payment-section {
+        margin-bottom: 20px;
+      }
+
+      .payment-option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .payment-option input[type="radio"] {
+        accent-color: #ff6b00;
+      }
+
+      .payment-option label {
+        font-size: 14px;
+        color: #333;
+      }
+
+      .esewa-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 10px;
+        transition: all 0.3s;
+      }
+
+      .esewa-btn:hover {
+        background-color: #218838;
+        transform: translateY(-2px);
+      }
+
+      .esewa-input,
+      .amount-input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid #ff9e4d;
+        border-radius: 6px;
+        font-size: 14px;
+        background-color: rgba(255, 255, 255, 0.8);
+        transition: all 0.3s;
+      }
+
+      .amount-input {
+        width: 48%;
+      }
+
+      .esewa-input:focus,
+      .amount-input:focus {
+        border-color: #ff6b00;
+        outline: none;
+        box-shadow: 0 0 5px rgba(255, 107, 0, 0.3);
+      }
+
+      /* Address Section */
+      .address-section {
+        margin-bottom: 20px;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+
+      .form-input {
+        flex: 1;
+        padding: 12px;
+        border: 1px solid #ff9e4d;
+        border-radius: 6px;
+        font-size: 14px;
+        background-color: rgba(255, 255, 255, 0.8);
+        transition: all 0.3s;
+      }
+
+      .form-input:focus {
+        border-color: #ff6b00;
+        outline: none;
+        box-shadow: 0 0 5px rgba(255, 107, 0, 0.3);
+      }
+
+      .form-input::placeholder {
+        color: #999;
+      }
+
+      .form-input-half {
+        flex: 0 0 48%;
+      }
+
+      .form-input-third {
+        flex: 0 0 31%;
+      }
+
+      .required {
+        color: #ff6b00;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .container {
+          width: 90%;
+          padding: 20px;
+        }
+
+        .form-row {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .form-input-half,
+        .form-input-third {
+          flex: 1;
+        }
+
+        .amount-input {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main Content -->
+    <div class="container">
+      <h2>Payment</h2>
+
+      <!-- Payment Section -->
+      <table>
+        <tr>
+          <td>
+            <div class="payment-section">
+              <h3>Payment</h3>
+              <div class="payment-option">
+                <input type="radio" id="esewa" name="payment" checked />
+                <label for="esewa">eSewa</label>
+              </div>
+              <input type="text" class="esewa-input" placeholder="Enter eSewa ID" required />
+              <input type="number" class="amount-input" placeholder="Enter Amount (€)" required />
+              <button class="esewa-btn">Pay</button>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <!-- Address Section -->
+      <table>
+        <tr>
+          <td>
+            <div class="address-section">
+              <h3>Address</h3>
+              <div class="form-row">
+                <input type="text" class="form-input form-input-half" placeholder="First Name * "  required />
+                <input type="text" class="form-input form-input-half" placeholder="Last Name * "  required />
+              </div>
+              <div class="form-row">
+                <input type="text" class="form-input" placeholder="Street and Number * " required />
+              </div>
+              <div class="form-row">
+                <input type="text" class="form-input form-input-third" placeholder="Zip Code * " required />
+                <input type="text" class="form-input form-input-third" placeholder="City * " required />
+                <input type="text" class="form-input form-input-third" placeholder="Country * " required />
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
