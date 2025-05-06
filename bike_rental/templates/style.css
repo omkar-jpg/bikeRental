@@ -37,6 +37,34 @@ body {
     gap: 10px;
     margin-top: 20px;
   }
+
+  .search-item select.form-input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 16px;
+    color: #333;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    padding-right: 30px;
+  }
+  
+  .search-item select.form-input::-ms-expand {
+    display: none;
+  }
+  
+  .search-item::after {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #333;
+    pointer-events: none;
+  }
   
   .search-box input,
   .search-box button {

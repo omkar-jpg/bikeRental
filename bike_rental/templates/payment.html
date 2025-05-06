@@ -13,64 +13,125 @@
       }
 
       body {
+        background-color: #fff8f2;
         color: #333;
         line-height: 1.6;
-        background-color: #fff8f2;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
       }
 
-      /* Container */
+      /* Header Styles */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+        background-color: #ff6b00;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+
+      .language-currency {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .loginBtn {
+        padding: 8px 20px;
+        background-color: white;
+        color: #ff6b00;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .loginBtn:hover {
+        background-color: #ffe0cc;
+        transform: translateY(-2px);
+      }
+
+      .user-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: white;
+        transition: all 0.3s;
+      }
+
+      .user-icon:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Main Content */
       .container {
-        width: 80%;
-        max-width: 600px;
-        margin: 40px auto;
-        background: white;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
-        border: 1px solid #ffe0cc;
+        width: 90%;
+        max-width: 1000px;
+        margin: 80px auto 20px; /* Adjusted for header height */
+        display: flex;
+        gap: 20px;
+        flex: 1;
+      }
+
+      .left-section,
+      .booking-overview {
+        flex: 1;
       }
 
       h2 {
         font-size: 28px;
         color: #ff6b00;
-        margin-bottom: 20px;
         text-align: center;
-        position: relative;
+        margin-bottom: 20px;
       }
 
-      h2:after {
+      h2::after {
         content: "";
         display: block;
         width: 80px;
         height: 4px;
         background: #ff6b00;
-        margin: 10px auto 0;
+        margin: 10px auto;
         border-radius: 2px;
       }
 
       h3 {
         font-size: 18px;
         color: #333;
-        margin: 25px 0 15px;
+        margin-bottom: 15px;
       }
 
-      /* Table Styles */
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
+      .segment {
         background: white;
-        border: 1px solid #ffe0cc;
-        border-radius: 6px;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
       }
 
-      td {
-        padding: 15px;
-        vertical-align: top;
-      }
-
-      /* Payment Section */
-      .payment-section {
+      .payment-section,
+      .address-section {
         margin-bottom: 20px;
       }
 
@@ -78,64 +139,11 @@
         display: flex;
         align-items: center;
         gap: 10px;
+        margin-bottom: 15px;
       }
 
       .payment-option input[type="radio"] {
         accent-color: #ff6b00;
-      }
-
-      .payment-option label {
-        font-size: 14px;
-        color: #333;
-      }
-
-      .esewa-btn {
-        background-color: #28a745;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin-top: 10px;
-        transition: all 0.3s;
-      }
-
-      .esewa-btn:hover {
-        background-color: #218838;
-        transform: translateY(-2px);
-      }
-
-      .esewa-input,
-      .amount-input {
-        width: 100%;
-        padding: 12px;
-        margin: 10px 0;
-        border: 1px solid #ff9e4d;
-        border-radius: 6px;
-        font-size: 14px;
-        background-color: rgba(255, 255, 255, 0.8);
-        transition: all 0.3s;
-      }
-
-      .amount-input {
-        width: 48%;
-      }
-
-      .esewa-input:focus,
-      .amount-input:focus {
-        border-color: #ff6b00;
-        outline: none;
-        box-shadow: 0 0 5px rgba(255, 107, 0, 0.3);
-      }
-
-      /* Address Section */
-      .address-section {
-        margin-bottom: 20px;
       }
 
       .form-row {
@@ -147,10 +155,10 @@
       .form-input {
         flex: 1;
         padding: 12px;
-        border: 1px solid #ff9e4d;
+        border: 1px solid #ccc;
         border-radius: 6px;
         font-size: 14px;
-        background-color: rgba(255, 255, 255, 0.8);
+        background-color: white;
         transition: all 0.3s;
       }
 
@@ -172,15 +180,144 @@
         flex: 0 0 31%;
       }
 
-      .required {
+      .booking-overview .duration {
+        background: #f5f5f5;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      .booking-overview .cost-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .booking-overview .total {
+        display: flex;
+        justify-content: space-between;
+        font-size: 16px;
+        font-weight: bold;
         color: #ff6b00;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+      }
+
+      .booking-overview .vat {
+        font-size: 12px;
+        color: #999;
+        text-align: right;
+        margin-top: 5px;
+      }
+
+      .booking-overview .rent-now-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #d3d3d3;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+      }
+
+      .booking-overview .rent-now-btn:hover {
+        background-color: #a9a9a9;
+      }
+
+      /* Footer Styles */
+      .footer {
+        background-color: #fbebd9;
+        padding: 40px 20px;
+        width: 100%;
+        border-top: 1px solid #ffe0b2;
+        margin-top: auto;
+      }
+
+      .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 40px;
+        justify-content: space-between;
+      }
+
+      .footer-logo {
+        flex: 0 0 200px;
+      }
+
+      .footer-logo .logo {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        color: #ff6b00;
+        background-color: transparent;
+        border: none;
+      }
+
+      .footer-logo p {
+        line-height: 1.6;
+        color: #666;
+      }
+
+      .footer-links {
+        min-width: 150px;
+      }
+
+      .footer-links h3 {
+        color: #ff6b00;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+      }
+
+      .footer-links ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 8px;
+      }
+
+      .footer-links a {
+        color: #666;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: #ff6b00;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #ffe0b2;
+        color: #999;
       }
 
       /* Responsive Adjustments */
       @media (max-width: 768px) {
         .container {
+          flex-direction: column;
           width: 90%;
-          padding: 20px;
+        }
+
+        .booking-overview {
+          margin-top: 20px;
+          flex: 1;
         }
 
         .form-row {
@@ -193,57 +330,143 @@
           flex: 1;
         }
 
-        .amount-input {
-          width: 100%;
+        .footer-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .footer-logo {
+          flex: 1;
+          text-align: center;
+        }
+
+        .footer-links {
+          text-align: center;
         }
       }
     </style>
   </head>
   <body>
+    <!-- Header -->
+    <header class="header">
+      <button
+        type="button"
+        class="logo"
+        onclick="setTimeout(() => { window.location.href = 'home.html'; }, 500)"
+      >
+        🚴‍♂️ Bikeeez
+      </button>
+      <div class="language-currency">
+        <button
+          type="button"
+          class="loginBtn"
+          onclick="window.location.href='login.html'"
+        >
+          Login
+        </button>
+        <div class="user-icon">👤</div>
+      </div>
+    </header>
+
     <!-- Main Content -->
-    <div class="container">
-      <h2>Payment</h2>
-
-      <!-- Payment Section -->
-      <table>
-        <tr>
-          <td>
-            <div class="payment-section">
-              <h3>Payment</h3>
-              <div class="payment-option">
-                <input type="radio" id="esewa" name="payment" checked />
-                <label for="esewa">eSewa</label>
-              </div>
-              <input type="text" class="esewa-input" placeholder="Enter eSewa ID" required />
-              <input type="number" class="amount-input" placeholder="Enter Amount (€)" required />
-              <button class="esewa-btn">Pay</button>
+    <div class="container" style="margin-bottom: 250px; margin-top: 130px;">
+      <div class="left-section">
+        <h2>Payment</h2>
+        <div class="payment-section">
+          <div class="segment">
+            <h3>Payment</h3>
+            <div class="payment-option">
+              <label for="esewa">
+                <img src="https://cdn.esewa.com.np/ui/images/logos/esewa-icon-large.png" alt="eSewa Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;" />
+                Esewa
+              </label>
             </div>
-          </td>
-        </tr>
-      </table>
-
-      <!-- Address Section -->
-      <table>
-        <tr>
-          <td>
-            <div class="address-section">
-              <h3>Address</h3>
-              <div class="form-row">
-                <input type="text" class="form-input form-input-half" placeholder="First Name * "  required />
-                <input type="text" class="form-input form-input-half" placeholder="Last Name * "  required />
-              </div>
-              <div class="form-row">
-                <input type="text" class="form-input" placeholder="Street and Number * " required />
-              </div>
-              <div class="form-row">
-                <input type="text" class="form-input form-input-third" placeholder="Zip Code * " required />
-                <input type="text" class="form-input form-input-third" placeholder="City * " required />
-                <input type="text" class="form-input form-input-third" placeholder="Country * " required />
-              </div>
+            <div class="payment-option">
+              <input type="text" class="form-input" placeholder="9812345678"  />
             </div>
-          </td>
-        </tr>
-      </table>
+            <div class="form-row">
+              <input type="password" class="form-input form-input-third" placeholder="MPIN/Password"  /><br>
+              <input type="text" class="form-input form-input-third" placeholder="Amount"  />
+            </div>
+          </div>
+        </div>
+        <div class="address-section">
+          <div class="segment">
+            <h3>Address</h3>
+            <div class="form-row">
+              <input type="text" class="form-input form-input-half" placeholder="First Name * " value="Asmit" required />
+              <input type="text" class="form-input form-input-half" placeholder="Last Name * " value="Pradhan" required />
+            </div>
+            <div class="form-row">
+              <input type="text" class="form-input" placeholder="Street and Number * " required />
+            </div>
+            <div class="form-row">
+              <input type="text" class="form-input form-input-third" placeholder="Zip Code * " required />
+              <input type="text" class="form-input form-input-third" placeholder="City * " required />
+              <input type="text" class="form-input form-input-third" placeholder="Country * " required />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="booking-overview" style="margin-top: 80px; width: 400px;">
+        <div class="segment">
+          <h3>Booking overview</h3>
+          <div class="duration">7 May, 12:00 - 8 May, 18:00</div>
+          <div class="cost-row">
+            <span class="label">Per Item</span>
+            <span class="value">Rs 900</span>
+          </div>
+          <div class="cost-row">
+            <span class="label">Quantity</span>
+            <span class="value">2</span>
+          </div>
+          <!-- <div class="cost-row">
+            <span class="label">Insurance</span>
+            <span class="value">10.23 €</span>
+          </div> -->
+          <div class="cost-row">
+            <span class="label">+ Add voucher/discount card</span>
+          </div>
+          <div class="total">
+            <span>Total amount</span>
+            <span>s </span>
+          </div>
+          <div class="vat">incl. VAT.</div>
+          <button class="rent-now-btn" id="rent-now-btn">Rent now</button>
+        </div>
+      </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-logo">
+          <div class="logo">🚴‍♂️ Bikeeez</div>
+          <p>Kathmandu's premier bike rental platform</p>
+        </div>
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+            <li><a href="/privacy">Privacy</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h3>Top Places</h3>
+          <ul>
+            <li><a href="#">Thamel</a></li>
+            <li><a href="#">Jhamsikhel</a></li>
+            <li><a href="#">Boudha</a></li>
+            <li><a href="#">Patan</a></li>
+            <li><a href="#">Bhaktapur</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Bikeeez Nepal. All rights reserved.</p>
+      </div>
+    </footer>
   </body>
 </html>
