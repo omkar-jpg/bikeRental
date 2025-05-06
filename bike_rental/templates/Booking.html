@@ -817,7 +817,7 @@
 
   <body>
     <!-- Header -->
-
+    
     <header class="header">
       <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
       <div class="language-currency">
@@ -826,7 +826,7 @@
           <option value="np">NP</option>
         </select> -->
         <a href="{% url 'logout' %}" id="loginBtn">Logout</a>
-
+  
         <div class="user-icon">👤</div>
       </div>
     </header>
@@ -838,6 +838,7 @@
         <div class="user-icon">👤</div>
       </div>
     </header> -->
+
 
     <!-- Body -->
     <div class="container">
@@ -919,7 +920,7 @@
       </div>
 
       <div class="details-container">
-        <form method="POST" action="{% url 'Booking' bike_id=bike.id %}">
+        <form id="rental-form" method="POST" action="{% url 'Booking' bike_id=bike.id %}">
           {% csrf_token %}
 
           <div class="price" style="font-size: 30px">
@@ -938,8 +939,7 @@
             {% load widget_tweaks %}
 
             <label>Start Date:</label>
-            {{ form.start_date|add_class:"date-range-input"|attr:"id:start-date"
-            }}
+            {{ form.start_date|add_class:"date-range-input"|attr:"id:start-date" }}
 
             <label>End Date:</label>
             {{ form.end_date|add_class:"date-range-input"|attr:"id:end-date" }}
@@ -966,8 +966,11 @@
           </div>
 
           <hr />
+
         </form>
-        <button id="check-availability">Check availability</button>
+        <button id="check-availability" >
+          Check availability
+        </button>
 
         <div class="discount-box">
           <div class="discount-title">Weekend discount</div>
@@ -988,20 +991,22 @@
         </div>
         <div class="popup-content">
           <div class="duration" id="duration-text"></div>
-
           <div class="cost-row">
-            <span class="label">Bike Name</span>
-            <span class="value" id="bike-name">Yellow Panther</span>
+            <span class="label">Subtotal <span class="info-icon">ⓘ</span></span>
+            <span class="value" id="subtotal">Rs 0,00 </span>
           </div>
           <div class="cost-row">
-            <span class="label">Model</span>
-            <span class="value" id="model-name">Maja-City Bike</span>
+            <span class="label"
+              >Service fee <span class="info-icon">ⓘ</span></span
+            >
+            <span class="value" id="service-fee">Rs 0,00 </span>
           </div>
           <div class="cost-row">
-            <span class="label">Quantity</span>
-            <span class="value" id="quantity-display">1</span>
+            <span class="label"
+              >Insurance <span class="info-icon">ⓘ</span></span
+            >
+            <span class="value" id="insurance">Rs 0,00 </span>
           </div>
-
           <div class="total">
             <span>Total amount</span>
             <span id="total-amount">Rs 0,00</span>
@@ -1031,42 +1036,23 @@
     </section>
 
     <!-- Frequently Booked Section -->
-    <section class="frequently-booked">
-      <h2>Frequently Booked</h2>
+    <section class="bikes-section">
+      <h2>Recently Booked</h2>
       <div class="card-container">
         <!-- Card 1 -->
         <div class="card">
-          <!-- Check if there are bikes and use the first one (random_bike.0) -->
-          {% if random_bikes %}
-          <a
-            href="{% url 'Booking' random_bikes.0.id %}"
-            style="text-decoration: none; color: inherit"
-          >
-            <img
-              src="{{ random_bikes.0.image.url }}"
-              alt="{{ random_bikes.0.name }}"
-            />
-
+          {% if random_bikes|length > 0 %}
+          <a href="{% url 'Booking' random_bikes.0.id %}"style="text-decoration: none; color: inherit;">
+            <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}" />
             <div class="card-content">
               <h3>{{ random_bikes.0.name }}</h3>
-
-              <!-- Bike description, with a default message if not available -->
-              <p>
-                {{ random_bikes.0.short_description | default:"No description
-                available." }}
-              </p>
-
+              <p>{{ random_bikes.0.short_description | default:"No description available." }}</p>
               <p class="price">
-                Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{
-                random_bikes.0.weekly_rate }} /week
+                Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{ random_bikes.0.weekly_rate }} /week
               </p>
-
-              <!-- Rating -->
               <p class="rating">
-                ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{
-                random_bikes.0.reviews_count }} reviews)
+                ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{ random_bikes.0.reviews_count }} reviews)
               </p>
-
               <p class="location">
                 {{ random_bikes.0.location | default:"Location not available" }}
               </p>
@@ -1076,40 +1062,30 @@
           <p>No bike data available.</p>
           {% endif %}
         </div>
-
+  
+  
         <!-- Card 2 -->
         <div class="card">
           <!-- Check if there are bikes and use the first one (random_bike.0) -->
-          {% if random_bikes %}
-          <a
-            href="{% url 'Booking' random_bikes.1.id %}"
-            style="text-decoration: none; color: inherit"
-          >
-            <img
-              src="{{ random_bikes.1.image.url }}"
-              alt="{{ random_bikes.1.name }}"
-            />
-
+          {% if random_bikes|length > 1 %}
+          <a href="{% url 'Booking' random_bikes.1.id %}"style="text-decoration: none; color: inherit;">
+            <img src="{{ random_bikes.1.image.url }}" alt="{{ random_bikes.1.name }}" />
+  
             <div class="card-content">
               <h3>{{ random_bikes.1.name }}</h3>
-
+  
               <!-- Bike description, with a default message if not available -->
-              <p>
-                {{ random_bikes.1.short_description | default:"No description
-                available." }}
-              </p>
-
+              <p>{{ random_bikes.1.short_description | default:"No description available." }}</p>
+  
               <p class="price">
-                Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{
-                random_bikes.1.weekly_rate }} /week
+                Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{ random_bikes.1.weekly_rate }} /week
               </p>
-
+  
               <!-- Rating -->
               <p class="rating">
-                ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{
-                random_bikes.1.reviews_count }} reviews)
+                ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{ random_bikes.1.reviews_count }} reviews)
               </p>
-
+  
               <p class="location">
                 {{ random_bikes.1.location | default:"Location not available" }}
               </p>
@@ -1119,130 +1095,96 @@
           <p>No bike data available.</p>
           {% endif %}
         </div>
-
+  
         <!-- Card 3 -->
         <div class="card">
           <!-- Check if there are bikes and use the first one (random_bike.0) -->
-          {% if random_bikes %}
-          <a
-            href="{% url 'Booking' random_bikes.2.id %}"
-            style="text-decoration: none; color: inherit"
-          >
-            <img
-              src="{{ random_bikes.2.image.url }}"
-              alt="{{ random_bikes.2.name }}"
-            />
-
-            <div class="card-content">
-              <h3>{{ random_bikes.2.name }}</h3>
-
-              <!-- Bike description, with a default message if not available -->
-              <p>
-                {{ random_bikes.2.short_description | default:"No description
-                available." }}
-              </p>
-
-              <p class="price">
-                Rs. {{ random_bikes.2.daily_rate }} /day | Rs. {{
-                random_bikes.2.weekly_rate }} /week
-              </p>
-
-              <!-- Rating -->
-              <p class="rating">
-                ⭐ {{ random_bikes.2.rating | default:"N/A" }} ({{
-                random_bikes.2.reviews_count }} reviews)
-              </p>
-
-              <p class="location">
-                {{ random_bikes.2.location | default:"Location not available" }}
-              </p>
-            </div>
+          {% if random_bikes|length > 2 %}
+          <a href="{% url 'Booking' random_bikes.2.id %}"style="text-decoration: none; color: inherit;">
+          <img src="{{ random_bikes.2.image.url }}" alt="{{ random_bikes.2.name }}" />
+  
+          <div class="card-content">
+            <h3>{{ random_bikes.2.name }}</h3>
+  
+            <!-- Bike description, with a default message if not available -->
+            <p>{{ random_bikes.2.short_description | default:"No description available." }}</p>
+  
+            <p class="price">
+              Rs. {{ random_bikes.2.daily_rate }} /day | Rs. {{ random_bikes.2.weekly_rate }} /week
+            </p>
+  
+            <!-- Rating -->
+            <p class="rating">
+              ⭐ {{ random_bikes.2.rating | default:"N/A" }} ({{ random_bikes.2.reviews_count }} reviews)
+            </p>
+  
+            <p class="location">
+              {{ random_bikes.2.location | default:"Location not available" }}
+            </p>
+          </div>
           </a>
           {% else %}
           <p>No bike data available.</p>
           {% endif %}
         </div>
-
+  
         <!-- Card 4 -->
         <div class="card">
           <!-- Check if there are bikes and use the first one (random_bike.0) -->
-          {% if random_bikes %}
-          <a
-            href="{% url 'Booking' random_bikes.0.id %}"
-            style="text-decoration: none; color: inherit"
-          >
-            <img
-              src="{{ random_bikes.0.image.url }}"
-              alt="{{ random_bikes.0.name }}"
-            />
-
-            <div class="card-content">
-              <h3>{{ random_bikes.0.name }}</h3>
-
-              <!-- Bike description, with a default message if not available -->
-              <p>
-                {{ random_bikes.0.short_description | default:"No description
-                available." }}
-              </p>
-
-              <p class="price">
-                Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{
-                random_bikes.0.weekly_rate }} /week
-              </p>
-
-              <!-- Rating -->
-              <p class="rating">
-                ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{
-                random_bikes.0.reviews_count }} reviews)
-              </p>
-
-              <p class="location">
-                {{ random_bikes.0.location | default:"Location not available" }}
-              </p>
-            </div>
+          {% if random_bikes|length > 3 %}
+          <a href="{% url 'Booking' random_bikes.3.id %}"style="text-decoration: none; color: inherit;">
+          <img src="{{ random_bikes.3.image.url }}" alt="{{ random_bikes.3.name }}" />
+  
+          <div class="card-content">
+            <h3>{{ random_bikes.3.name }}</h3>
+  
+            <!-- Bike description, with a default message if not available -->
+            <p>{{ random_bikes.3.short_description | default:"No description available." }}</p>
+  
+            <p class="price">
+              Rs. {{ random_bikes.3.daily_rate }} /day | Rs. {{ random_bikes.3.weekly_rate }} /week
+            </p>
+  
+            <!-- Rating -->
+            <p class="rating">
+              ⭐ {{ random_bikes.3.rating | default:"N/A" }} ({{ random_bikes.3.reviews_count }} reviews)
+            </p>
+  
+            <p class="location">
+              {{ random_bikes.3.location | default:"Location not available" }}
+            </p>
+          </div>
           </a>
           {% else %}
           <p>No bike data available.</p>
           {% endif %}
         </div>
-
+  
         <!-- Card 5 -->
         <div class="card">
           <!-- Check if there are bikes and use the first one (random_bike.0) -->
-          {% if random_bikes %}
-          <a
-            href="{% url 'Booking' random_bikes.1.id %}"
-            style="text-decoration: none; color: inherit"
-          >
-            <img
-              src="{{ random_bikes.1.image.url }}"
-              alt="{{ random_bikes.1.name }}"
-            />
-
-            <div class="card-content">
-              <h3>{{ random_bikes.1.name }}</h3>
-
-              <!-- Bike description, with a default message if not available -->
-              <p>
-                {{ random_bikes.1.short_description | default:"No description
-                available." }}
-              </p>
-
-              <p class="price">
-                Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{
-                random_bikes.1.weekly_rate }} /week
-              </p>
-
-              <!-- Rating -->
-              <p class="rating">
-                ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{
-                random_bikes.1.reviews_count }} reviews)
-              </p>
-
-              <p class="location">
-                {{ random_bikes.1.location | default:"Location not available" }}
-              </p>
-            </div>
+          {% if random_bikes|length > 4 %}
+          <a href="{% url 'Booking' random_bikes.4.id %}"style="text-decoration: none; color: inherit;">
+          <img src="{{ random_bikes.4.image.url }}" alt="{{ random_bikes.1.name }}" />
+  
+          <div class="card-content">
+            <h3>{{ random_bikes.4.name }}</h3>
+            <!-- Bike description, with a default message if not available -->
+            <p>{{ random_bikes.4.short_description | default:"No description available." }}</p>
+  
+            <p class="price">
+              Rs. {{ random_bikes.4.daily_rate }} /day | Rs. {{ random_bikes.4.weekly_rate }} /week
+            </p>
+  
+            <!-- Rating -->
+            <p class="rating">
+              ⭐ {{ random_bikes.4.rating | default:"N/A" }} ({{ random_bikes.4.reviews_count }} reviews)
+            </p>
+  
+            <p class="location">
+              {{ random_bikes.4.location | default:"Location not available" }}
+            </p>
+          </div>
           </a>
           {% else %}
           <p>No bike data available.</p>
@@ -1292,95 +1234,108 @@
     </footer>
 
     <script>
-      const popupOverlay = document.getElementById("popup-overlay");
-      const popupClose = document.getElementById("popup-close");
-      const rentNowBtn = document.getElementById("rent-now-btn");
-      const checkAvailabilityBtn = document.getElementById("check-availability");
-    
-      const today = new Date();
-      const tomorrow = new Date(today);
-      tomorrow.setDate(today.getDate() + 1);
-    
-      const startDateInput = document.getElementById("start-date");
-      const endDateInput = document.getElementById("end-date");
-    
-      // Format date to YYYY-MM-DD
-      const formatDate = (date) => date.toISOString().split("T")[0];
-    
-      // Set minimum dates
-      startDateInput.setAttribute("min", formatDate(today));
-      endDateInput.setAttribute("min", formatDate(tomorrow));
-    
-      // Update end date min dynamically
-      startDateInput.addEventListener("change", () => {
-        const startDate = new Date(startDateInput.value);
-        const minEndDate = new Date(startDate);
-        minEndDate.setDate(startDate.getDate() + 1);
-        endDateInput.setAttribute("min", formatDate(minEndDate));
-        if (endDateInput.value && new Date(endDateInput.value) <= startDate) {
-          endDateInput.value = "";
-        }
-      });
-    
-      // Handle check availability
-      checkAvailabilityBtn.addEventListener("click", function () {
-        const startDateValue = startDateInput.value;
-        const endDateValue = endDateInput.value;
-        const quantity = parseInt(document.getElementById("quantity").value) || 1;
-    
-        if (!startDateValue || !endDateValue) {
-          alert("Please select both start and end dates.");
-          return;
-        }
-    
-        const startDate = new Date(startDateValue);
-        const endDate = new Date(endDateValue);
-        const timeDiff = endDate - startDate;
-        const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    
-        if (days <= 0) {
-          alert("End date must be after start date.");
-          return;
-        }
-    
-        // Only calculate total cost
-        const pricePerDay = 700;
-        const total = (pricePerDay * days * quantity).toFixed(2);
-    
-        // Format display dates
-        const options = { day: "numeric", month: "short", year: "numeric" };
-        const startFormatted = startDate.toLocaleString("en-US", options);
-        const endFormatted = endDate.toLocaleString("en-US", options);
-    
-        // Set popup content
-        document.getElementById("duration-text").textContent = `${startFormatted} - ${endFormatted}`;
-        document.getElementById("bike-name").textContent = "Yellow Panther";
-        document.getElementById("model-name").textContent = "Maja-City Bike";
-        document.getElementById("quantity-display").textContent = quantity;
-        document.getElementById("total-amount").textContent = `Rs ${total}`;
-    
-        // Show popup
-        popupOverlay.style.display = "flex";
-      });
-    
-      // Close popup
-      popupClose.addEventListener("click", function () {
-        popupOverlay.style.display = "none";
-      });
-    
-      // Confirm booking
-      rentNowBtn.addEventListener("click", function () {
-        popupOverlay.style.display = "none";
-        alert("Bike rental confirmed! Redirecting to payment...");
-      });
-    
-      // Close popup by clicking overlay background
-      popupOverlay.addEventListener("click", function (e) {
-        if (e.target === popupOverlay) {
-          popupOverlay.style.display = "none";
-        }
-      });
+// Popup logic
+const popupOverlay = document.getElementById("popup-overlay");
+const popupClose = document.getElementById("popup-close");
+const rentNowBtn = document.getElementById("rent-now-btn");
+const checkAvailabilityBtn = document.getElementById("check-availability");
+const rentalForm = document.getElementById("rental-form");
+
+const startDateInput = document.getElementById("start-date");
+const endDateInput = document.getElementById("end-date");
+
+// Set minimum date for calendar inputs
+const today = new Date();
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+
+// Format date for min attribute (YYYY-MM-DD)
+const formatDate = (date) => {
+  return date.toISOString().split("T")[0];
+};
+
+startDateInput.setAttribute("min", formatDate(today));
+endDateInput.setAttribute("min", formatDate(tomorrow));
+
+// Update end date min when start date changes
+startDateInput.addEventListener("change", () => {
+  const startDate = new Date(startDateInput.value);
+  const minEndDate = new Date(startDate);
+  minEndDate.setDate(startDate.getDate() + 1);
+  endDateInput.setAttribute("min", formatDate(minEndDate));
+  if (endDateInput.value && new Date(endDateInput.value) <= startDate) {
+    endDateInput.value = "";
+  }
+});
+
+checkAvailabilityBtn.addEventListener("click", function () {
+  const startDateInputValue = startDateInput.value;
+  const endDateInputValue = endDateInput.value;
+  const quantityInput = document.getElementById("quantity");
+  const quantity = parseInt(quantityInput.value) || 1; // Fallback to 1 if invalid
+
+  // Validate inputs
+  if (!startDateInputValue || !endDateInputValue) {
+    alert("Please select both start and end dates.");
+    return;
+  }
+
+  const startDate = new Date(startDateInputValue);
+  const endDate = new Date(endDateInputValue);
+  const timeDiff = endDate - startDate;
+  const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+  if (days <= 0) {
+    alert("End date must be after start date.");
+    return;
+  }
+
+  // Calculate costs
+  const pricePerDay = 700; // This should ideally come from bike.daily_rate
+  const subtotal = pricePerDay * days * quantity;
+  const serviceFee = (subtotal * 0.24).toFixed(2);
+  const insurance = (5 * quantity).toFixed(2);
+  const total = (
+    parseFloat(subtotal) +
+    parseFloat(serviceFee) +
+    parseFloat(insurance)
+  ).toFixed(2);
+
+  // Format dates for display
+  const options = {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  };
+  const startFormatted = startDate.toLocaleString("en-US", options);
+  const endFormatted = endDate.toLocaleString("en-US", options);
+
+  // Update popup content
+  document.getElementById("duration-text").textContent = `${startFormatted} - ${endFormatted}`;
+  document.getElementById("subtotal").textContent = `Rs ${subtotal.toFixed(2)}`;
+  document.getElementById("service-fee").textContent = `Rs ${serviceFee}`;
+  document.getElementById("insurance").textContent = `Rs ${insurance}`;
+  document.getElementById("total-amount").textContent = `Rs ${total}`;
+
+  // Show popup
+  popupOverlay.style.display = "flex";
+});
+
+popupClose.addEventListener("click", function () {
+  popupOverlay.style.display = "none";
+});
+
+rentNowBtn.addEventListener("click", function () {
+  rentalForm.submit();
+  popupOverlay.style.display = "none";
+  alert("Bike rental confirmed! Redirecting to payment...");
+});
+
+popupOverlay.addEventListener("click", function (e) {
+  if (e.target === popupOverlay) {
+    popupOverlay.style.display = "none";
+  }
+});
     </script>
-    
   </body>
 </html>
