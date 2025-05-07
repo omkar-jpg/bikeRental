@@ -18,6 +18,7 @@ def book_bike(request, bike_id):
 
     bikes = Bikes.objects.all()  # Retrieve all bikes
     random_bikes = random.sample(list(bikes), min(3, len(bikes)))  # Pick 3 random bikes
+    
 
     form = BookingForm(request.POST or None)  # Initialize form with POST data if available
 

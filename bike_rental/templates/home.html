@@ -244,6 +244,7 @@
 
 <body>
   <!-- Header -->
+  {{ bikes|json_script:"bikes-data" }}
   <header class="header">
     <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
     <div class="language-currency">
@@ -459,22 +460,82 @@
     </div>
   </section>
 
-  <!-- Popular Places -->
-  <section class="popular-places">
-    <h2>Popular Rental Locations</h2>
-    <div class="places-container">
-      <span>Thamel</span>
-      <span>Jhamsikhel</span>
-      <span>Boudha</span>
-      <span>Patan</span>
-      <span>Bhaktapur</span>
-      <span>Kirtipur</span>
-      <span>Gongabu</span>
-      <span>Kalanki</span>
-      <span>Chabahil</span>
-      <span>Swayambhu</span>
-    </div>
-  </section>
+  <link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Popular Places Section -->
+<section class="popular-places">
+  <h2>Popular Rental Locations</h2>
+  <div class="places-container">
+    <button class="place-btn" data-location="Thamel">Thamel</button>
+    <button class="place-btn" data-location="Jhamsikhel">Jhamsikhel</button>
+    <button class="place-btn" data-location="Boudha">Boudha</button>
+    <button class="place-btn" data-location="Patan">Patan</button>
+    <button class="place-btn" data-location="Bhaktapur">Bhaktapur</button>
+    <button class="place-btn" data-location="Kirtipur">Kirtipur</button>
+    <button class="place-btn" data-location="Gongabu">Gongabu</button>
+    <button class="place-btn" data-location="Kalanki">Kalanki</button>
+    <button class="place-btn" data-location="Chabahil">Chabahil</button>
+    <button class="place-btn" data-location="Swayambhu">Swayambhu</button>
+  </div>
+</section>
+
+<!-- Map Section -->
+<div id="map" style="height: 400px; display: none; margin-top: 20px; border-radius: 10px; overflow: hidden;"></div>
+
+<!-- JavaScript to Load Map and Markers -->
+<script>
+  // Parse the JSON data from the script tag
+  const allBikes = JSON.parse(document.getElementById('bikes-data').textContent);
+
+  const mapContainer = document.getElementById("map");
+  let map;
+
+  document.querySelectorAll(".place-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+      const place = button.dataset.location.toLowerCase();
+      const bikesInPlace = allBikes.filter((b) => b.location.toLowerCase().includes(place));
+
+      if (bikesInPlace.length === 0) {
+        alert("No bikes available in " + place);
+        return;
+      }
+
+      mapContainer.style.display = "block";
+
+      if (map) {
+        map.remove();
+      }
+
+      map = L.map("map").setView(
+        [bikesInPlace[0].latitude, bikesInPlace[0].longitude],
+        14
+      );
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "&copy; OpenStreetMap contributors",
+      }).addTo(map);
+
+      bikesInPlace.forEach((bike) => {
+        const marker = L.marker([bike.latitude, bike.longitude], {
+          icon: L.icon({
+            iconUrl: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
+            iconSize: [32, 32],
+          }),
+        }).addTo(map);
+
+        marker.bindPopup(
+          `<b>${bike.name}</b><br><a href="/booking/${bike.id}/" target="_blank">Book Now</a>`
+        );
+      });
+    });
+  });
+</script>
+
 
   <!-- Recently Booked -->
   <section class="bikes-section">
@@ -867,6 +928,7 @@
       });
     });
   </script>
+  {{ bikes_json|safe }}
 </body>
 
 </html>

@@ -23,6 +23,9 @@ class Bikes(models.Model):
 
     location = models.CharField(max_length=100, blank=True)
 
+    latitude = models.FloatField(default=80)
+    longitude = models.FloatField(default=80)
+
     rating = models.FloatField(default = 0)
 
     quantity = models.PositiveIntegerField(default=1)

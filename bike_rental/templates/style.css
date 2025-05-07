@@ -1,117 +1,117 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f8f8;
-  }
-  
-  /* Header */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 24px 20px;
-    background-color: #ffffff;
-    color: #ff7f50;
-    font-size: 20px;
-  }
-  
-  .header button {
-    background: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  /* Hero Section */
-  .hero {
-    background-color: #ff5200;
-    padding: 40px;
-    text-align: center;
-    color: white;
-  }
-  
-  .search-box {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .search-box input,
-  .search-box button {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  /* Bikes Section */
-  .bikes-section {
-    padding: 20px;
-  }
-  
-  .bikes-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .bike-card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    text-align: center;
-  }
-  
-  .bike-card img {
-    width: 100%;
-    border-radius: 5px;
-  }
-  
-  /* Popular Places */
-  .popular-places {
-    background: #ff5200;
-  
-    color: white;
-    padding: 20px;
-    text-align: left;
-  }
-  
-  .places-container span {
-    display: inline-block;
-    background: white;
-    color: #ff7f50;
-    padding: 8px 12px;
-    border-radius: 5px;
-    margin: 5px;
-  }
-  
-  /* About Us */
-  .about {
-    background: #ddd;
-    padding: 40px 20px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .about-content {
-    max-width: 800px; /* Adjust for better readability */
-    text-align: center;
-  }
-  
-  .about p {
-    text-align: justify;
-    margin-bottom: 10px;
-  }
-  
-  .about ul {
-    text-align: left;
-    display: inline-block;
-    margin-top: 10px;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 20px;
+  background-color: #ffffff;
+  color: #ff7f50;
+  font-size: 20px;
+}
+
+.header button {
+  background: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+  background-color: #ff5200;
+  padding: 40px;
+  text-align: center;
+  color: white;
+}
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.search-box input,
+.search-box button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Bikes Section */
+.bikes-section {
+  padding: 20px;
+}
+
+.bikes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.bike-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  text-align: center;
+}
+
+.bike-card img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* Popular Places */
+.popular-places {
+  background: #ff5200;
+
+  color: white;
+  padding: 20px;
+  text-align: left;
+}
+
+.places-container span {
+  display: inline-block;
+  background: white;
+  color: #ff7f50;
+  padding: 8px 12px;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+/* About Us */
+.about {
+  background: #ddd;
+  padding: 40px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-content {
+  max-width: 800px; /* Adjust for better readability */
+  text-align: center;
+}
+
+.about p {
+  text-align: justify;
+  margin-bottom: 10px;
+}
+
+.about ul {
+  text-align: left;
+  display: inline-block;
+  margin-top: 10px;
+}
