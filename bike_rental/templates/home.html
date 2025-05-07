@@ -271,37 +271,49 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1 style="color: #ff6b00; font-weight: bolder">
-      Rent bikes from Kathmandu's largest online bike rental platform
-    </h1>
-    <div class="search-box">
-      <div class="search-container">
-        <div class="search-item">
-          <select class="form-input" name="places" id="places">
-            <option value="" disabled selected>Select places</option>
-            <option value="thamel">Thamel</option>
-            <option value="jhamsikhel">Jhamsikhel</option>
-            <option value="boudha">Boudha</option>
-            <option value="patan">Patan</option>
-            <option value="bhaktapur">Bhaktapur</option>
-            <option value="kirtipur">Kirtipur</option>
-            <option value="gongabu">Gongabu</option>
-          </select>
+      <!-- Hero Section -->
+    <section class="hero">
+      <h1 style="color: #ff6b00; font-weight: bolder">
+        Rent bikes from Kathmandu's largest online bike rental platform
+      </h1>
+      <div class="search-box">
+        <div class="search-container">
+          <div class="search-item">
+            <select class="form-input" name="places" id="places">
+              <option value="" disabled selected>Select places</option>
+              <option value="thamel">Thamel</option>
+              <option value="jhamsikhel">Jhamsikhel</option>
+              <option value="boudha">Boudha</option>
+              <option value="patan">Patan</option>
+              <option value="bhaktapur">Bhaktapur</option>
+              <option value="kirtipur">Kirtipur</option>
+              <option value="gongabu">Gongabu</option>
+            </select>
+          </div>
+          <div class="divider"></div>
+          <div class="search-item">
+            <input
+              type="text"
+              id="dateRange"
+              class="date-range-box"
+              placeholder="Select dates"
+            />
+          </div>
+          <div class="divider"></div>
+          <div class="search-item">
+            <input type="number" placeholder="Number of bikes" min="1" />
+          </div>
+          <!-- <button class="search-btn">➔</button> -->
+          <button
+            type="button"
+            class="search-btn"
+            onclick="setTimeout(() => { window.location.href = 'booking.html'; }, 500)"
+          >
+            ➔
+          </button>
         </div>
-        <div class="divider"></div>
-        <div class="search-item">
-          <input type="text" id="dateRange" class="date-range-box" placeholder="Select dates" />
-        </div>
-        <div class="divider"></div>
-        <div class="search-item">
-          <input type="number" placeholder="Number of bikes" min="1" />
-        </div>
-        <button class="search-btn">➔</button>
       </div>
-    </div>
-  </section>
+    </section>
 
   <!-- Frequently Booked Bikes -->
   <section class="frequently-booked">

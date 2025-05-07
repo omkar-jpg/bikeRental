@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Bikeeez</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        color: #333;
+        line-height: 1.6;
+        background-color: #fff8f2;
+      }
+
+      /* Header */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+        background-color: #ff6b00;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        background-color: #ff6b00;
+        border: none;
+      }
+
+      .logo2 {
+        font-size: 30px;
+        font-weight: bold;
+        color: #ff6b00;
+      }
+
+      .language-currency {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .language-currency select {
+        padding: 8px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      .loginBtn {
+        padding: 8px 20px;
+        background-color: white;
+        color: #ff6b00;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .loginBtn:hover {
+        background-color: #ffe0cc;
+        transform: translateY(-2px);
+      }
+
+      .user-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: white;
+        transition: all 0.3s;
+      }
+
+      .user-icon:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        padding: 60px 5% 80px;
+        background: linear-gradient(
+          rgba(255, 107, 0, 0.1),
+          rgba(255, 107, 0, 0.1)
+        );
+      }
+
+      .bikeez-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 40px;
+      }
+
+      .bikeez-header .logo {
+        font-size: 40px;
+      }
+
+      .about-title {
+        font-size: 40px;
+        color: #ff6b00;
+        font-weight: bold;
+      }
+
+      .image1 {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        transition: all 0.3s;
+      }
+
+      .image1:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+      }
+
+      /* Content Sections */
+      .content-section {
+        padding: 40px 5%;
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        border: 1px solid #ffe0cc;
+        margin-bottom: 30px;
+        transition: all 0.3s;
+      }
+
+      .content-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+      }
+
+      h2 {
+        font-size: 28px;
+        color: #ff6b00;
+        margin-bottom: 20px;
+        text-align: center;
+        position: relative;
+      }
+
+      h2:after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: #ff6b00;
+        margin: 10px auto 0;
+        border-radius: 2px;
+      }
+
+      .content-section p {
+        font-size: 1.1em;
+        color: #666;
+        text-align: justify;
+      }
+
+      .what-is {
+        text-align: center;
+      }
+
+      .what-is span {
+        display: block;
+      }
+
+      .what-is .light {
+        font-weight: lighter;
+        font-size: 40px;
+      }
+
+      .what-is .bold {
+        font-weight: bold;
+        font-size: 40px;
+        color: #ff6b00;
+      }
+
+      /* Be a Part Section */
+      .be-part {
+        background-color: #ff6b00;
+        color: white;
+        text-align: center;
+        padding: 40px 5%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 150px;
+      }
+
+      .be-part h1 {
+        font-size: 32px;
+        font-weight: bold;
+      }
+
+      /* About Section */
+      .about {
+        background-color: #fff8f2;
+        padding: 60px 5%;
+      }
+
+      .about-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .about h3 {
+        font-size: 18px;
+        color: #ff6b00;
+        margin: 25px 0 15px;
+      }
+
+      .about ul {
+        text-align: left;
+        max-width: 600px;
+        margin: 0 auto;
+        list-style-position: inside;
+      }
+
+      .about li {
+        margin-bottom: 10px;
+        padding-left: 10px;
+        color: #666;
+      }
+
+      /* Footer Styles */
+      .footer {
+        background-color: #fbebd9;
+        padding: 40px 20px;
+        width: 1800px;
+        margin-top: 50px;
+        /* margin-left: -250px; */
+        margin-bottom: -50px;
+        margin-right: -250px;
+        border-top: 1px solid #ffe0b2;
+      }
+
+      .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1500px;
+        margin: 0 auto;
+        gap: 40px;
+        justify-content: space-between;
+      }
+
+      /* Logo Section */
+      .footer-logo {
+        flex: 0 0 200px;
+      }
+
+      .footer-logo .logo {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        color: #ff6b00;
+      }
+
+      .footer-logo p {
+        line-height: 1.6;
+        color: #666;
+      }
+
+      /* Links Sections */
+      .footer-links {
+        min-width: 150px;
+      }
+
+      .footer-links h3 {
+        color: #ff6b00;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+      }
+
+      .footer-links ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 8px;
+      }
+
+      .footer-links a {
+        color: #666;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: #ff6b00;
+      }
+
+      /* Copyright Section */
+      .footer-bottom {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #ffe0b2;
+        color: #999;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .footer-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .footer-logo {
+          flex: 1;
+          text-align: center;
+        }
+
+        .footer-links {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <!-- <div class="logo">🚴‍♂️ <b>Bikeeez</b></div> -->
+      <button
+        type="button"
+        class="logo"
+        onclick="setTimeout(() => { window.location.href = 'home.html'; }, 500)"
+      >
+        🚴‍♂️ Bikeeez
+      </button>
+
+      <div class="language-currency">
+        <select>
+          <option value="en">EN</option>
+          <option value="np">NP</option>
+        </select>
+        <button
+          type="button"
+          class="loginBtn"
+          onclick="window.location.href='login.html'"
+        >
+          Login
+        </button>
+
+        <div class="user-icon">👤</div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="bikeez-header">
+        <div style="background-color: #ffeadd; color: #ff6b00" ; class="logo">
+          🚴‍♂️ <b>Bikeeez -</b>
+        </div>
+        <div class="about-title">About Us</div>
+      </div>
+      <img
+        class="image1"
+        src="https://listnride-assets.s3.eu-central-1.amazonaws.com/images/about/story_1.webp"
+        alt="Bikeeez Bike"
+      />
+    </section>
+
+    <!-- What is Bikeez -->
+    <div class="content-section what-is">
+      <div>
+        <span class="light">What is</span>
+        <span class="bold">Bikeeez</span>
+      </div>
+      <p>
+        Bikeeez revolutionizes urban mobility through smart, sustainable
+        bike-sharing solutions. As your trusted mobility partner, we provide
+        convenient on-demand bike rentals that make city navigation effortless
+        and eco-conscious. Our user-friendly app gives you instant access to a
+        network of premium bicycles stationed at strategic locations throughout
+        the city, available whenever you need them. By combining cutting-edge
+        technology with environmentally friendly transportation, we deliver
+        seamless, affordable rides that leave zero carbon footprint. Whether
+        you're commuting to work, running errands, or simply exploring your
+        city, Bikeeez offers the perfect blend of freedom, flexibility, and
+        sustainability—all through the power of pedal.
+      </p>
+    </div>
+
+    <!-- Our Vision -->
+    <div class="content-section">
+      <h2>Our Vision</h2>
+      <p>
+        We dream of cities where clean, efficient bike travel is at the heart of
+        urban life. By reimagining how people move, we strive to reduce traffic,
+        lower emissions, and create more livable communities. Our vision extends
+        beyond rentals—we're building a movement that prioritizes people and the
+        planet over pollution and congestion. Through innovation and community,
+        we aim to make biking the smartest choice for short trips in
+        neighborhoods worldwide. Together, we can turn streets into vibrant
+        spaces that connect, not divide.
+      </p>
+    </div>
+
+    <!-- Why Ride With Us -->
+    <div class="content-section">
+      <h2>Why Ride With Us?</h2>
+      <p>
+        We remove the hassle from bike rentals with an intuitive app, reliable
+        bikes, and flexible pricing. Every ride with us supports sustainable
+        urban growth, cutting carbon emissions while keeping you active. Our
+        network of convenient pickup locations ensures you're never far from
+        your next adventure. Safety and simplicity guide everything we do, from
+        GPS-enabled bikes to 24/7 customer care. Experience the freedom of two
+        wheels—without the commitment of ownership—on terms that work for you.
+      </p>
+    </div>
+
+    <!-- The Future We're Building -->
+    <div class="content-section">
+      <h2>The Future We're Building</h2>
+      <p>
+        Imagine a city where the air is fresher, streets quieter, and commutes
+        happier—that's where we're headed. By expanding access to affordable
+        bikes and advocating for bike-friendly infrastructure, we're part of a
+        global shift toward people-first cities. Every pedal stroke with us is a
+        step away from fossil fuels and toward community, health, and joy. We
+        won't stop until biking is the obvious choice for millions. The road
+        ahead is clear, and it's lined with bike lanes.
+      </p>
+    </div>
+
+    <!-- Be a Part Section -->
+    <div class="be-part">
+      <h1>Be a Part of Bikeeez</h1>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" style="width: 100%">
+      <div class="footer-container">
+        <!-- Logo Section -->
+        <div class="footer-logo">
+          <div class="logo2">🚴‍♂️ <b>Bikeeez</b></div>
+          <p>Kathmandu's premier bike rental platform</p>
+        </div>
+
+        <!-- Quick Links Section -->
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contactus.html">Contact Us</a></li>
+            <li><a href="/admin/adminlogin.html">Admin</a></li>
+            <li><a href="/privacy">Privacy</a></li>
+          </ul>
+        </div>
+
+        <!-- Top Places Section -->
+        <div class="footer-links">
+          <h3>Top Places</h3>
+          <ul>
+            <li><a href="#">Thamel</a></li>
+            <li><a href="#">Jhamsikhel</a></li>
+            <li><a href="#">Boudha</a></li>
+            <li><a href="#">Patan</a></li>
+            <li><a href="#">Bhaktapur</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Copyright Section -->
+      <div class="footer-bottom">
+        <p>© 2025 Bikeeez Nepal. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", function () {
+          window.location.href = "/login";
+        });
+    </script>
+  </body>
+</html>

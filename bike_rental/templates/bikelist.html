@@ -219,30 +219,45 @@
   </head>
   <body>
     <!-- Header -->
+    {{ bikes|json_script:"bikes-data" }}
     <header class="header">
-      <!-- <div class="logo">🚴‍♂️ <b>Bikeeez</b></div> -->
       <button
         type="button"
         class="logo"
-        onclick="setTimeout(() => { window.location.href = 'home.html'; }, 500)"
+        data-url="{% url 'home' %}"
+        onclick="redirectToHome()"
       >
         🚴‍♂️ Bikeeez
       </button>
 
+      <script>
+        function redirectToHome() {
+          var homeUrl = document
+            .querySelector(".logo")
+            .getAttribute("data-url");
+          setTimeout(() => {
+            window.location.href = homeUrl;
+          }, 500);
+        }
+      </script>
       <div class="language-currency">
-        <!-- <select>
-                <option value="en">EN</option>
-                <option value="np">NP</option>
-              </select> -->
-        <button
-          type="button"
-          class="loginBtn"
-          onclick="window.location.href='login.html'"
-        >
-          Login
-        </button>
 
-        <div class="user-icon">👤</div>
+        <div class="language-currency">
+          <button type="button" class="loginBtn" data-url="{% url 'logout' %}" onclick="redirectToLogout()">
+              Logout
+          </button>
+  
+          <script>
+              function redirectToLogout() {
+                  var logoutUrl = document.querySelector('.loginBtn').getAttribute('data-url');
+                  setTimeout(() => { window.location.href = logoutUrl; }, 500);
+              }
+          </script>
+      </div>
+  
+        <a href="{% url 'profile' %}">
+          <div class="user-icon">👤</div>
+      </a>
       </div>
     </header>
     <div class="header2">

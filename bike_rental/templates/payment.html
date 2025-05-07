@@ -348,28 +348,57 @@
   </head>
   <body>
     <!-- Header -->
+    {{ bikes|json_script:"bikes-data" }}
     <header class="header">
       <button
         type="button"
         class="logo"
-        onclick="setTimeout(() => { window.location.href = 'home.html'; }, 500)"
+        data-url="{% url 'home' %}"
+        onclick="redirectToHome()"
       >
         🚴‍♂️ Bikeeez
       </button>
+
+      <script>
+        function redirectToHome() {
+          var homeUrl = document
+            .querySelector(".logo")
+            .getAttribute("data-url");
+          setTimeout(() => {
+            window.location.href = homeUrl;
+          }, 500);
+        }
+      </script>
       <div class="language-currency">
-        <button
-          type="button"
-          class="loginBtn"
-          onclick="window.location.href='login.html'"
-        >
-          Login
-        </button>
-        <div class="user-icon">👤</div>
+        <div class="language-currency">
+          <button
+            type="button"
+            class="loginBtn"
+            data-url="{% url 'logout' %}"
+            onclick="redirectToLogout()"
+          >
+            Logout
+          </button>
+
+          <script>
+            function redirectToLogout() {
+              var logoutUrl = document
+                .querySelector(".loginBtn")
+                .getAttribute("data-url");
+              setTimeout(() => {
+                window.location.href = logoutUrl;
+              }, 500);
+            }
+          </script>
+        </div>
+
+        <a href="{% url 'profile' %}">
+          <div class="user-icon">👤</div>
+        </a>
       </div>
     </header>
-
     <!-- Main Content -->
-    <div class="container" style="margin-bottom: 250px; margin-top: 130px;">
+    <div class="container" style="margin-bottom: 250px; margin-top: 130px">
       <div class="left-section">
         <h2>Payment</h2>
         <div class="payment-section">
@@ -377,16 +406,32 @@
             <h3>Payment</h3>
             <div class="payment-option">
               <label for="esewa">
-                <img src="https://cdn.esewa.com.np/ui/images/logos/esewa-icon-large.png" alt="eSewa Logo" style="height: 20px; margin-right: 5px; vertical-align: middle;" />
-                Esewa
+                <img
+                  src="data:image/png;base64,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"
+                  alt="eSewa Logo"
+                  style="
+                    height: 20px;
+                    margin-right: 5px;
+                    vertical-align: middle;
+                  "
+                />
+                Khalti
               </label>
             </div>
             <div class="payment-option">
-              <input type="text" class="form-input" placeholder="9812345678"  />
+              <input type="text" class="form-input" placeholder="9812345678" />
             </div>
             <div class="form-row">
-              <input type="password" class="form-input form-input-third" placeholder="MPIN/Password"  /><br>
-              <input type="text" class="form-input form-input-third" placeholder="Amount"  />
+              <input
+                type="password"
+                class="form-input form-input-third"
+                placeholder="MPIN/Password"
+              /><br />
+              <input
+                type="text"
+                class="form-input form-input-third"
+                placeholder="Amount"
+              />
             </div>
           </div>
         </div>
@@ -394,21 +439,53 @@
           <div class="segment">
             <h3>Address</h3>
             <div class="form-row">
-              <input type="text" class="form-input form-input-half" placeholder="First Name * " value="Asmit" required />
-              <input type="text" class="form-input form-input-half" placeholder="Last Name * " value="Pradhan" required />
+              <input
+                type="text"
+                class="form-input form-input-half"
+                placeholder="First Name * "
+                value="Asmit"
+                required
+              />
+              <input
+                type="text"
+                class="form-input form-input-half"
+                placeholder="Last Name * "
+                value="Pradhan"
+                required
+              />
             </div>
             <div class="form-row">
-              <input type="text" class="form-input" placeholder="Street and Number * " required />
+              <input
+                type="text"
+                class="form-input"
+                placeholder="Street and Number * "
+                required
+              />
             </div>
             <div class="form-row">
-              <input type="text" class="form-input form-input-third" placeholder="Zip Code * " required />
-              <input type="text" class="form-input form-input-third" placeholder="City * " required />
-              <input type="text" class="form-input form-input-third" placeholder="Country * " required />
+              <input
+                type="text"
+                class="form-input form-input-third"
+                placeholder="Zip Code * "
+                required
+              />
+              <input
+                type="text"
+                class="form-input form-input-third"
+                placeholder="City * "
+                required
+              />
+              <input
+                type="text"
+                class="form-input form-input-third"
+                placeholder="Country * "
+                required
+              />
             </div>
           </div>
         </div>
       </div>
-      <div class="booking-overview" style="margin-top: 80px; width: 400px;">
+      <div class="booking-overview" style="margin-top: 80px; width: 400px">
         <div class="segment">
           <h3>Booking overview</h3>
           <div class="duration">7 May, 12:00 - 8 May, 18:00</div>
