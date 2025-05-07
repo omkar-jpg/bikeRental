@@ -5,6 +5,8 @@ from django.contrib import messages
 from .forms import SignUpForm
 from bikes.views import bike_list
 from users.models import UserProfile
+from django.middleware.csrf import get_token
+
 
 # Home page view - protected by login_required
 @login_required
@@ -29,6 +31,9 @@ def signup_view(request):
             messages.error(request, 'Please correct the error(s) below.')
     else:
         form = SignUpForm()
+
+    if request.method == 'POST':
+        get_token(request)
 
     return render(request, 'signup.html', {
         'form': form,
@@ -55,6 +60,8 @@ def login_view(request):
             return redirect('home')
         else:
             messages.error(request, "Invalid username or password.")
+    if request.method == 'POST':
+        get_token(request)
 
     return render(request, 'login.html', {
         'is_post': request.method == 'POST',

@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from .models import Bikes
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Bikes, BikeRating
+from .form import BikeRatingForm
 import random
 
 def bike_list(request):
@@ -23,3 +24,23 @@ def bike_list(request):
         'random_bikes': random_bikes,  # For the featured section
         'bikes': bikes_data,           # For JSON serialization in the template
     })
+
+def rate_bike(request, bike_id):
+    bike = get_object_or_404(Bikes, id=bike_id)
+    try:
+        existing_rating = BikeRating.objects.get(bike=bike, user=request.user)
+    except BikeRating.DoesNotExist:
+        existing_rating = None
+
+    if request.method == 'POST':
+        form = BikeRatingForm(request.POST, instance = existing_rating)
+        if form.is_valid():
+            rating = form.save(commit = False)
+            rating.bike = bike
+            rating.user = request.user
+            rating.save()
+            return redirect('Booking', bike_id=bike.id)
+    else:
+        form = BikeRatingForm(instance = existing_rating)
+    
+    return render(request, 'rate_bike.html',{'form': form, 'bike': bike})
