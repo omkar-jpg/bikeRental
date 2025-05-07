@@ -19,88 +19,75 @@
     }
 
     /* Header */
-    .user-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.3);
-      /* Adjusted for visibility on orange background */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      /* For better contrast */
-      transition: all 0.3s;
-      /* Homepage hover effect */
-    }
-
-    .user-icon:hover {
-      background-color: rgba(255, 255, 255, 0.5);
-    }
-
-    .language-currency {
-      display: flex;
-      align-items: center;
-    }
-
-    .loginBtn {
-      padding: 8px 20px;
-      background-color: white;
-      color: #ff6b00;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: all 0.3s;
-    }
-
-    .loginBtn:hover {
-      background-color: #ffe0cc;
-      transform: translateY(-2px);
-    }
-
-    .language-currency select {
-      padding: 8px;
-      margin-right: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      /* Adjusted for orange background */
-      border-radius: 4px;
-      background-color: rgba(255, 255, 255, 0.2);
-      color: white;
-    }
-
     .header {
-      display: flex;
-      justify-content: space-between;
-      padding: 24px 20px;
-      background-color: #ff6b00;
-      /* Updated to match homepage */
-      color: white;
-      /* Adjusted for contrast */
-      font-size: 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      /* Homepage shadow */
-    }
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+        background-color: #ff6b00;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
 
-    .header button {
-      background: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      color: #ff6b00;
-      /* Homepage button text color */
-      font-weight: bold;
-      transition: all 0.3s;
-      /* Homepage hover effect */
-    }
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+        background-color: #ff6b00;
+        border: none;
+      }
 
-    .header button:hover {
-      background-color: #ffe0cc;
-      /* Homepage hover color */
-      transform: translateY(-2px);
-    }
+      .logo2 {
+        font-size: 30px;
+        font-weight: bold;
+        color: #ff6b00;
+      }
 
+      .language-currency {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .language-currency select {
+        padding: 8px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      .loginBtn {
+        padding: 8px 20px;
+        background-color: white;
+        color: #ff6b00;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      .loginBtn:hover {
+        background-color: #ffe0cc;
+        transform: translateY(-2px);
+      }
+
+      .user-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: white;
+        transition: all 0.3s;
+      }
+
+      .user-icon:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+      }
     /* Body */
     .container {
       display: flex;
@@ -817,56 +804,34 @@
 </head>
 
 <body>
-  <!-- Header -->
-  
-  
-  <header class="header">
-    <button type="button" class="logo" data-url="{% url 'home' %}" onclick="redirectToHome()">
-      🚴‍♂️ Bikeeez
-    </button>
-
-    <script>
-      function redirectToHome() {
-        var homeUrl = document
-          .querySelector(".logo")
-          .getAttribute("data-url");
-        setTimeout(() => {
-          window.location.href = homeUrl;
-        }, 500);
-      }
-    </script>
-
-    <div class="language-currency">
-      <button type="button" class="loginBtn" data-url="{% url 'logout' %}" onclick="redirectToLogout()">
-        Logout
-      </button>
-
-      <script>
-        function redirectToLogout() {
-          var logoutUrl = document.querySelector('.loginBtn').getAttribute('data-url');
-          setTimeout(() => { window.location.href = logoutUrl; }, 500);
-        }
-      </script>
-    </div>
-
-    <a href="{% url 'profile' %}">
-      <div class="user-icon">👤</div>
-    </a>
-
-    </div>
-
-  </header>
-  <!-- <header class="header">
+    <!-- Header -->
+    {{ bikes|json_script:"bikes-data" }}
+    <header class="header">
       <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
       <div class="language-currency">
-
-        <button id="loginBtn" onclick="redirectToLogin()">Login</button>
-        <div class="user-icon">👤</div>
+        <!-- <select>
+          <option value="en">EN</option>
+          <option value="np">NP</option>
+        </select> -->
+        <div class="language-currency">
+          <button type="button" class="loginBtn" data-url="{% url 'logout' %}" onclick="redirectToLogout()">
+              Logout
+          </button>
+  
+          <script>
+              function redirectToLogout() {
+                  var logoutUrl = document.querySelector('.loginBtn').getAttribute('data-url');
+                  setTimeout(() => { window.location.href = logoutUrl; }, 500);
+              }
+          </script>
       </div>
-    </header> -->
+  
+        <a href="{% url 'profile' %}">
+          <div class="user-icon">👤</div>
+      </a>
+      </div>
+    </header>
 
-
-  <!-- Body -->
    
   <div class="container">
     <div class="image-container">
@@ -965,7 +930,7 @@
 
         <div class="action-links">
           <a href="#" class="share">Share</a>
-          <a href="#" class="wishlist" style="margin-left: 300px; font-weight: bolder">Add to wishlist</a>
+          <!-- <a href="#" class="wishlist" style="margin-left: 300px; font-weight: bolder">Add to wishlist</a> -->
         </div>
 
         <div class="section">
