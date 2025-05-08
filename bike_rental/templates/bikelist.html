@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <title>Bike Booking - Kathmandu Bike Rentals</title>
     <style>
       body {
@@ -82,6 +83,151 @@
       .user-icon:hover {
         background-color: rgba(255, 255, 255, 0.5);
       }
+
+      /* Hero Section */
+
+/* Search Box */
+.search-box {
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  background-color: #fff;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 80%;
+}
+
+.search-item {
+  flex: 1;
+  padding: 15px 20px;
+  position: relative;
+}
+
+.search-item select.form-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  color: #333;
+  background-color: transparent;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  padding-right: 30px;
+}
+
+.search-item select.form-input::-ms-expand {
+  display: none;
+}
+
+.search-item::after {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #333;
+  pointer-events: none;
+}
+
+.search-item input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  color: #333;
+  background-color: transparent;
+}
+
+.search-item input::placeholder {
+  color: #999;
+}
+
+.icon {
+  margin-right: 10px;
+  color: #999;
+}
+
+.divider {
+  width: 1px;
+  height: 30px;
+  background-color: #ddd;
+}
+
+.search-btn {
+  background-color: #ff6b00;
+  color: #fff;
+  border: none;
+  padding: 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  transition: all 0.3s;
+}
+
+.search-btn:hover {
+  background-color: #e65100;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(255, 107, 0, 0.4);
+}
+
+/* Date Range Picker */
+.date-range-box {
+  padding: 0; /* Remove padding to align with other inputs */
+  border: none; /* Remove border */
+  border-radius: 0; /* Remove border-radius */
+  background: transparent; /* Match the search-container background */
+  color: #333; /* Match the color of other inputs */
+  font-family: Arial;
+  width: 100%; /* Ensure it takes full width of the search-item */
+  cursor: pointer;
+  font-weight: normal; /* Match the weight of other inputs */
+}
+
+.date-range-box:hover {
+  border: none; /* Remove border on hover */
+  background: transparent; /* Keep background transparent */
+}
+
+.date-range-box:focus {
+  outline: none;
+  box-shadow: none; /* Remove focus shadow */
+}
+
+.date-range-box::placeholder {
+  color: #999; /* Match placeholder color with other inputs */
+}
+
+/* Orange Calendar Theme */
+.flatpickr-calendar {
+  --fp-primary-color: #ff6b00;
+  --fp-primary-text-color: #fff;
+}
+
+.flatpickr-day.selected {
+  background: #ff6b00;
+  border-color: #ff6b00;
+}
+
+.flatpickr-day:hover {
+  background: #ffd699;
+}
+
 
       .header2 {
         margin-top: 100px;
@@ -245,12 +391,65 @@
         <div class="user-icon">👤</div>
       </div>
     </header>
+
+
+      <!-- Hero Section -->
+  <form>
+    <section class="hero">
+      <div class="search-box">
+        <div class="search-container">
+          <div class="search-item">
+            <select class="form-input" name="places" id="places">
+              <option value="" disabled selected>Select places</option>
+              <option value="thamel">Thamel</option>
+              <option value="jhamsikhel">Jhamsikhel</option>
+              <option value="boudha">Boudha</option>
+              <option value="patan">Patan</option>
+              <option value="bhaktapur">Bhaktapur</option>
+              <option value="kirtipur">Kirtipur</option>
+              <option value="gongabu">Gongabu</option>
+            </select>
+          </div>
+          <div class="divider"></div>
+          <div class="search-item">
+            <input type="text" id="dateRange" class="date-range-box" placeholder="Select dates" />
+          </div>
+          <div class="divider"></div>
+          <div class="search-item">
+            <input type="number" placeholder="Number of bikes" min="1" />
+          </div>
+          <button class="search-btn">➔</button>
+        </div>
+      </div>
+    </section>
+  </form>
+
+
     <div class="header2">
       <h1>Available Bikes</h1>
     </div>
     <div class="card-container" id="bike-list">
       <!-- Bikes will be dynamically inserted here -->
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    // Initialize date picker
+    flatpickr("#dateRange", {
+      mode: "range",
+      minDate: "today",
+      dateFormat: "M j, Y",
+      altInput: true,
+      altFormat: "M j, Y",
+      onChange: function (selectedDates, dateStr, instance) {
+        if (selectedDates.length === 2) {
+          const start = instance.formatDate(selectedDates[0], "M j");
+          const end = instance.formatDate(selectedDates[1], "M j");
+          instance.input.value = `${start} - ${end}`;
+        }
+      },
+    });
+    </script>
 
     <script>
       const bikes = [
