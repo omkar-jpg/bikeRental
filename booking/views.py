@@ -40,7 +40,7 @@ def book_bike(request, bike_id):
                 form.add_error('end_date', "End date must be after start date.")
                 return render(request, 'booking.html', {'form': form, 'bike': bike, 'random_bikes': random_bikes})
 
-            booking.total_price = rental_days * quantity * bike.daily_rate * Decimal('0.10') # Calculate total price
+            booking.total_price = rental_days * quantity * bike.daily_rate * Decimal('0.80') # Calculate total price
             booking.save()  # Save the booking
 
             bike.quantity -= quantity  # Update bike availability
@@ -49,9 +49,9 @@ def book_bike(request, bike_id):
             payment_option = request.POST.get('payment_option')
 
             if payment_option == 'now':
-                return redirect('booking_confirmation', booking_id=booking.id)
+                return redirect('khalti_initiate', booking_id=booking.id)
+               
                 
             else:
-                return redirect('khalti_initiate', booking_id=booking.id)
-
+                 return redirect('booking_confirmation', booking_id=booking.id)
     return render(request, 'booking.html', {'form': form, 'bike': bike, 'random_bikes': random_bikes})

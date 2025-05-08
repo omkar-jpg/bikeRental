@@ -784,7 +784,7 @@ h2:after {
   </header>
 
   <!-- Hero Section -->
-  <form method="POST" action="{% url 'search_bikes' %}">
+  <form method="GET" action="{% url 'search_bikes' %}">
     {% csrf_token %}
     <section class="hero">
       <h1 style="color: #ff6b00; font-weight: bolder">
@@ -838,7 +838,7 @@ h2:after {
         </div>
       </div>
     </section>
-  </form>
+</form>
  
 
   <!-- Frequently Booked Bikes -->
@@ -1415,8 +1415,8 @@ h2:after {
         <h3>Quick Links</h3>
         <ul>
           <li><a href="home.html">Home</a></li>
-          <li><a href="aboutus.html">About Us</a></li>
-          <li><a href="contactus.html">Contact Us</a></li>
+          <li><a href="{% url 'aboutus' %}">About Us</a></li>
+          <li><a href="{% url 'contactus' %}">Contact Us</a></li>
           <!-- <li><a href="/admin/adminlogin.html">Admin</a></li> -->
           <li><a href="/privacy">Privacy</a></li>
         </ul>

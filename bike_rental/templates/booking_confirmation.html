@@ -4,84 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Confirmation</title>
-    
-    <!-- Inline CSS -->
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: "Arial", sans-serif;
         }
 
-        header {
-            background-color: #3498db;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
+        body {
+            background-color: #fff8f2;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
         }
 
         .confirmation-container {
             text-align: center;
-            padding: 50px;
+            padding: 40px;
             background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        /* Booking Confirmed Section */
+        .booking-confirmed {
+            margin-bottom: 30px;
+        }
+
+        .booking-confirmed h1 {
+            font-size: 32px;
+            color: #ff6b00;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #ff6b00;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* Payment Section */
+        .payment-details {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-left: 4px solid #ff6b00;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-top: 50px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
-        h1 {
-            color: #2ecc71;
-            font-size: 36px;
-        }
-
-        p {
+        .payment-details p {
             font-size: 18px;
-            color: #555;
+            color: #333;
+            line-height: 1.5;
         }
 
-        .btn {
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
+        .payment-details strong {
+            color: #ff6b00;
+            font-weight: bold;
+        }
+
+        /* Contact Section */
+        .contact-info {
+            padding: 20px;
+            border-top: 2px solid #ff6b00;
+            border-radius: 8px;
+        }
+
+        .contact-info p {
             font-size: 16px;
-            transition: background-color 0.3s ease;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .contact-info strong {
+            font-size: 20px;
+            color: #ff6b00;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* Button */
+        .btn {
+            background-color: #ff6b00;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.2s;
         }
 
         .btn:hover {
-            background-color: #2980b9;
+            background-color: #f57c00;
         }
 
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #3498db;
-            color: white;
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .confirmation-container {
+                padding: 20px;
+            }
+
+            .booking-confirmed h1 {
+                font-size: 24px;
+                padding-bottom: 8px;
+            }
+
+            .payment-details p {
+                font-size: 16px;
+            }
+
+            .contact-info strong {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Confirmation Content -->
     <div class="confirmation-container">
-        <h1>✅ Booking Confirmed!</h1>
-        <p>Thank you for booking with us. Your bike is ready for your adventure 🚲</p>
-
-        <div style="margin-top: 30px;">
-            <a href="{% url 'home' %}" class="btn">Back to Home</a>
+        <!-- Booking Confirmed Section -->
+        <div class="booking-confirmed">
+            <h1>Booking Confirmed</h1>
         </div>
+
+        <!-- Payment Details Section -->
+        <div class="payment-details">
+            <p>Payment must be completed within <strong>2 days</strong>. Please ensure the payment is made to secure your booking.</p>
+        </div>
+
+        <!-- Contact Info Section -->
+        <div class="contact-info">
+            <p>For more information about the bike details, please contact:</p>
+            <strong>9841234567</strong>
+        </div>
+
+        <!-- Button -->
+        <a href="{% url 'home' %}" class="btn" style="margin-top: 30px; display: inline-block;">Back to Home</a>
     </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Bike Rental</p>
-    </footer>
-
 </body>
 </html>
+<body>

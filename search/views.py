@@ -4,6 +4,7 @@ from bikes.models import Bikes
 def search_bikes(request):
     location = request.GET.get('places')
     quantity = request.GET.get('quantity', 1)
+    print("Location:", location)  # Debugging
 
     try:
         quantity = int(quantity)
@@ -14,9 +15,7 @@ def search_bikes(request):
 
     if location:
         bikes = bikes.filter(location__iexact=location)
-    
-    if quantity:
-        bikes = bikes.filter(quantity__gte=quantity)
+    print("Location received from form:", location)  # This will print in the console/log
 
     return render(request, 'bikelist.html', {
         'filtered_bikes': bikes,

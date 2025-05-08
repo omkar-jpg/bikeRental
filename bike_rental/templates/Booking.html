@@ -1018,7 +1018,8 @@
       </div>
 
       <div class="bike-condition">
-        <h2 style="color: #ff6b00;"> Condition</h2>
+        <h2 style="color: #ff6b00;">Condition</h2>
+        <p>{{ bike.condition|default:"Not specified" }}</p>
       </div>
 
       <div class="user-info" style="margin-top: 140px;">
@@ -1077,9 +1078,9 @@
       <form id="rental-form" method="POST" action="{% url 'Booking' bike_id=bike.id %}">
         {% csrf_token %}
         <input type="hidden" name="payment_option" id="payment-option" value="">
-        <div class="price" style="font-size: 30px">
-          Rs.{{ bike.daily_rate }} / day
-        </div>
+       <div class="price" style="font-size: 30px" data-daily-rate="{{ bike.daily_rate }}">
+  Rs.{{ bike.daily_rate }} / day
+</div>
         <!-- Dynamically display daily price -->
         <div class="price-week">Rs.{{ bike.weekly_rate }}/ week</div>
         <!-- Dynamically display weekly price -->
@@ -1449,7 +1450,11 @@ checkAvailabilityBtn.addEventListener("click", function () {
   document.getElementById("total-amount").textContent = "Rs 0.00";
 
   // Calculate costs
-  const pricePerDay = parseFloat(document.getElementById("subtotal").textContent.replace("Rs ", "").replace(",", "")) || 60.00; // Fallback to 60.00 if initial value is reset
+ 
+
+// Remove the "Rs." part and any commas
+  
+  const pricePerDay = parseFloat("{{ bike.daily_rate }}") || 60; // Fallback to 60.00 if initial value is reset
   const subtotal = pricePerDay * days * quantity;
   const discount = (subtotal * 0.20).toFixed(2); // 20% of subtotal
   const total = (subtotal - parseFloat(discount)).toFixed(2);

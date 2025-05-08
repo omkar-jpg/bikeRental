@@ -21,7 +21,7 @@ def bike_list(request):
     ))
 
     # 🔽 Bikes sorted in ascending order of ratings
-    bikes_sorted_by_rating = Bikes.objects.all().order_by('rating')
+    bikes_sorted_by_rating = Bikes.objects.all().order_by('-rating')
 
     return render(request, 'home.html', {
         'random_bikes': random_bikes,                # For the featured section
@@ -49,3 +49,11 @@ def rate_bike(request, bike_id):
         form = BikeRatingForm(instance = existing_rating)
     
     return render(request, 'rate_bike.html',{'form': form, 'bike': bike})
+
+from django.shortcuts import render
+
+def aboutus_view(request):
+    return render(request, 'aboutus.html')
+
+def aboutus_view(request):
+    return render(request, 'contactus.html')
