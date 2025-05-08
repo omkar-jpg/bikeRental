@@ -20,10 +20,15 @@ def bike_list(request):
         'daily_rate', 'weekly_rate', 'rating', 'quantity'
     ))
 
+    # 🔽 Bikes sorted in ascending order of ratings
+    bikes_sorted_by_rating = Bikes.objects.all().order_by('rating')
+
     return render(request, 'home.html', {
-        'random_bikes': random_bikes,  # For the featured section
-        'bikes': bikes_data,           # For JSON serialization in the template
+        'random_bikes': random_bikes,                # For the featured section
+        'bikes': bikes_data,                         # For JSON serialization in the template
+        'bikes_sorted_by_rating': bikes_sorted_by_rating,  # For display sorted by rating
     })
+
 
 def rate_bike(request, bike_id):
     bike = get_object_or_404(Bikes, id=bike_id)

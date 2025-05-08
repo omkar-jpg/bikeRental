@@ -1075,7 +1075,7 @@
     <div class="details-container">
       <form id="rental-form" method="POST" action="{% url 'Booking' bike_id=bike.id %}">
         {% csrf_token %}
-
+        <input type="hidden" name="payment_option" id="payment-option" value="">
         <div class="price" style="font-size: 30px">
           Rs.{{ bike.daily_rate }} / day
         </div>
@@ -1157,6 +1157,7 @@
       </div>
     </div>
     <div class="button-container">
+      
       <button class="pay-btn pay-now-btn" id="pay-now-btn">Pay now</button>
       <button class="pay-btn pay-later-btn" id="pay-later-btn">Pay later</button>
     </div>
@@ -1385,13 +1386,14 @@
 // Popup logic
 const popupOverlay = document.getElementById("popup-overlay");
 const popupClose = document.getElementById("popup-close");
-const rentNowBtn = document.getElementById("pay-now-btn");
+const payNowBtn = document.getElementById("pay-now-btn");
 const checkAvailabilityBtn = document.getElementById("check-availability");
 const rentalForm = document.getElementById("rental-form");
-
+const payLaterBtn = document.getElementById("pay-later-btn");
 const startDateInput = document.getElementById("start-date");
 const endDateInput = document.getElementById("end-date");
 const quantityInput = document.getElementById("quantity");
+const paymentOptionInput = document.getElementById("payment-option");
 
 // Set minimum date for calendar inputs
 const today = new Date();
@@ -1475,10 +1477,18 @@ popupClose.addEventListener("click", function () {
   popupOverlay.style.display = "none";
 });
 
-rentNowBtn.addEventListener("click", function () {
-  rentalForm.submit();
+payNowBtn.addEventListener("click", function () {
+  paymentOptionInput.value = "now";
+  console.log("Payment option set to:", paymentOptionInput.value); // Debug
   popupOverlay.style.display = "none";
-  alert("Bike rental confirmed! Redirecting to payment...");
+  rentalForm.submit();
+});
+
+payLaterBtn.addEventListener("click", function () {
+  paymentOptionInput.value = "later";
+  console.log("Payment option set to:", paymentOptionInput.value); // Debug
+  popupOverlay.style.display = "none";
+  rentalForm.submit();
 });
 
 popupOverlay.addEventListener("click", function (e) {
