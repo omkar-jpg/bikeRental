@@ -364,16 +364,39 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <button type="button" class="logo" onclick="setTimeout(() => { window.location.href = 'home.html'; }, 500)">
+   <!-- Header -->
+   <header class="header">
+    <button
+      type="button"
+      class="logo"
+      data-url="{% url 'home' %}"
+      onclick="redirectToHome()"
+    >
       🚴‍♂️ Bikeeez
     </button>
-    <div class="language-currency">
-      <button type="button" class="loginBtn" onclick="window.location.href='login.html'">
-        Login
-      </button>
-      <div class="user-icon">👤</div>
+
+    <script>
+      function redirectToHome() {
+        var homeUrl = document
+          .querySelector(".logo")
+          .getAttribute("data-url");
+        setTimeout(() => {
+          window.location.href = homeUrl;
+        }, 500);
+      }
+    </script>
+
+
+      <div class="language-currency">
+        <button type="button" class="loginBtn" data-url="{% url 'logout' %}" onclick="redirectToLogout()">
+            Logout
+        </button>         
+   
+
+      <a href="{% url 'profile' %}">
+        <div class="user-icon">👤</div>
+    </a>
+  </div>
     </div>
   </header>
 
@@ -521,9 +544,10 @@
       <div class="footer-links">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="home.html">Home</a></li>
-          <li><a href="aboutus.html">About Us</a></li>
-          <li><a href="contactus.html">Contact Us</a></li>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'aboutus' %}">About Us</a></li>
+          <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+          <!-- <li><a href="/admin/adminlogin.html">Admin</a></li> -->
           <li><a href="/privacy">Privacy</a></li>
         </ul>
       </div>

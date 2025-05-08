@@ -55,5 +55,5 @@ from django.shortcuts import render
 def aboutus_view(request):
     return render(request, 'aboutus.html')
 
-def aboutus_view(request):
+def contactus_view(request):
     return render(request, 'contactus.html')

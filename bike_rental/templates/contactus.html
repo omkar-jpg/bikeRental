@@ -6,8 +6,8 @@
     <title>Contact Us - Bikeeez</title>
     <link rel="stylesheet" href="styles.css" />
     <style>
-      /* Header Styles */
-      .header {
+     /* Header */
+    .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -20,6 +20,14 @@
         font-size: 24px;
         font-weight: bold;
         color: white;
+        background-color: #ff6b00;
+        border: none;
+      }
+
+      .logo2 {
+        font-size: 30px;
+        font-weight: bold;
+        color: #ff6b00;
       }
 
       .language-currency {
@@ -36,7 +44,7 @@
         color: white;
       }
 
-      #loginBtn {
+      .loginBtn {
         padding: 8px 20px;
         background-color: white;
         color: #ff6b00;
@@ -47,7 +55,7 @@
         transition: all 0.3s;
       }
 
-      #loginBtn:hover {
+      .loginBtn:hover {
         background-color: #ffe0cc;
         transform: translateY(-2px);
       }
@@ -332,16 +340,40 @@
   <body>
     <!-- Header -->
     <header class="header">
-      <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
-      <div class="language-currency">
-        <!-- <select>
-          <option value="en">EN</option>
-          <option value="np">NP</option>
-        </select> -->
-        <button id="loginBtn">Login</button>
-        <div class="user-icon">👤</div>
+      <button
+        type="button"
+        class="logo"
+        data-url="{% url 'home' %}"
+        onclick="redirectToHome()"
+      >
+        🚴‍♂️ Bikeeez
+      </button>
+
+      <script>
+        function redirectToHome() {
+          var homeUrl = document
+            .querySelector(".logo")
+            .getAttribute("data-url");
+          setTimeout(() => {
+            window.location.href = homeUrl;
+          }, 500);
+        }
+      </script>
+
+
+        <div class="language-currency">
+          <button type="button" class="loginBtn" data-url="{% url 'logout' %}" onclick="redirectToLogout()">
+              Logout
+          </button>         
+     
+  
+        <a href="{% url 'profile' %}">
+          <div class="user-icon">👤</div>
+      </a>
+    </div>
       </div>
     </header>
+
 
     <!-- Contact Hero Section -->
     <section class="contact-hero">
@@ -448,10 +480,10 @@
         <div class="footer-links">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="contactus.html">Contact Us</a></li>
-            <li><a href="/admin/adminlogin.html">Admin</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'aboutus' %}">About Us</a></li>
+            <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+            <!-- <li><a href="/admin/adminlogin.html">Admin</a></li> -->
             <li><a href="/privacy">Privacy</a></li>
           </ul>
         </div>
