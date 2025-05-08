@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
     <title>Bike Booking - Kathmandu Bike Rentals</title>
+    <script>
+      function redirectToHome() {
+        var homeUrl = document
+          .querySelector(".logo")
+          .getAttribute("data-url");
+        setTimeout(() => {
+          window.location.href = homeUrl;
+        }, 500);
+      }
+    </script>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -29,6 +39,7 @@
         color: white;
         background-color: #ff6b00;
         border: none;
+        cursor: pointer;
       }
 
       .logo2 {
@@ -258,7 +269,14 @@
         margin: 0 auto;
         /* margin-left: 100px; */
       }
+      .bike-list{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
 
+      }
       .card {
         border-radius: 20px;
         overflow: hidden;
@@ -267,6 +285,8 @@
         transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
         border: 1px solid #ffe0cc;
         display: flex;
+        width: 50%;
+        justify-content: center;
         flex-direction: row;
         align-items: center;
       }
@@ -370,7 +390,8 @@
       <button
         type="button"
         class="logo"
-        onclick="setTimeout(() => { window.location.href = 'home.html'; }, 500)"
+        data-url="{% url 'home' %}"
+        onclick="redirectToHome()"
       >
         🚴‍♂️ Bikeeez
       </button>

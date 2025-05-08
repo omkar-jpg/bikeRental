@@ -9,6 +9,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <title>Book a Bike - Bikeeez</title>
+  <script>
+    function redirectToLogout() {
+        var logoutUrl = document.querySelector('.loginBtn').getAttribute('data-url');
+        setTimeout(() => { window.location.href = logoutUrl; }, 500);
+    }
+</script>
+
+<script>
+  function redirectToHome() {
+    var homeUrl = document
+      .querySelector(".logo")
+      .getAttribute("data-url");
+    setTimeout(() => {
+      window.location.href = homeUrl;
+    }, 500);
+  }
+</script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -66,7 +83,6 @@
         border-radius: 4px;
         cursor: pointer;
         font-weight: bold;
-        margin-left: 1200px;
         transition: all 0.3s;
       }
 
@@ -724,6 +740,7 @@
       /* margin-left: -250px; */
       margin-bottom: -50px;
       margin-right: -250px;
+      box-sizing: border-box;
       border-top: 1px solid #ffe0b2;
     }
 
@@ -827,32 +844,16 @@
         🚴‍♂️ Bikeeez
       </button>
 
-      <script>
-        function redirectToHome() {
-          var homeUrl = document
-            .querySelector(".logo")
-            .getAttribute("data-url");
-          setTimeout(() => {
-            window.location.href = homeUrl;
-          }, 500);
-        }
-      </script>
         <div class="language-currency">
           <button type="button" class="loginBtn" data-url="{% url 'logout' %}" onclick="redirectToLogout()">
               Logout
-          </button>
-  
-          <script>
-              function redirectToLogout() {
-                  var logoutUrl = document.querySelector('.loginBtn').getAttribute('data-url');
-                  setTimeout(() => { window.location.href = logoutUrl; }, 500);
-              }
-          </script>
-      </div>
+          </button>         
+     
   
         <a href="{% url 'profile' %}">
           <div class="user-icon">👤</div>
       </a>
+    </div>
       </div>
     </header>
 

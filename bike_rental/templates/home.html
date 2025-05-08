@@ -337,7 +337,6 @@ h2:after {
   font-size: 12px;
   color: #888;
 }
-
 /* Popular Places */
 .popular-places {
   background-color: #fff3e8;
@@ -1243,12 +1242,12 @@ h2:after {
   </section>
 
   <!-- Live Chat Button -->
-  <button class="chat-button" onclick="toggleChat()">
+  <!-- <button class="chat-button" onclick="toggleChat()">
     <span style="margin-right: 8px">🚴‍♂️</span> Bikeeez Support
-  </button>
+  </button> -->
 
   <!-- Live Chat Container -->
-  <div class="chat-container" id="chatContainer">
+  <!-- <div class="chat-container" id="chatContainer">
     <div class="chat-header">
       <span><span style="margin-right: 8px">🚴‍♂️</span> Bikeeez Support</span>
       <span class="close-chat" onclick="toggleChat()">×</span>
@@ -1282,126 +1281,125 @@ h2:after {
         <i class="fas fa-paper-plane"></i>
       </button>
     </div>
-  </div>
+  </div> -->
 
   <script>
     // Toggle chat visibility
-    function toggleChat() {
-      const chatContainer = document.getElementById("chatContainer");
-      if (chatContainer.style.display === "flex") {
-        chatContainer.style.display = "none";
-      } else {
-        chatContainer.style.display = "flex";
-        // Auto-focus input when chat opens
-        document.getElementById("chatInput").focus();
-      }
-    }
+    // function toggleChat() {
+    //   const chatContainer = document.getElementById("chatContainer");
+    //   if (chatContainer.style.display === "flex") {
+    //     chatContainer.style.display = "none";
+    //   } else {
+    //     chatContainer.style.display = "flex";
+    //     document.getElementById("chatInput").focus();
+    //   }
+    // }
 
     // Show typing indicator
-    function showTyping() {
-      const typing = document.getElementById("typingIndicator");
-      typing.style.display = "block";
+    // function showTyping() {
+    //   const typing = document.getElementById("typingIndicator");
+    //   typing.style.display = "block";
       // Scroll to bottom
-      document.getElementById("chatBody").scrollTop =
-        document.getElementById("chatBody").scrollHeight;
-    }
+    //   document.getElementById("chatBody").scrollTop =
+    //     document.getElementById("chatBody").scrollHeight;
+    // }
 
     // Hide typing indicator
-    function hideTyping() {
-      document.getElementById("typingIndicator").style.display = "none";
-    }
+    // function hideTyping() {
+    //   document.getElementById("typingIndicator").style.display = "none";
+    // }
 
     // Send a message from the input field
-    function sendMessage() {
-      const input = document.getElementById("chatInput");
-      const message = input.value.trim();
+    // function sendMessage() {
+    //   const input = document.getElementById("chatInput");
+    //   const message = input.value.trim();
 
-      if (message) {
-        addMessage(message, "user");
-        input.value = "";
+      // if (message) {
+      //   addMessage(message, "user");
+      //   input.value = "";
 
         // Show typing indicator
-        showTyping();
+        // showTyping();
 
         // Simulate bot response after a short delay
-        setTimeout(() => {
-          hideTyping();
-          const responses = [
-            "I can help with your bike rental question about '" +
-            message +
-            "'. Let me check that for you.",
-            "Thanks for your message! Our bike specialists will get back to you shortly.",
-            "Great question about bike rentals! Here's what I know...",
-            "I'll find the best bike rental information for you. One moment please.",
-          ];
-          const randomResponse =
-            responses[Math.floor(Math.random() * responses.length)];
-          addMessage(randomResponse, "bot");
-        }, 1500 + Math.random() * 2000); // Random delay between 1.5-3.5 seconds
-      }
-    }
+        // setTimeout(() => {
+        //   hideTyping();
+        //   const responses = [
+        //     "I can help with your bike rental question about '" +
+        //     message +
+        //     "'. Let me check that for you.",
+        //     "Thanks for your message! Our bike specialists will get back to you shortly.",
+        //     "Great question about bike rentals! Here's what I know...",
+        //     "I'll find the best bike rental information for you. One moment please.",
+        //   ];
+        //   const randomResponse =
+        //     responses[Math.floor(Math.random() * responses.length)];
+        //   addMessage(randomResponse, "bot");
+        // }, 1500 + Math.random() * 2000); // Random delay between 1.5-3.5 seconds
+    //   }
+    // }
 
     // Send a suggested message
-    function sendSuggestedMessage(message) {
-      addMessage(message, "user");
+    // function sendSuggestedMessage(message) {
+    //   addMessage(message, "user");
 
       // Show typing indicator
-      showTyping();
+      // showTyping();
 
       // Simulate bot response after a short delay
-      setTimeout(() => {
-        hideTyping();
-        let response;
+    //   setTimeout(() => {
+    //     hideTyping();
+    //     let response;
 
-        if (message.includes("types of bikes")) {
-          response =
-            "We offer mountain bikes, road bikes, hybrid bikes, and e-bikes. Our premium models include the Trek Fuel EX and Specialized Turbo Levo for e-bikes. All bikes are serviced regularly for your safety!";
-        } else if (message.includes("rental rates")) {
-          response =
-            "Our rates start at ₨5650/day for standard bikes. E-bikes are ₨6500/day. Weekly discounts available! Check our website for current promotions and package deals."; // Updated to NPR
-        } else if (message.includes("pickup locations")) {
-          response =
-            "We have convenient locations in Kathmandu, Nepal. Check our website for exact addresses and opening hours."; // Updated to Nepal
-        } else {
-          response =
-            "Thanks for your bike rental question! Let me connect you with the best information.";
-        }
+    //     if (message.includes("types of bikes")) {
+    //       response =
+    //         "We offer mountain bikes, road bikes, hybrid bikes, and e-bikes. Our premium models include the Trek Fuel EX and Specialized Turbo Levo for e-bikes. All bikes are serviced regularly for your safety!";
+    //     } else if (message.includes("rental rates")) {
+    //       response =
+    //         "Our rates start at ₨5650/day for standard bikes. E-bikes are ₨6500/day. Weekly discounts available! Check our website for current promotions and package deals."; // Updated to NPR
+    //     } else if (message.includes("pickup locations")) {
+    //       response =
+    //         "We have convenient locations in Kathmandu, Nepal. Check our website for exact addresses and opening hours."; // Updated to Nepal
+    //     } else {
+    //       response =
+    //         "Thanks for your bike rental question! Let me connect you with the best information.";
+    //     }
 
-        addMessage(response, "bot");
-      }, 1000 + Math.random() * 1500); // Random delay between 1-2.5 seconds
-    }
+    //     addMessage(response, "bot");
+    //   }, 1000 + Math.random() * 1500); // Random delay between 1-2.5 seconds
+    // }
 
     // Add a message to the chat
-    function addMessage(text, sender) {
-      const chatBody = document.getElementById("chatBody");
-      const messageDiv = document.createElement("div");
-      messageDiv.classList.add("chat-message", sender);
+    // function addMessage(text, sender) {
+    //   const chatBody = document.getElementById("chatBody");
+    //   const messageDiv = document.createElement("div");
+    //   messageDiv.classList.add("chat-message", sender);
 
       // Add bike emoji for bot messages
-      if (sender === "bot") {
-        messageDiv.innerHTML =
-          '<span style="margin-right: 5px;">🚴‍♂️</span>' + text;
-      } else {
-        messageDiv.textContent = text;
-      }
+      // if (sender === "bot") {
+      //   messageDiv.innerHTML =
+      //     '<span style="margin-right: 5px;">🚴‍♂️</span>' + text;
+      // } else {
+      //   messageDiv.textContent = text;
+      // }
 
-      chatBody.appendChild(messageDiv);
+      // chatBody.appendChild(messageDiv);
 
       // Scroll to the bottom of the chat
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
+    //   chatBody.scrollTop = chatBody.scrollHeight;
+    // }
 
     // Initialize with a welcome message if chat is empty
-    document.addEventListener("DOMContentLoaded", function () {
-      const chatBody = document.getElementById("chatBody");
-      if (chatBody.children.length === 0) {
-        addMessage(
-          "Hello! I'm here to help with your bike rental questions. What do you need assistance with today?",
-          "bot"
-        );
-      }
-    });
-  </script>
+  //   document.addEventListener("DOMContentLoaded", function () {
+  //     const chatBody = document.getElementById("chatBody");
+  //     if (chatBody.children.length === 0) {
+  //       addMessage(
+  //         "Hello! I'm here to help with your bike rental questions. What do you need assistance with today?",
+  //         "bot"
+  //       );
+  //     }
+  //   });
+  // </script>
 
   <!-- Footer -->
   <footer class="footer" style="width: 100%">
