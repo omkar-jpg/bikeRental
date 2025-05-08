@@ -26,5 +26,6 @@ def profile_view(request):
     return render(request, 'profile.html', {
         'form': form,
         'profile': profile,
-        'user_rentals': booked_bikes
+        'user_rentals': booked_bikes,
+        'user_profile': profile,  # ✅ Added for template use (like in the payment form)
     })

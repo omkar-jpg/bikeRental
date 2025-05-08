@@ -1,6 +1,9 @@
+# payments/urls.py
+
 from django.urls import path
-from .views import make_payment
+from . import views
 
 urlpatterns = [
-    path('pay/<int:booking_id>/', make_payment, name='simulate_payment'),
+    path('khalti/initiate/<int:booking_id>/', views.khalti_initiate, name='khalti_initiate'),
+    path('khalti/verify/', views.khalti_verify, name='khalti_verify'),  # optional, for later
 ]
