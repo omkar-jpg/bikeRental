@@ -17,6 +17,9 @@ class Bikes(models.Model):
     ])
     
     image = models.ImageField(upload_to = 'bike_image/', null=True, blank=True)
+    image_2 = models.ImageField(upload_to='bike_image/', null=True, blank=True)
+    image_3 = models.ImageField(upload_to='bike_image/', null=True, blank=True)
+    image_4 = models.ImageField(upload_to='bike_image/', null=True, blank=True)
 
     daily_rate = models.DecimalField(max_digits=6, decimal_places=2)
     weekly_rate = models.DecimalField(max_digits=6, decimal_places=2)
