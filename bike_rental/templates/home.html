@@ -785,15 +785,18 @@ h2:after {
   </header>
 
   <!-- Hero Section -->
-  <form>
+  <form method="POST" action="{% url 'search_bikes' %}">
+    {% csrf_token %}
     <section class="hero">
       <h1 style="color: #ff6b00; font-weight: bolder">
         Rent bikes from Kathmandu's largest online bike rental platform
       </h1>
       <div class="search-box">
         <div class="search-container">
+  
+          <!-- Place Selection -->
           <div class="search-item">
-            <select class="form-input" name="places" id="places">
+            <select class="form-input" name="places" id="places" required>
               <option value="" disabled selected>Select places</option>
               <option value="thamel">Thamel</option>
               <option value="jhamsikhel">Jhamsikhel</option>
@@ -804,15 +807,35 @@ h2:after {
               <option value="gongabu">Gongabu</option>
             </select>
           </div>
+  
           <div class="divider"></div>
+  
+          <!-- Date Input (optional) -->
           <div class="search-item">
-            <input type="text" id="dateRange" class="date-range-box" placeholder="Select dates" />
+            <input
+              type="text"
+              id="dateRange"
+              class="date-range-box"
+              placeholder="Select dates"
+              name="date_range"
+            />
           </div>
+  
           <div class="divider"></div>
+  
+          <!-- Quantity Input -->
           <div class="search-item">
-            <input type="number" placeholder="Number of bikes" min="1" />
+            <input
+              type="number"
+              placeholder="Number of bikes"
+              name="quantity"
+              min="1"
+              class="form-input"
+            />
           </div>
-          <button class="search-btn">➔</button>
+  
+          <!-- Submit Button -->
+          <button type="submit" class="search-btn">➔</button>
         </div>
       </div>
     </section>

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'users',
     'payments',
+    'search',
 ]
 SOCIALACCOUNT_PROVIDERS ={
     "google":{

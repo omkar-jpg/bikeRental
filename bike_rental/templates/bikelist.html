@@ -432,82 +432,33 @@
       <!-- Bikes will be dynamically inserted here -->
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script>
-    // Initialize date picker
-    flatpickr("#dateRange", {
-      mode: "range",
-      minDate: "today",
-      dateFormat: "M j, Y",
-      altInput: true,
-      altFormat: "M j, Y",
-      onChange: function (selectedDates, dateStr, instance) {
-        if (selectedDates.length === 2) {
-          const start = instance.formatDate(selectedDates[0], "M j");
-          const end = instance.formatDate(selectedDates[1], "M j");
-          instance.input.value = `${start} - ${end}`;
-        }
-      },
-    });
-    </script>
-
+    <div id="bike-list" class="bike-list">
+      {% if filtered_bikes %}
+        {% for bike in filtered_bikes %}
+          <div class="card">
+            <img src="{{ bike.image.url }}" alt="{{ bike.name }}" loading="lazy" />
+            <div class="card-content">
+              <h3>{{ bike.name }}</h3>
+              <p><strong>Type:</strong> {{ bike.get_category_display }}</p>
+              <p><strong>Location:</strong> {{ bike.location }}</p>
+              <p class="price">Rs. {{ bike.daily_rate }}/day | Rs. {{ bike.weekly_rate }}/week</p>
+              <p class="rating">⭐ {{ bike.rating|floatformat:1 }}</p>
+              <button class="select-btn" data-bike-id="{{ bike.id }}">Select</button>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No bikes available for your selected location and quantity.</p>
+      {% endif %}
+    </div>
     <script>
-      const bikes = [
-        {
-          id: 1,
-          name: "CANYON Mountain Bike",
-          type: "Mountain",
-          image: "Mountainbike.jpeg",
-          location: "Thamel, Kathmandu",
-          price: "Rs. 1500/day | Rs. 8000/week",
-          rating: "⭐ 4.9 (24 reviews)",
-        },
-        {
-          id: 2,
-          name: "GIANT Road Bike",
-          type: "Road",
-          image: "Roadbike.jpeg",
-          location: "Jhamsikhel, Lalitpur",
-          price: "Rs. 1200/day | Rs. 6500/week",
-          rating: "⭐ 4.7 (18 reviews)",
-        },
-        {
-          id: 3,
-          name: "E-RIDER Electric Bike",
-          type: "Electric",
-          image: "Electricbike.jpeg",
-          location: "Boudha, Kathmandu",
-          price: "Rs. 2000/day | Rs. 10000/week",
-          rating: "⭐ 4.8 (32 reviews)",
-        },
-        {
-          id: 4,
-          name: "TREK Hybrid Bike",
-          type: "Hybrid",
-          image: "Hybridbike.jpeg",
-          location: "Patan, Lalitpur",
-          price: "Rs. 1400/day | Rs. 7500/week",
-          rating: "⭐ 4.6 (15 reviews)",
-        },
-      ];
-
-      // Display 4 bikes
-      const bikeList = document.getElementById("bike-list");
-      bikes.forEach((bike) => {
-        const card = document.createElement("div");
-        card.className = "card";
-        card.innerHTML = `
-        <img src="${bike.image}" alt="${bike.name}" loading="lazy" />
-        <div class="card-content">
-          <h3>${bike.name}</h3>
-          <p><strong>Type:</strong> ${bike.type}</p>
-          <p><strong>Location:</strong> ${bike.location}</p>
-          <p class="price">${bike.price}</p>
-          <p class="rating">${bike.rating}</p>
-          <button class="select-btn" onclick="alert('Selected: ${bike.name}')">Select</button>
-        </div>
-      `;
-        bikeList.appendChild(card);
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.select-btn').forEach(function (button) {
+          button.addEventListener('click', function () {
+            const bikeId = this.getAttribute('data-bike-id');
+            window.location.href = `/booking/${bikeId}/`;  // This must match your URL pattern name='Booking'
+          });
+        });
       });
     </script>
   </body>
