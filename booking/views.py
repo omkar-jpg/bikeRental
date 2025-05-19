@@ -17,7 +17,7 @@ def booking_confirmation(request, booking_id):
 def book_bike(request, bike_id):
     bike = get_object_or_404(Bikes, id=bike_id)  # Get the specific bike
     bikes = Bikes.objects.all()  # Retrieve all bikes
-    random_bikes = random.sample(list(bikes), min(3, len(bikes)))  # Pick 3 random bikes
+    random_bikes = random.sample(list(bikes), min(5, len(bikes)))  # Pick 3 random bikes
 
     form = BookingForm(request.POST or None)  # Initialize form with POST data if available
 
@@ -55,3 +55,4 @@ def book_bike(request, bike_id):
             else:
                  return redirect('booking_confirmation', booking_id=booking.id)
     return render(request, 'booking.html', {'form': form, 'bike': bike, 'random_bikes': random_bikes})
+
