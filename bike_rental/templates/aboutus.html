@@ -462,44 +462,44 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer" style="width: 100%">
-      <div class="footer-container">
-        <!-- Logo Section -->
-        <div class="footer-logo">
-          <div class="logo2">🚴‍♂️ <b>Bikeeez</b></div>
-          <p>Kathmandu's premier bike rental platform</p>
-        </div>
-
-        <!-- Quick Links Section -->
-        <div class="footer-links">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="contactus.html">Contact Us</a></li>
-            <li><a href="/admin/adminlogin.html">Admin</a></li>
-            <li><a href="/privacy">Privacy</a></li>
-          </ul>
-        </div>
-
-        <!-- Top Places Section -->
-        <div class="footer-links">
-          <h3>Top Places</h3>
-          <ul>
-            <li><a href="#">Thamel</a></li>
-            <li><a href="#">Jhamsikhel</a></li>
-            <li><a href="#">Boudha</a></li>
-            <li><a href="#">Patan</a></li>
-            <li><a href="#">Bhaktapur</a></li>
-          </ul>
-        </div>
+  <footer class="footer" style="width: 100%">
+    <div class="footer-container">
+      <!-- Logo Section -->
+      <div class="footer-logo">
+        <div class="logo2">🚴‍♂️ <b>Bikeeez</b></div>
+        <p>Kathmandu's premier bike rental platform</p>
       </div>
 
-      <!-- Copyright Section -->
-      <div class="footer-bottom">
-        <p>© 2025 Bikeeez Nepal. All rights reserved.</p>
+      <!-- Quick Links Section -->
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'aboutus' %}">About Us</a></li>
+          <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+          <!-- <li><a href="/admin/adminlogin.html">Admin</a></li> -->
+          <li><a href="/privacy">Privacy</a></li>
+        </ul>
       </div>
-    </footer>
+
+      <!-- Top Places Section -->
+      <div class="footer-links">
+        <h3>Top Places</h3>
+        <ul>
+          <li><a href="#">Thamel</a></li>
+          <li><a href="#">Jhamsikhel</a></li>
+          <li><a href="#">Boudha</a></li>
+          <li><a href="#">Patan</a></li>
+          <li><a href="#">Bhaktapur</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright Section -->
+    <div class="footer-bottom">
+      <p>© 2025 Bikeeez Nepal. All rights reserved.</p>
+    </div>
+  </footer>
 
     <script>
       document

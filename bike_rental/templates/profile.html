@@ -332,7 +332,7 @@
         padding-left: 10px;
       }
 
-      /* Recent Bikes */
+          /* Recent Bikes */
   .booked-bikes-section {
     padding: 20px;
   }
@@ -456,6 +456,13 @@
     margin-right: 5px;
   }
 
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
   .cancel-btn {
     background-color: #ff6b00;
     color: white;
@@ -464,13 +471,25 @@
     padding: 8px 15px;
     font-size: 14px;
     cursor: pointer;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
     transition: background-color 0.3s;
   }
 
   .cancel-btn:hover {
+    background-color: #f57c00;
+  }
+
+  .proceed-payment-btn {
+    background-color: #ff6b00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .proceed-payment-btn:hover {
     background-color: #f57c00;
   }
       /* Footer Styles */
@@ -751,89 +770,85 @@
         </div>
       </form>
 
-  <h3>Booked Bikes</h3>
-  <div class="booked-bikes-container">
-    {% for booking in user_rentals %}
-    <div class="bike-card" onclick="openPopup('popup-{{ booking.id }}')">
-      <div class="bike-card-header">
-        <h4>{{ booking.bike.name }}</h4>
-        <span class="status-{{ booking.status }}">{{ booking.status }}</span>
+      <h3>Booked Bikes</h3>
+      <div class="booked-bikes-container">
+        {% for booking in user_rentals %}
+        <div class="bike-card" onclick="openPopup('popup-{{ booking.id }}')">
+          <div class="bike-card-header">
+            <h4>{{ booking.bike.name }}</h4>
+            <span class="status-{{ booking.status }}">{{ booking.status }}</span>
+          </div>
+          <div class="bike-card-details">
+            <span>Quantity: {{ booking.quantity }}</span>
+            <span>Price: Rs.{{ booking.total_price }}</span>
+          </div>
+        </div>
+      
+        <!-- Popup for each booking -->
+        <div id="popup-{{ booking.id }}" class="popup-overlay">
+          <div class="popup">
+            <div class="popup-header">
+              <h4>{{ booking.bike.name }}</h4>
+              <button class="popup-close" onclick="closePopup('popup-{{ booking.id }}')">✕</button>
+            </div>
+            <div class="popup-detail">
+              <span>Model:</span> {{ booking.bike.name }}
+            </div>
+            <div class="popup-detail">
+              <span>Quantity:</span> {{ booking.quantity }}
+            </div>
+            <div class="popup-detail">
+              <span>Price:</span> Rs.{{ booking.total_price }}
+            </div>
+            <div class="popup-detail">
+              <span>Contact/Pickup:</span> +977-984-123-4567
+            </div>
+            <div class="popup-detail">
+              <span>Status:</span> {{ booking.status }}
+            </div>
+            <div class="button-container">
+              <button class="cancel-btn" data-booking-id="{{ booking.id }}">Cancel Booking</button>
+              {% if booking.status == "Pending" %}
+              <button class="proceed-payment-btn">Proceed Payment</button>
+              {% endif %}
+            </div>
+      
+            <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                const cancelButtons = document.querySelectorAll('.cancel-btn');
+                cancelButtons.forEach(button => {
+                  button.addEventListener('click', function() {
+                    const bookingId = this.getAttribute('data-booking-id');
+                    if (confirm('Are you sure you want to cancel this booking?')) {
+                      // Add your cancellation logic here, e.g., an AJAX call to the backend
+                      console.log('Cancelling booking with ID: ' + bookingId);
+                      // Close the popup
+                      const popup = this.closest('.popup-overlay');
+                      popup.style.display = 'none';
+                      document.body.classList.remove('popup-active');
+                    }
+                  });
+                });
+              });
+            </script>
+          </div>
+        </div>
+        {% empty %}
+        <p>No booked bikes found.</p>
+        {% endfor %}
       </div>
-      <div class="bike-card-details">
-        <span>Quantity: {{ booking.quantity }}</span>
-        <span>Price: Rs.{{ booking.total_price }}</span>
-      </div>
-    </div>
-
-    <!-- Popup for each booking -->
-    <div id="popup-{{ booking.id }}" class="popup-overlay">
-      <div class="popup">
-        <div class="popup-header">
-          <h4>{{ booking.bike.name }}</h4>
-          <button class="popup-close" onclick="closePopup('popup-{{ booking.id }}')">✕</button>
-        </div>
-        <div class="popup-detail">
-          <span>Model:</span> {{ booking.bike.name }}
-        </div>
-        <div class="popup-detail">
-          <span>Quantity:</span> {{ booking.quantity }}
-        </div>
-        <div class="popup-detail">
-          <span>Price:</span> Rs.{{ booking.total_price }}
-        </div>
-        <div class="popup-detail">
-          <span>Contact for info/Pickup:</span> +977-984-123-4567
-        </div>
-        <div class="popup-detail">
-          <span>Status:</span> {{ booking.status }}
-        </div>
-        <button class="cancel-btn" data-booking-id="{{ booking.id }}">Cancel Booking</button>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const cancelButtons = document.querySelectorAll('.cancel-btn');
-    cancelButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        const bookingId = this.getAttribute('data-booking-id');
-        if (confirm('Are you sure you want to cancel this booking?')) {
-          // Add your cancellation logic here, e.g., an AJAX call to the backend
-          console.log('Cancelling booking with ID: ' + bookingId);
-          // Close the popup
-          const popup = this.closest('.popup-overlay');
-          popup.style.display = 'none';
+      
+      <script>
+        function openPopup(popupId) {
+          document.getElementById(popupId).style.display = 'flex';
+          document.body.classList.add('popup-active');
+        }
+      
+        function closePopup(popupId) {
+          document.getElementById(popupId).style.display = 'none';
           document.body.classList.remove('popup-active');
         }
-      });
-    });
-  });
-</script>
-      </div>
-    </div>
-    {% empty %}
-    <p>No booked bikes found.</p>
-    {% endfor %}
-  </div>
-</div>
-
-<script>
-  function openPopup(popupId) {
-    document.getElementById(popupId).style.display = 'flex';
-    document.body.classList.add('popup-active');
-  }
-
-  function closePopup(popupId) {
-    document.getElementById(popupId).style.display = 'none';
-    document.body.classList.remove('popup-active');
-  }
-
-  function cancelBooking(bookingId) {
-    if (confirm('Are you sure you want to cancel this booking?')) {
-      // Add your cancellation logic here, e.g., an AJAX call to the backend
-      console.log('Cancelling booking with ID: ' + bookingId);
-      closePopup('popup-' + bookingId); // Close popup after confirmation
-    }
-  }
-</script>
+      </script>
     </div>
   </body>
 </html>

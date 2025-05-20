@@ -732,102 +732,101 @@
     }
 
     /* Footer Styles */
-    .footer {
-      background-color: #fbebd9;
-      padding: 40px 20px;
-      width: 1800px;
-      margin-top: 50px;
-      /* margin-left: -250px; */
-      margin-bottom: -50px;
-      margin-right: -250px;
-      box-sizing: border-box;
-      border-top: 1px solid #ffe0b2;
-    }
+.footer {
+  background-color: #fbebd9;
+  padding: 40px 20px;
+  width: 1800px;
+  margin-top: 50px;
+  /* margin-left: -250px; */
+  margin-bottom: -50px;
+  margin-right: -250px;
+  border-top: 1px solid #ffe0b2;
+}
 
-    .footer-container {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 1500px;
-      margin: 0 auto;
-      gap: 40px;
-      justify-content: space-between;
-    }
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1500px;
+  margin: 0 auto;
+  gap: 40px;
+  justify-content: space-between;
+}
 
-    /* Logo Section */
-    .footer-logo {
-      flex: 0 0 200px;
-    }
+/* Logo Section */
+.footer-logo {
+  flex: 0 0 200px;
+}
 
-    .footer-logo .logo {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      color: #ffffff;
-    }
+.footer-logo .logo {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
 
-    .footer-logo p {
-      line-height: 1.6;
-      color: #666;
-    }
+.footer-logo p {
+  line-height: 1.6;
+  color: #666;
+}
 
-    /* Links Sections */
-    .footer-links {
-      min-width: 150px;
-    }
+/* Links Sections */
+.footer-links {
+  min-width: 150px;
+}
 
-    .footer-links h3 {
-      color: #ff6b00;
-      margin-top: 0;
-      margin-bottom: 20px;
-      font-size: 1.1rem;
-    }
+.footer-links h3 {
+  color: #ff6b00;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
 
-    .footer-links ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-    .footer-links li {
-      margin-bottom: 8px;
-    }
+.footer-links li {
+  margin-bottom: 8px;
+}
 
-    .footer-links a {
-      color: #666;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
+.footer-links a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
+}
 
-    .footer-links a:hover {
-      color: #ff6b00;
-    }
+.footer-links a:hover {
+  color: #ff6b00;
+}
 
-    /* Copyright Section */
-    .footer-bottom {
-      text-align: center;
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #ffe0b2;
-      color: #999;
-    }
+/* Copyright Section */
+.footer-bottom {
+  text-align: center;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #ffe0b2;
+  color: #999;
+}
 
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .footer-container {
-        flex-direction: column;
-        gap: 30px;
-      }
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 30px;
+  }
 
-      .footer-logo {
-        flex: 1;
-        text-align: center;
-      }
+  .footer-logo {
+    flex: 1;
+    text-align: center;
+  }
 
-      .footer-links {
-        text-align: center;
-      }
-    }
+  .footer-links {
+    text-align: center;
+  }
+}
   </style>
 </head>
 
@@ -995,7 +994,6 @@
     updateCarousel();
   });
 </script>
-```
 
       <div class="bike-info">
         <div class="bike-title">{{ bike.name }}</div>
@@ -1021,34 +1019,34 @@
         <h2 style="color: #ff6b00;">Condition</h2>
         <p>{{ bike.condition|default:"Not specified" }}</p>
       </div>
-
-      <div class="user-info" style="margin-top: 140px;">
+ 
+      <!-- <div class="user-info" style="margin-top: 140px;">
         <div class="user-avatar">
-          <img src="{{ bike.user.avatar.url }}" alt="{{ bike.user.name }}" class="avatar" />
+          <img src="{{ bike.user.avatar.url }}" alt="{{ bike.user.name }}" class="avatar" /> -->
           <!-- Dynamically display user's avatar -->
-        </div>
+        <!-- </div>
         <div class="user-details">
           <div class="user-name" style="font-size: 20px">
             {{ bike.user.name }}
-          </div>
+          </div> -->
           <!-- Dynamically display user's name -->
           <!-- <div class="user-response">Response time ~{{ bike.user.response_time }}h</div> -->
           <!-- Dynamically display user's response time -->
           <!-- <div class="user-reviews">{{ bike.user.reviews_count }} Reviews</div> -->
           <!-- Dynamically display number of reviews -->
-        </div>
+        <!-- </div>
         <div class="user-rating">
           <form class="star-rating" method="POST" action="{% url 'rate_bike' bike.id %}">
-            {% csrf_token %}
+            {% csrf_token %} -->
         
             <!-- Comment Field -->
-            <div>
+            <!-- <div>
               {{ form.comment.label_tag }}<br>
               {{ form.comment }}
-            </div>
+            </div> -->
         
             <!-- Star Rating Inputs -->
-            <div class="star-rating">
+            <!-- <div class="star-rating">
               <input type="hidden" name="rating" value="null" id="rating_null">
               
               <input type="radio" id="star5" name="rating" value="5" {% if form.rating.value == 5 %}checked{% endif %}>
@@ -1070,8 +1068,8 @@
             <button class="profile-btn" type="submit">Submit</button>
           </form>
         </div>
-        <!-- <button class="profile-btn">Profile</button> -->
-      </div>
+      </div> -->
+    
     </div>
 
     <div class="details-container">
@@ -1349,7 +1347,7 @@
     <div class="footer-container">
       <!-- Logo Section -->
       <div class="footer-logo">
-        <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
+        <div class="logo2">🚴‍♂️ <b>Bikeeez</b></div>
         <p>Kathmandu's premier bike rental platform</p>
       </div>
 

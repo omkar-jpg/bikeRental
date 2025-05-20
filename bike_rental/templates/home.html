@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 
 <head>
   <meta charset="UTF-8" />
@@ -1014,7 +1014,7 @@ h2:after {
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <!-- Popular Places Section -->
-<section class="popular-places">
+<section id="rental-location" class="popular-places">
   <h2>Popular Rental Locations</h2>
   <div class="places-container">
     <button class="place-btn" data-location="Thamel">Thamel</button>
@@ -1040,10 +1040,8 @@ h2:after {
 
   const mapContainer = document.getElementById("map");
   let map;
+  function displayMap(place){
 
-  document.querySelectorAll(".place-btn").forEach((button) => {
-    button.addEventListener("click", () => {
-      const place = button.dataset.location.toLowerCase();
       const bikesInPlace = allBikes.filter((b) => b.location.toLowerCase().includes(place));
 
       if (bikesInPlace.length === 0) {
@@ -1078,6 +1076,14 @@ h2:after {
           `<b>${bike.name}</b><br><a href="/booking/${bike.id}/" target="_blank">Book Now</a>`
         );
       });
+  }
+
+  document.querySelectorAll(".place-btn").forEach((button) => {
+    button.addEventListener("click", () => {
+    const place = button.dataset.location.toLowerCase();
+
+      displayMap(place)
+      
     });
   });
 </script>
@@ -1426,11 +1432,11 @@ h2:after {
       <div class="footer-links">
         <h3>Top Places</h3>
         <ul>
-          <li><a href="#">Thamel</a></li>
-          <li><a href="#">Jhamsikhel</a></li>
-          <li><a href="#">Boudha</a></li>
-          <li><a href="#">Patan</a></li>
-          <li><a href="#">Bhaktapur</a></li>
+          <li><a href="#rental-location" onclick="displayMap('thamel')">Thamel</a></li>
+          <li><a href="#rental-location"  onclick="displayMap('jhamsikhel')">Jhamsikhel</a></li>
+          <li><a href="#rental-location"  onclick="displayMap('boudha')">Boudha</a></li>
+          <li><a href="#rental-location" onclick="displayMap('patan')">Patan</a></li>
+          <li><a href="#rental-location" onclick="displayMap('bhaktapur')">Bhaktapur</a></li>
         </ul>
       </div>
     </div>
