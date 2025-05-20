@@ -2,1252 +2,1388 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bike Rental - Bikeeez</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
-  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-
-  <style>
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Arial", sans-serif;
-}
-
-body {
-  color: #333;
-  line-height: 1.6;
-  background-color: #fff8f2;
-
-}
-
-/* Header Styles */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 5%;
-  background-color: #ff6b00;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: bold;
-  color: white;
-}
-
-.language-currency {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.language-currency select {
-  padding: 8px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-#loginBtn {
-  padding: 8px 20px;
-  background-color: white;
-  color: #ff6b00;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s;
-}
-
-#loginBtn:hover {
-  background-color: #ffe0cc;
-  transform: translateY(-2px);
-}
-
-.user-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: white;
-  transition: all 0.3s;
-}
-
-.user-icon:hover {
-  background-color: rgba(255, 255, 255, 0.5);
-}
-
-/* Hero Section */
-.hero {
-  text-align: center;
-  padding: 60px 5% 80px;
-  background: linear-gradient(rgba(255, 107, 0, 0.1), rgba(255, 107, 0, 0.1));
-  background-size: cover;
-  background-position: center;
-}
-
-h1 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  color: #333;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Search Box */
-.search-box {
-  display: flex;
-  justify-content: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.search-container {
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  border-radius: 50px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  width: 100%;
-}
-
-.search-item {
-  flex: 1;
-  padding: 15px 20px;
-  position: relative;
-}
-
-.search-item select.form-input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 16px;
-  color: #333;
-  background-color: transparent;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  padding-right: 30px;
-}
-
-.search-item select.form-input::-ms-expand {
-  display: none;
-}
-
-.search-item::after {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 12px;
-  color: #333;
-  pointer-events: none;
-}
-
-.search-item input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 16px;
-  color: #333;
-  background-color: transparent;
-}
-
-.search-item input::placeholder {
-  color: #999;
-}
-
-.icon {
-  margin-right: 10px;
-  color: #999;
-}
-
-.divider {
-  width: 1px;
-  height: 30px;
-  background-color: #ddd;
-}
-
-.search-btn {
-  background-color: #ff6b00;
-  color: #fff;
-  border: none;
-  padding: 15px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px;
-  margin: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  transition: all 0.3s;
-}
-
-.search-btn:hover {
-  background-color: #e65100;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 10px rgba(255, 107, 0, 0.4);
-}
-
-/* Date Range Picker */
-.date-range-box {
-  padding: 0; /* Remove padding to align with other inputs */
-  border: none; /* Remove border */
-  border-radius: 0; /* Remove border-radius */
-  background: transparent; /* Match the search-container background */
-  color: #333; /* Match the color of other inputs */
-  font-family: Arial;
-  width: 100%; /* Ensure it takes full width of the search-item */
-  cursor: pointer;
-  font-weight: normal; /* Match the weight of other inputs */
-}
-
-.date-range-box:hover {
-  border: none; /* Remove border on hover */
-  background: transparent; /* Keep background transparent */
-}
-
-.date-range-box:focus {
-  outline: none;
-  box-shadow: none; /* Remove focus shadow */
-}
-
-.date-range-box::placeholder {
-  color: #999; /* Match placeholder color with other inputs */
-}
-
-/* Orange Calendar Theme */
-.flatpickr-calendar {
-  --fp-primary-color: #ff6b00;
-  --fp-primary-text-color: #fff;
-}
-
-.flatpickr-day.selected {
-  background: #ff6b00;
-  border-color: #ff6b00;
-}
-
-.flatpickr-day:hover {
-  background: #ffd699;
-}
-
-/* Bike Listing Sections */
-section {
-  padding: 40px 5%;
-}
-
-h2 {
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #ff6b00;
-  text-align: center;
-  position: relative;
-}
-
-h2:after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 4px;
-  background: #ff6b00;
-  margin: 10px auto 0;
-  border-radius: 2px;
-}
-
-.card-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 25px;
-  margin-top: 20px;
-}
-
-.card {
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
-  background: white;
-  transition: all 0.3s;
-  border: 1px solid #ffe0cc;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
-  border-color: #ff6b00;
-}
-
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  transition: transform 0.5s;
-}
-
-.card:hover img {
-  transform: scale(1.05);
-}
-
-.card-content {
-  padding: 15px;
-}
-
-.card h3 {
-  font-size: 18px;
-  margin-bottom: 8px;
-  color: #333;
-}
-
-.card p {
-  margin-bottom: 8px;
-  font-size: 14px;
-  color: #666;
-}
-
-.price {
-  color: #ff6b00;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.rating {
-  color: #ff9e00;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.location {
-  font-size: 12px;
-  color: #888;
-}
-/* Popular Places */
-.popular-places {
-  background-color: #fff3e8;
-}
-
-.places-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.places-container span {
-  padding: 8px 15px;
-  background-color: white;
-  border-radius: 20px;
-  box-shadow: 0 2px 5px rgba(255, 107, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.3s;
-  border: 1px solid #ffc299;
-}
-
-.places-container span:hover {
-  background-color: #ff6b00;
-  color: white;
-  transform: translateY(-2px);
-}
-
-.place-btn {
-  padding: 10px 20px;
-  margin: 5px;
-  background-color: #fff3e0;
-  color: #ff6b00;
-  border: 1px solid #ff9e4d;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.place-btn:hover {
-  background-color: #ff6b00;
-  color: white;
-  border-color: #ff6b00;
-  transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(255, 107, 0, 0.3);
-}
-
-.place-btn:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(255, 107, 0, 0.5);
-}
-
-/* About Section */
-.about {
-  background-color: #fff8f2;
-  padding: 60px 5%;
-}
-
-.about-content {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.about h2 {
-  margin-bottom: 20px;
-}
-
-.about h3 {
-  margin: 25px 0 15px;
-  color: #ff6b00;
-}
-
-.about ul {
-  text-align: left;
-  max-width: 600px;
-  margin: 0 auto;
-  list-style-position: inside;
-}
-
-.about li {
-  margin-bottom: 10px;
-  padding-left: 10px;
-}
-
-/* Footer Styles */
-.footer {
-  background-color: #fbebd9;
-  padding: 40px 20px;
-  width: 1800px;
-  margin-top: 50px;
-  /* margin-left: -250px; */
-  margin-bottom: -50px;
-  margin-right: -250px;
-  border-top: 1px solid #ffe0b2;
-}
-
-.footer-container {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 1500px;
-  margin: 0 auto;
-  gap: 40px;
-  justify-content: space-between;
-}
-
-/* Logo Section */
-.footer-logo {
-  flex: 0 0 200px;
-}
-
-.footer-logo .logo {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  color: #ff6b00;
-}
-
-.footer-logo p {
-  line-height: 1.6;
-  color: #666;
-}
-
-/* Links Sections */
-.footer-links {
-  min-width: 150px;
-}
-
-.footer-links h3 {
-  color: #ff6b00;
-  margin-top: 0;
-  margin-bottom: 20px;
-  font-size: 1.1rem;
-}
-
-.footer-links ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-links li {
-  margin-bottom: 8px;
-}
-
-.footer-links a {
-  color: #666;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.footer-links a:hover {
-  color: #ff6b00;
-}
-
-/* Copyright Section */
-.footer-bottom {
-  text-align: center;
-  margin-top: 40px;
-  padding-top: 20px;
-  border-top: 1px solid #ffe0b2;
-  color: #999;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .footer-logo {
-    flex: 1;
-    text-align: center;
-  }
-
-  .footer-links {
-    text-align: center;
-  }
-}
-
-    /* Orange-themed Live Chat Styles */
-    .chat-button {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 30px;
-      font-weight: 500;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
-      display: flex;
-      align-items: center;
-      z-index: 999;
-      transition: all 0.3s ease;
-    }
-
-    .chat-button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
-    }
-
-    .chat-container {
-      position: fixed;
-      bottom: 90px;
-      right: 30px;
-      width: 350px;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
-      z-index: 1000;
-      display: none;
-      flex-direction: column;
-      overflow: hidden;
-      border: 2px solid #ff6b00;
-    }
-
-    .loginBtn {
-            padding: 8px 20px;
-            background-color: white;
-            color: #ff6b00;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bike Rental - Bikeeez</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        color: #333;
+        line-height: 1.6;
+        background-color: #fff8f2;
+      }
+
+      /* Header Styles */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 5%;
+        background-color: #ff6b00;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+      }
+
+      .language-currency {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .language-currency select {
+        padding: 8px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      #loginBtn {
+        padding: 8px 20px;
+        background-color: white;
+        color: #ff6b00;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+      }
+
+      #loginBtn:hover {
+        background-color: #ffe0cc;
+        transform: translateY(-2px);
+      }
+
+      .user-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        color: white;
+        transition: all 0.3s;
+      }
+
+      .user-icon:hover {
+        background-color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        padding: 60px 5% 80px;
+        background: linear-gradient(
+          rgba(255, 107, 0, 0.1),
+          rgba(255, 107, 0, 0.1)
+        );
+        background-size: cover;
+        background-position: center;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 30px;
+        color: #333;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Search Box */
+      .search-box {
+        display: flex;
+        justify-content: center;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .search-container {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 50px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 100%;
+      }
+
+      .search-item {
+        flex: 1;
+        padding: 15px 20px;
+        position: relative;
+      }
+
+      .search-item select.form-input {
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 16px;
+        color: #333;
+        background-color: transparent;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        padding-right: 30px;
+      }
+
+      .search-item select.form-input::-ms-expand {
+        display: none;
+      }
+
+      .search-item::after {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 12px;
+        color: #333;
+        pointer-events: none;
+      }
+
+      .search-item input {
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 16px;
+        color: #333;
+        background-color: transparent;
+      }
+
+      .search-item input::placeholder {
+        color: #999;
+      }
+
+      .icon {
+        margin-right: 10px;
+        color: #999;
+      }
+
+      .divider {
+        width: 1px;
+        height: 30px;
+        background-color: #ddd;
+      }
+
+      .search-btn {
+        background-color: #ff6b00;
+        color: #fff;
+        border: none;
+        padding: 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 18px;
+        margin: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        transition: all 0.3s;
+      }
+
+      .search-btn:hover {
+        background-color: #e65100;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(255, 107, 0, 0.4);
+      }
+
+      /* Date Range Picker */
+      .date-range-box {
+        padding: 0; /* Remove padding to align with other inputs */
+        border: none; /* Remove border */
+        border-radius: 0; /* Remove border-radius */
+        background: transparent; /* Match the search-container background */
+        color: #333; /* Match the color of other inputs */
+        font-family: Arial;
+        width: 100%; /* Ensure it takes full width of the search-item */
+        cursor: pointer;
+        font-weight: normal; /* Match the weight of other inputs */
+      }
+
+      .date-range-box:hover {
+        border: none; /* Remove border on hover */
+        background: transparent; /* Keep background transparent */
+      }
+
+      .date-range-box:focus {
+        outline: none;
+        box-shadow: none; /* Remove focus shadow */
+      }
+
+      .date-range-box::placeholder {
+        color: #999; /* Match placeholder color with other inputs */
+      }
+
+      /* Orange Calendar Theme */
+      .flatpickr-calendar {
+        --fp-primary-color: #ff6b00;
+        --fp-primary-text-color: #fff;
+      }
+
+      .flatpickr-day.selected {
+        background: #ff6b00;
+        border-color: #ff6b00;
+      }
+
+      .flatpickr-day:hover {
+        background: #ffd699;
+      }
+
+      /* Bike Listing Sections */
+      section {
+        padding: 40px 5%;
+      }
+
+      h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+        color: #ff6b00;
+        text-align: center;
+        position: relative;
+      }
+
+      h2:after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: #ff6b00;
+        margin: 10px auto 0;
+        border-radius: 2px;
+      }
+
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+      }
+
+      .card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        background: white;
+        transition: all 0.3s;
+        border: 1px solid #ffe0cc;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+        border-color: #ff6b00;
+      }
+
+      .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .card:hover img {
+        transform: scale(1.05);
+      }
+
+      .card-content {
+        padding: 15px;
+      }
+
+      .card h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      .card p {
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #666;
+      }
+
+      .price {
+        color: #ff6b00;
+        font-weight: bold;
+        font-size: 16px;
+      }
+
+      .rating {
+        color: #ff9e00;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .location {
+        font-size: 12px;
+        color: #888;
+      }
+      /* Popular Places */
+      .popular-places {
+        background-color: #fff3e8;
+      }
+
+      .places-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .places-container span {
+        padding: 8px 15px;
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 2px 5px rgba(255, 107, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 1px solid #ffc299;
+      }
+
+      .places-container span:hover {
+        background-color: #ff6b00;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .place-btn {
+        padding: 10px 20px;
+        margin: 5px;
+        background-color: #fff3e0;
+        color: #ff6b00;
+        border: 1px solid #ff9e4d;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .place-btn:hover {
+        background-color: #ff6b00;
+        color: white;
+        border-color: #ff6b00;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 8px rgba(255, 107, 0, 0.3);
+      }
+
+      .place-btn:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(255, 107, 0, 0.5);
+      }
+
+      /* About Section */
+      .about {
+        background-color: #fff8f2;
+        padding: 60px 5%;
+      }
+
+      .about-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .about h2 {
+        margin-bottom: 20px;
+      }
+
+      .about h3 {
+        margin: 25px 0 15px;
+        color: #ff6b00;
+      }
+
+      .about ul {
+        text-align: left;
+        max-width: 600px;
+        margin: 0 auto;
+        list-style-position: inside;
+      }
+
+      .about li {
+        margin-bottom: 10px;
+        padding-left: 10px;
+      }
+
+      /* Footer Styles */
+      .footer {
+        background-color: #fbebd9;
+        padding: 40px 20px;
+        width: 1800px;
+        margin-top: 50px;
+        /* margin-left: -250px; */
+        margin-bottom: -50px;
+        margin-right: -250px;
+        border-top: 1px solid #ffe0b2;
+      }
+
+      .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1500px;
+        margin: 0 auto;
+        gap: 40px;
+        justify-content: space-between;
+      }
+
+      /* Logo Section */
+      .footer-logo {
+        flex: 0 0 200px;
+      }
+
+      .footer-logo .logo {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        color: #ff6b00;
+      }
+
+      .footer-logo p {
+        line-height: 1.6;
+        color: #666;
+      }
+
+      /* Links Sections */
+      .footer-links {
+        min-width: 150px;
+      }
+
+      .footer-links h3 {
+        color: #ff6b00;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 1.1rem;
+      }
+
+      .footer-links ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 8px;
+      }
+
+      .footer-links a {
+        color: #666;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: #ff6b00;
+      }
+
+      /* Copyright Section */
+      .footer-bottom {
+        text-align: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid #ffe0b2;
+        color: #999;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .footer-container {
+          flex-direction: column;
+          gap: 30px;
+        }
+
+        .footer-logo {
+          flex: 1;
+          text-align: center;
+        }
+
+        .footer-links {
+          text-align: center;
+        }
+      }
+
+      /* Orange-themed Live Chat Styles */
+      .chat-button {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 30px;
+        font-weight: 500;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        display: flex;
+        align-items: center;
+        z-index: 999;
+        transition: all 0.3s ease;
+      }
+
+      .chat-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+      }
+
+      .chat-container {
+        position: fixed;
+        bottom: 90px;
+        right: 30px;
+        width: 350px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        z-index: 1000;
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        border: 2px solid #ff6b00;
+      }
+
+      .loginBtn {
+        padding: 8px 20px;
+        background-color: white;
+        color: #ff6b00;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
       }
 
       .loginBtn:hover {
-            background-color: #ffe0cc;
-            transform: translateY(-2px);
+        background-color: #ffe0cc;
+        transform: translateY(-2px);
+      }
+
+      .chat-header {
+        background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
+        color: white;
+        padding: 15px;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .close-chat {
+        cursor: pointer;
+        font-size: 1.5rem;
+        line-height: 1;
+        transition: transform 0.3s ease;
+      }
+
+      .close-chat:hover {
+        transform: scale(1.2);
+      }
+
+      .chat-body {
+        padding: 15px;
+        height: 300px;
+        overflow-y: auto;
+        background-color: #fff3e8;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-message {
+        margin-bottom: 15px;
+        padding: 10px 15px;
+        border-radius: 18px;
+        max-width: 80%;
+        font-size: 14px;
+        line-height: 1.4;
+        position: relative;
+      }
+
+      .bot {
+        background-color: white;
+        border-bottom-left-radius: 5px;
+        align-self: flex-start;
+        box-shadow: 0 2px 5px rgba(255, 107, 0, 0.1);
+        border: 1px solid #ff9e4d;
+      }
+
+      .bot:before {
+        content: "Bikeeez Bot";
+        display: block;
+        font-size: 0.7rem;
+        color: #ff6b00;
+        margin-bottom: 3px;
+        font-weight: bold;
+      }
+
+      .user {
+        background-color: #ff6b00;
+        color: white;
+        border-bottom-right-radius: 5px;
+        align-self: flex-end;
+      }
+
+      .chat-suggestions {
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        background-color: white;
+        border-top: 1px solid #ff9e4d;
+      }
+
+      .chat-suggestions button {
+        background-color: #fff3e0;
+        border: none;
+        border-radius: 15px;
+        padding: 5px 12px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #e65100;
+        border: 1px solid #ff9e4d;
+      }
+
+      .chat-suggestions button:hover {
+        background-color: #ff6b00;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .chat-input {
+        display: flex;
+        padding: 10px;
+        background-color: white;
+        border-top: 1px solid #ff9e4d;
+      }
+
+      .chat-input input {
+        flex: 1;
+        padding: 10px 15px;
+        border: 1px solid #ff9e4d;
+        border-radius: 30px;
+        outline: none;
+        font-size: 0.9rem;
+        transition: border-color 0.3s ease;
+        background-color: #fff3e0;
+      }
+
+      .chat-input input:focus {
+        border-color: #ff6b00;
+      }
+
+      .chat-input button {
+        background-color: #ff6b00;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        padding: 0 15px;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .chat-input button:hover {
+        background-color: #e65100;
+        transform: scale(1.05);
+      }
+
+      /* Typing indicator */
+      .typing-indicator {
+        display: none;
+        padding: 10px 15px;
+        background-color: white;
+        border-radius: 18px;
+        border-bottom-left-radius: 5px;
+        align-self: flex-start;
+        box-shadow: 0 2px 5px rgba(255, 107, 0, 0.1);
+        border: 1px solid #ff9e4d;
+        margin-bottom: 15px;
+        width: fit-content;
+      }
+
+      .typing-indicator span {
+        height: 8px;
+        width: 8px;
+        background-color: #ff6b00;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0 2px;
+        animation: bounce 1.5s infinite ease-in-out;
+      }
+
+      .typing-indicator span:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .typing-indicator span:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes bounce {
+        0%,
+        60%,
+        100% {
+          transform: translateY(0);
         }
 
-    .chat-header {
-      background: linear-gradient(135deg, #ff6b00 0%, #e65100 100%);
-      color: white;
-      padding: 15px;
-      font-weight: 600;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .close-chat {
-      cursor: pointer;
-      font-size: 1.5rem;
-      line-height: 1;
-      transition: transform 0.3s ease;
-    }
-
-    .close-chat:hover {
-      transform: scale(1.2);
-    }
-
-    .chat-body {
-      padding: 15px;
-      height: 300px;
-      overflow-y: auto;
-      background-color: #fff3e8;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .chat-message {
-      margin-bottom: 15px;
-      padding: 10px 15px;
-      border-radius: 18px;
-      max-width: 80%;
-      font-size: 14px;
-      line-height: 1.4;
-      position: relative;
-    }
-
-    .bot {
-      background-color: white;
-      border-bottom-left-radius: 5px;
-      align-self: flex-start;
-      box-shadow: 0 2px 5px rgba(255, 107, 0, 0.1);
-      border: 1px solid #ff9e4d;
-    }
-
-    .bot:before {
-      content: "Bikeeez Bot";
-      display: block;
-      font-size: 0.7rem;
-      color: #ff6b00;
-      margin-bottom: 3px;
-      font-weight: bold;
-    }
-
-    .user {
-      background-color: #ff6b00;
-      color: white;
-      border-bottom-right-radius: 5px;
-      align-self: flex-end;
-    }
-
-    .chat-suggestions {
-      padding: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      background-color: white;
-      border-top: 1px solid #ff9e4d;
-    }
-
-    .chat-suggestions button {
-      background-color: #fff3e0;
-      border: none;
-      border-radius: 15px;
-      padding: 5px 12px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      color: #e65100;
-      border: 1px solid #ff9e4d;
-    }
-
-    .chat-suggestions button:hover {
-      background-color: #ff6b00;
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    .chat-input {
-      display: flex;
-      padding: 10px;
-      background-color: white;
-      border-top: 1px solid #ff9e4d;
-    }
-
-    .chat-input input {
-      flex: 1;
-      padding: 10px 15px;
-      border: 1px solid #ff9e4d;
-      border-radius: 30px;
-      outline: none;
-      font-size: 0.9rem;
-      transition: border-color 0.3s ease;
-      background-color: #fff3e0;
-    }
-
-    .chat-input input:focus {
-      border-color: #ff6b00;
-    }
-
-    .chat-input button {
-      background-color: #ff6b00;
-      color: white;
-      border: none;
-      border-radius: 30px;
-      padding: 0 15px;
-      margin-left: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .chat-input button:hover {
-      background-color: #e65100;
-      transform: scale(1.05);
-    }
-
-    /* Typing indicator */
-    .typing-indicator {
-      display: none;
-      padding: 10px 15px;
-      background-color: white;
-      border-radius: 18px;
-      border-bottom-left-radius: 5px;
-      align-self: flex-start;
-      box-shadow: 0 2px 5px rgba(255, 107, 0, 0.1);
-      border: 1px solid #ff9e4d;
-      margin-bottom: 15px;
-      width: fit-content;
-    }
-
-    .typing-indicator span {
-      height: 8px;
-      width: 8px;
-      background-color: #ff6b00;
-      border-radius: 50%;
-      display: inline-block;
-      margin: 0 2px;
-      animation: bounce 1.5s infinite ease-in-out;
-    }
-
-    .typing-indicator span:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing-indicator span:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    @keyframes bounce {
-
-      0%,
-      60%,
-      100% {
-        transform: translateY(0);
+        30% {
+          transform: translateY(-5px);
+        }
       }
+    </style>
+  </head>
 
-      30% {
-        transform: translateY(-5px);
-      }
-    }
-  </style>
-</head>
-
-<body>
-  <!-- Header -->
-  {{ bikes|json_script:"bikes-data" }}
-  <header class="header">
-    <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
-    <div class="language-currency">
-      <!-- <select>
+  <body>
+    <!-- Header -->
+    {{ bikes|json_script:"bikes-data" }}
+    <header class="header">
+      <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
+      <div class="language-currency">
+        <!-- <select>
         <option value="en">EN</option>
         <option value="np">NP</option>
       </select> -->
-      <div class="language-currency">
-        <button type="button" class="loginBtn" data-url="{% url 'logout' %}" onclick="redirectToLogout()">
+        <div class="language-currency">
+          <button
+            type="button"
+            class="loginBtn"
+            data-url="{% url 'logout' %}"
+            onclick="redirectToLogout()"
+          >
             Logout
-        </button>
+          </button>
 
-        <script>
+          <script>
             function redirectToLogout() {
-                var logoutUrl = document.querySelector('.loginBtn').getAttribute('data-url');
-                setTimeout(() => { window.location.href = logoutUrl; }, 500);
+              var logoutUrl = document
+                .querySelector(".loginBtn")
+                .getAttribute("data-url");
+              setTimeout(() => {
+                window.location.href = logoutUrl;
+              }, 500);
             }
-        </script>
-    </div>
+          </script>
+        </div>
 
-      <a href="{% url 'profile' %}">
-        <div class="user-icon">👤</div>
-    </a>
-    </div>
-  </header>
+        <a href="{% url 'profile' %}">
+          <div class="user-icon">👤</div>
+        </a>
+      </div>
+    </header>
 
-  <!-- Hero Section -->
-  <form method="GET" action="{% url 'search_bikes' %}">
-    {% csrf_token %}
-    <section class="hero">
-      <h1 style="color: #ff6b00; font-weight: bolder">
-        Rent bikes from Kathmandu's largest online bike rental platform
-      </h1>
-      <div class="search-box">
-        <div class="search-container">
-  
-          <!-- Place Selection -->
-          <div class="search-item">
-            <select class="form-input" name="places" id="places" required>
-              <option value="" disabled selected>Select places</option>
-              <option value="thamel">Thamel</option>
-              <option value="jhamsikhel">Jhamsikhel</option>
-              <option value="boudha">Boudha</option>
-              <option value="patan">Patan</option>
-              <option value="bhaktapur">Bhaktapur</option>
-              <option value="kirtipur">Kirtipur</option>
-              <option value="gongabu">Gongabu</option>
-            </select>
+    <!-- Hero Section -->
+    <form method="GET" action="{% url 'search_bikes' %}">
+      {% csrf_token %}
+      <section class="hero">
+        <h1 style="color: #ff6b00; font-weight: bolder">
+          Rent bikes from Kathmandu's largest online bike rental platform
+        </h1>
+        <div class="search-box">
+          <div class="search-container">
+            <!-- Place Selection -->
+            <div class="search-item">
+              <select class="form-input" name="places" id="places" required>
+                <option value="" disabled selected>Select places</option>
+                <option value="thamel">Thamel</option>
+                <option value="jhamsikhel">Jhamsikhel</option>
+                <option value="boudha">Boudha</option>
+                <option value="patan">Patan</option>
+                <option value="bhaktapur">Bhaktapur</option>
+                <option value="kirtipur">Kirtipur</option>
+                <option value="gongabu">Gongabu</option>
+              </select>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Date Input (optional) -->
+            <div class="search-item">
+              <input
+                type="text"
+                id="dateRange"
+                class="date-range-box"
+                placeholder="Select dates"
+                name="date_range"
+              />
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Quantity Input -->
+            <div class="search-item">
+              <input
+                type="number"
+                placeholder="Number of bikes"
+                name="quantity"
+                min="1"
+                class="form-input"
+              />
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="search-btn">➔</button>
           </div>
-  
-          <div class="divider"></div>
-  
-          <!-- Date Input (optional) -->
-          <div class="search-item">
-            <input
-              type="text"
-              id="dateRange"
-              class="date-range-box"
-              placeholder="Select dates"
-              name="date_range"
+        </div>
+      </section>
+    </form>
+
+    <!-- Frequently Booked Bikes -->
+    <section class="frequently-booked">
+      <h2>Highest Rated</h2>
+      <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card">
+          <!-- Check if there are bikes and use the first one (random_bike.0) -->
+          {% if bikes_sorted_by_rating|length > 0 %}
+          <a
+            href="{% url 'Booking' bikes_sorted_by_rating.0.id %}"
+            style="text-decoration: none; color: inherit"
+          >
+            <img
+              src="{{ bikes_sorted_by_rating.0.image.url }}"
+              alt="{{ bikes_sorted_by_rating.0.name }}"
             />
-          </div>
-  
-          <div class="divider"></div>
-  
-          <!-- Quantity Input -->
-          <div class="search-item">
-            <input
-              type="number"
-              placeholder="Number of bikes"
-              name="quantity"
-              min="1"
-              class="form-input"
+
+            <div class="card-content">
+              <h3>{{ bikes_sorted_by_rating.0.name }}</h3>
+
+              <!-- Bike description, with a default message if not available -->
+              <p>
+                {{ bikes_sorted_by_rating.0.short_description | default:"No
+                description available." }}
+              </p>
+
+              <p class="price">
+                Rs. {{ bikes_sorted_by_rating.daily_rate }} /day | Rs. {{
+                bikes_sorted_by_rating.0.weekly_rate }} /week
+              </p>
+
+              <!-- Rating -->
+              <p class="rating">
+                ⭐ {{ bikes_sorted_by_rating.rating | default:"N/A" }} ({{
+                bikes_sorted_by_rating.0.reviews_count }} reviews)
+              </p>
+
+              <p class="location">
+                {{ bikes_sorted_by_rating.location | default:"Location not
+                available" }}
+              </p>
+            </div>
+          </a>
+          {% else %}
+          <p>No bike data available.</p>
+          {% endif %}
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+          <!-- Check if there are bikes and use the first one (random_bike.0) -->
+          {% if bikes_sorted_by_rating|length > 1 %}
+          <a
+            href="{% url 'Booking' bikes_sorted_by_rating.1.id %}"
+            style="text-decoration: none; color: inherit"
+          >
+            <img
+              src="{{ bikes_sorted_by_rating.1.image.url }}"
+              alt="{{ bikes_sorted_by_rating.1.name }}"
             />
-          </div>
-  
-          <!-- Submit Button -->
-          <button type="submit" class="search-btn">➔</button>
+
+            <div class="card-content">
+              <h3>{{ bikes_sorted_by_rating.1.name }}</h3>
+
+              <!-- Bike description, with a default message if not available -->
+              <p>
+                {{ bikes_sorted_by_rating.1.short_description | default:"No
+                description available." }}
+              </p>
+
+              <p class="price">
+                Rs. {{ bikes_sorted_by_rating.1.daily_rate }} /day | Rs. {{
+                bikes_sorted_by_rating.1.weekly_rate }} /week
+              </p>
+
+              <!-- Rating -->
+              <p class="rating">
+                ⭐ {{ bikes_sorted_by_rating.1.rating | default:"N/A" }} ({{
+                bikes_sorted_by_rating.1.reviews_count }} reviews)
+              </p>
+
+              <p class="location">
+                {{ bikes_sorted_by_rating.1.location | default:"Location not
+                available" }}
+              </p>
+            </div>
+          </a>
+          {% else %}
+          <p>No bike data available.</p>
+          {% endif %}
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+          <!-- Check if there are bikes and use the first one (random_bike.0) -->
+          {% if bikes_sorted_by_rating|length > 2 %}
+          <a
+            href="{% url 'Booking' bikes_sorted_by_rating.2.id %}"
+            style="text-decoration: none; color: inherit"
+          >
+            <img
+              src="{{ bikes_sorted_by_rating.2.image.url }}"
+              alt="{{ bikes_sorted_by_rating.2.name }}"
+            />
+
+            <div class="card-content">
+              <h3>{{ bikes_sorted_by_rating.2.name }}</h3>
+
+              <!-- Bike description, with a default message if not available -->
+              <p>
+                {{ bikes_sorted_by_rating.2.short_description | default:"No
+                description available." }}
+              </p>
+
+              <p class="price">
+                Rs. {{ bikes_sorted_by_rating.2.daily_rate }} /day | Rs. {{
+                bikes_sorted_by_rating.2.weekly_rate }} /week
+              </p>
+
+              <!-- Rating -->
+              <p class="rating">
+                ⭐ {{ bikes_sorted_by_rating.2.rating | default:"N/A" }} ({{
+                bikes_sorted_by_rating.2.reviews_count }} reviews)
+              </p>
+
+              <p class="location">
+                {{ bikes_sorted_by_rating.2.location | default:"Location not
+                available" }}
+              </p>
+            </div>
+          </a>
+          {% else %}
+          <p>No bike data available.</p>
+          {% endif %}
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+          <!-- Check if there are bikes and use the first one (random_bike.0) -->
+          {% if bikes_sorted_by_rating|length > 3 %}
+          <a
+            href="{% url 'Booking' bikes_sorted_by_rating.3.id %}"
+            style="text-decoration: none; color: inherit"
+          >
+            <img
+              src="{{ bikes_sorted_by_rating.3.image.url }}"
+              alt="{{ bikes_sorted_by_rating.3.name }}"
+            />
+
+            <div class="card-content">
+              <h3>{{ bikes_sorted_by_rating.3.name }}</h3>
+
+              <!-- Bike description, with a default message if not available -->
+              <p>
+                {{ bikes_sorted_by_rating.3.short_description | default:"No
+                description available." }}
+              </p>
+
+              <p class="price">
+                Rs. {{ bikes_sorted_by_rating.3.daily_rate }} /day | Rs. {{
+                bikes_sorted_by_rating.3.weekly_rate }} /week
+              </p>
+
+              <!-- Rating -->
+              <p class="rating">
+                ⭐ {{ bikes_sorted_by_rating.3.rating | default:"N/A" }} ({{
+                bikes_sorted_by_rating.3.reviews_count }} reviews)
+              </p>
+
+              <p class="location">
+                {{ bikes_sorted_by_rating.3.location | default:"Location not
+                available" }}
+              </p>
+            </div>
+          </a>
+          {% else %}
+          <p>No bike data available.</p>
+          {% endif %}
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card">
+          <!-- Check if there are bikes and use the first one (random_bike.0) -->
+          {% if bikes_sorted_by_rating|length > 4 %}
+          <a
+            href="{% url 'Booking' bikes_sorted_by_rating.4.id %}"
+            style="text-decoration: none; color: inherit"
+          >
+            <img
+              src="{{ bikes_sorted_by_rating.4.image.url }}"
+              alt="{{ bikes_sorted_by_rating.1.name }}"
+            />
+
+            <div class="card-content">
+              <h3>{{ bikes_sorted_by_rating.4.name }}</h3>
+              <!-- Bike description, with a default message if not available -->
+              <p>
+                {{ bikes_sorted_by_rating.4.short_description | default:"No
+                description available." }}
+              </p>
+
+              <p class="price">
+                Rs. {{ bikes_sorted_by_rating.4.daily_rate }} /day | Rs. {{
+                bikes_sorted_by_rating.4.weekly_rate }} /week
+              </p>
+
+              <!-- Rating -->
+              <p class="rating">
+                ⭐ {{ bikes_sorted_by_rating.4.rating | default:"N/A" }} ({{
+                bikes_sorted_by_rating.4.reviews_count }} reviews)
+              </p>
+
+              <p class="location">
+                {{ bikes_sorted_by_rating.4.location | default:"Location not
+                available" }}
+              </p>
+            </div>
+          </a>
+          {% else %}
+          <p>No bike data available.</p>
+          {% endif %}
         </div>
       </div>
     </section>
-</form>
- 
 
-  <!-- Frequently Booked Bikes -->
-  <section class="frequently-booked">
-    <h2>Highest Rated</h2>
-    <div class="card-container">
-      <!-- Card 1 -->
-      <div class="card">
-        <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if bikes_sorted_by_rating|length > 0 %}
-        <a href="{% url 'Booking' bikes_sorted_by_rating.0.id %}"style="text-decoration: none; color: inherit;">
-        <img src="{{ bikes_sorted_by_rating.0.image.url }}" alt="{{ bikes_sorted_by_rating.0.name }}" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-        <div class="card-content">
-          <h3>{{ bikes_sorted_by_rating.0.name }}</h3>
-
-          <!-- Bike description, with a default message if not available -->
-          <p>{{ bikes_sorted_by_rating.0.short_description | default:"No description available." }}</p>
-
-          <p class="price">
-            Rs. {{ bikes_sorted_by_rating.daily_rate }} /day | Rs. {{ bikes_sorted_by_rating.0.weekly_rate }} /week
-          </p>
-
-          <!-- Rating -->
-          <p class="rating">
-            ⭐ {{ bikes_sorted_by_rating.rating | default:"N/A" }} ({{ bikes_sorted_by_rating.0.reviews_count }} reviews)
-          </p>
-
-          <p class="location">
-            {{ bikes_sorted_by_rating.location | default:"Location not available" }}
-          </p>
-        </div>
-        </a>
-        {% else %}
-        <p>No bike data available.</p>
-        {% endif %}
+    <!-- Popular Places Section -->
+    <section class="popular-places">
+      <h2>Popular Rental Locations</h2>
+      <div class="places-container">
+        <button class="place-btn" data-location="Thamel">Thamel</button>
+        <button class="place-btn" data-location="Jhamsikhel">Jhamsikhel</button>
+        <button class="place-btn" data-location="Boudha">Boudha</button>
+        <button class="place-btn" data-location="Patan">Patan</button>
+        <button class="place-btn" data-location="Bhaktapur">Bhaktapur</button>
+        <button class="place-btn" data-location="Kirtipur">Kirtipur</button>
+        <button class="place-btn" data-location="Gongabu">Gongabu</button>
+        <button class="place-btn" data-location="Kalanki">Kalanki</button>
+        <button class="place-btn" data-location="Chabahil">Chabahil</button>
+        <button class="place-btn" data-location="Swayambhu">Swayambhu</button>
       </div>
+    </section>
 
-      <!-- Card 2 -->
-      <div class="card">
-        <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if bikes_sorted_by_rating|length > 1 %}
-        <a href="{% url 'Booking' bikes_sorted_by_rating.1.id %}"style="text-decoration: none; color: inherit;">
-        <img src="{{ bikes_sorted_by_rating.1.image.url }}" alt="{{ bikes_sorted_by_rating.1.name }}" />
+    <!-- Map Section -->
+    <div
+      id="map"
+      style="
+        height: 400px;
+        display: none;
+        margin-top: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+      "
+    ></div>
 
-        <div class="card-content">
-          <h3>{{ bikes_sorted_by_rating.1.name }}</h3>
-
-          <!-- Bike description, with a default message if not available -->
-          <p>{{ bikes_sorted_by_rating.1.short_description | default:"No description available." }}</p>
-
-          <p class="price">
-            Rs. {{ bikes_sorted_by_rating.1.daily_rate }} /day | Rs. {{ bikes_sorted_by_rating.1.weekly_rate }} /week
-          </p>
-
-          <!-- Rating -->
-          <p class="rating">
-            ⭐ {{ bikes_sorted_by_rating.1.rating | default:"N/A" }} ({{ bikes_sorted_by_rating.1.reviews_count }} reviews)
-          </p>
-
-          <p class="location">
-            {{ bikes_sorted_by_rating.1.location | default:"Location not available" }}
-          </p>
-        </div>
-        </a>
-        {% else %}
-        <p>No bike data available.</p>
-        {% endif %}
-      </div>
-
-      <!-- Card 3 -->
-      <div class="card">
-        <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if bikes_sorted_by_rating|length > 2 %}
-        <a href="{% url 'Booking' bikes_sorted_by_rating.2.id %}"style="text-decoration: none; color: inherit;">
-        <img src="{{ bikes_sorted_by_rating.2.image.url }}" alt="{{ bikes_sorted_by_rating.2.name }}" />
-
-        <div class="card-content">
-          <h3>{{ bikes_sorted_by_rating.2.name }}</h3>
-
-          <!-- Bike description, with a default message if not available -->
-          <p>{{ bikes_sorted_by_rating.2.short_description | default:"No description available." }}</p>
-
-          <p class="price">
-            Rs. {{ bikes_sorted_by_rating.2.daily_rate }} /day | Rs. {{ bikes_sorted_by_rating.2.weekly_rate }} /week
-          </p>
-
-          <!-- Rating -->
-          <p class="rating">
-            ⭐ {{ bikes_sorted_by_rating.2.rating | default:"N/A" }} ({{ bikes_sorted_by_rating.2.reviews_count }} reviews)
-          </p>
-
-          <p class="location">
-            {{ bikes_sorted_by_rating.2.location | default:"Location not available" }}
-          </p>
-        </div>
-        </a>
-        {% else %}
-        <p>No bike data available.</p>
-        {% endif %}
-      </div>
-
-      <!-- Card 4 -->
-      <div class="card">
-        <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if bikes_sorted_by_rating|length > 3 %}
-        <a href="{% url 'Booking' bikes_sorted_by_rating.3.id %}"style="text-decoration: none; color: inherit;">
-        <img src="{{ bikes_sorted_by_rating.3.image.url }}" alt="{{ bikes_sorted_by_rating.3.name }}" />
-
-        <div class="card-content">
-          <h3>{{ bikes_sorted_by_rating.3.name }}</h3>
-
-          <!-- Bike description, with a default message if not available -->
-          <p>{{ bikes_sorted_by_rating.3.short_description | default:"No description available." }}</p>
-
-          <p class="price">
-            Rs. {{ bikes_sorted_by_rating.3.daily_rate }} /day | Rs. {{ bikes_sorted_by_rating.3.weekly_rate }} /week
-          </p>
-
-          <!-- Rating -->
-          <p class="rating">
-            ⭐ {{ bikes_sorted_by_rating.3.rating | default:"N/A" }} ({{ bikes_sorted_by_rating.3.reviews_count }} reviews)
-          </p>
-
-          <p class="location">
-            {{ bikes_sorted_by_rating.3.location | default:"Location not available" }}
-          </p>
-        </div>
-        </a>
-        {% else %}
-        <p>No bike data available.</p>
-        {% endif %}
-      </div>
-
-      <!-- Card 5 -->
-      <div class="card">
-        <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if bikes_sorted_by_rating|length > 4 %}
-        <a href="{% url 'Booking' bikes_sorted_by_rating.4.id %}"style="text-decoration: none; color: inherit;">
-        <img src="{{ bikes_sorted_by_rating.4.image.url }}" alt="{{ bikes_sorted_by_rating.1.name }}" />
-
-        <div class="card-content">
-          <h3>{{ bikes_sorted_by_rating.4.name }}</h3>
-          <!-- Bike description, with a default message if not available -->
-          <p>{{ bikes_sorted_by_rating.4.short_description | default:"No description available." }}</p>
-
-          <p class="price">
-            Rs. {{ bikes_sorted_by_rating.4.daily_rate }} /day | Rs. {{ bikes_sorted_by_rating.4.weekly_rate }} /week
-          </p>
-
-          <!-- Rating -->
-          <p class="rating">
-            ⭐ {{ bikes_sorted_by_rating.4.rating | default:"N/A" }} ({{ bikes_sorted_by_rating.4.reviews_count }} reviews)
-          </p>
-
-          <p class="location">
-            {{ bikes_sorted_by_rating.4.location | default:"Location not available" }}
-          </p>
-        </div>
-        </a>
-        {% else %}
-        <p>No bike data available.</p>
-        {% endif %}
-      </div>
-    </div>
-  </section>
-
-  <link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
-<!-- Leaflet JS -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- Popular Places Section -->
-<section class="popular-places">
-  <h2>Popular Rental Locations</h2>
-  <div class="places-container">
-    <button class="place-btn" data-location="Thamel">Thamel</button>
-    <button class="place-btn" data-location="Jhamsikhel">Jhamsikhel</button>
-    <button class="place-btn" data-location="Boudha">Boudha</button>
-    <button class="place-btn" data-location="Patan">Patan</button>
-    <button class="place-btn" data-location="Bhaktapur">Bhaktapur</button>
-    <button class="place-btn" data-location="Kirtipur">Kirtipur</button>
-    <button class="place-btn" data-location="Gongabu">Gongabu</button>
-    <button class="place-btn" data-location="Kalanki">Kalanki</button>
-    <button class="place-btn" data-location="Chabahil">Chabahil</button>
-    <button class="place-btn" data-location="Swayambhu">Swayambhu</button>
-  </div>
-</section>
-
-<!-- Map Section -->
-<div id="map" style="height: 400px; display: none; margin-top: 20px; border-radius: 10px; overflow: hidden;"></div>
-
-<!-- JavaScript to Load Map and Markers -->
-<script>
-  // Parse the JSON data from the script tag
-  const allBikes = JSON.parse(document.getElementById('bikes-data').textContent);
-
-  const mapContainer = document.getElementById("map");
-  let map;
-
-  document.querySelectorAll(".place-btn").forEach((button) => {
-    button.addEventListener("click", () => {
-      const place = button.dataset.location.toLowerCase();
-      const bikesInPlace = allBikes.filter((b) => b.location.toLowerCase().includes(place));
-
-      if (bikesInPlace.length === 0) {
-        alert("No bikes available in " + place);
-        return;
-      }
-
-      mapContainer.style.display = "block";
-
-      if (map) {
-        map.remove();
-      }
-
-      map = L.map("map").setView(
-        [bikesInPlace[0].latitude, bikesInPlace[0].longitude],
-        14
+    <!-- JavaScript to Load Map and Markers -->
+    <script>
+      // Parse the JSON data from the script tag
+      const allBikes = JSON.parse(
+        document.getElementById("bikes-data").textContent
       );
 
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution: "&copy; OpenStreetMap contributors",
-      }).addTo(map);
+      const mapContainer = document.getElementById("map");
+      let map;
 
-      bikesInPlace.forEach((bike) => {
-        const marker = L.marker([bike.latitude, bike.longitude], {
-          icon: L.icon({
-            iconUrl: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
-            iconSize: [32, 32],
-          }),
-        }).addTo(map);
+      document.querySelectorAll(".place-btn").forEach((button) => {
+        button.addEventListener("click", () => {
+          const place = button.dataset.location.toLowerCase();
+          const bikesInPlace = allBikes.filter((b) =>
+            b.location.toLowerCase().includes(place)
+          );
 
-        marker.bindPopup(
-          `<b>${bike.name}</b><br><a href="/booking/${bike.id}/" target="_blank">Book Now</a>`
-        );
+          if (bikesInPlace.length === 0) {
+            alert("No bikes available in " + place);
+            return;
+          }
+
+          mapContainer.style.display = "block";
+
+          if (map) {
+            map.remove();
+          }
+
+          map = L.map("map").setView(
+            [bikesInPlace[0].latitude, bikesInPlace[0].longitude],
+            14
+          );
+
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: "&copy; OpenStreetMap contributors",
+          }).addTo(map);
+
+          bikesInPlace.forEach((bike) => {
+            const marker = L.marker([bike.latitude, bike.longitude], {
+              icon: L.icon({
+                iconUrl:
+                  "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
+                iconSize: [32, 32],
+              }),
+            }).addTo(map);
+
+            marker.bindPopup(
+              `<b>${bike.name}</b><br><a href="/booking/${bike.id}/" target="_blank">Book Now</a>`
+            );
+          });
+        });
       });
-    });
-  });
-</script>
+    </script>
 
-
-  <!-- Recently Booked -->
-  <section class="bikes-section">
-    <h2>Recently Booked</h2>
-    <div class="card-container">
-      <!-- Card 1 -->
-      <div class="card">
-        {% if random_bikes|length > 0 %}
-        <a href="{% url 'Booking' random_bikes.0.id %}"style="text-decoration: none; color: inherit;">
-          <img src="{{ random_bikes.0.image.url }}" alt="{{ random_bikes.0.name }}" />
-          <div class="card-content">
-            <h3>{{ random_bikes.0.name }}</h3>
-            <p>{{ random_bikes.0.short_description | default:"No description available." }}</p>
-            <p class="price">
-              Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{ random_bikes.0.weekly_rate }} /week
-            </p>
-            <p class="rating">
-              ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{ random_bikes.0.reviews_count }} reviews)
-            </p>
-            <p class="location">
-              {{ random_bikes.0.location | default:"Location not available" }}
-            </p>
-          </div>
-        </a>
-        {% else %}
-        <p>No bike data available.</p>
-        {% endif %}
-      </div>
-
-
-      <!-- Card 2 -->
-      <div class="card">
-        <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes|length > 1 %}
-        <a href="{% url 'Booking' random_bikes.1.id %}"style="text-decoration: none; color: inherit;">
-          <img src="{{ random_bikes.1.image.url }}" alt="{{ random_bikes.1.name }}" />
-
-          <div class="card-content">
-            <h3>{{ random_bikes.1.name }}</h3>
-
-            <!-- Bike description, with a default message if not available -->
-            <p>{{ random_bikes.1.short_description | default:"No description available." }}</p>
-
-            <p class="price">
-              Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{ random_bikes.1.weekly_rate }} /week
-            </p>
-
-            <!-- Rating -->
-            <p class="rating">
-              ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{ random_bikes.1.reviews_count }} reviews)
-            </p>
-
-            <p class="location">
-              {{ random_bikes.1.location | default:"Location not available" }}
-            </p>
-          </div>
-        </a>
-        {% else %}
-        <p>No bike data available.</p>
-        {% endif %}
-      </div>
-
-      <!-- Card 3 -->
-      <div class="card">
-        <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes|length > 2 %}
-        <a href="{% url 'Booking' random_bikes.2.id %}"style="text-decoration: none; color: inherit;">
-        <img src="{{ random_bikes.2.image.url }}" alt="{{ random_bikes.2.name }}" />
-
-        <div class="card-content">
-          <h3>{{ random_bikes.2.name }}</h3>
-
-          <!-- Bike description, with a default message if not available -->
-          <p>{{ random_bikes.2.short_description | default:"No description available." }}</p>
-
-          <p class="price">
-            Rs. {{ random_bikes.2.daily_rate }} /day | Rs. {{ random_bikes.2.weekly_rate }} /week
-          </p>
-
-          <!-- Rating -->
-          <p class="rating">
-            ⭐ {{ random_bikes.2.rating | default:"N/A" }} ({{ random_bikes.2.reviews_count }} reviews)
-          </p>
-
-          <p class="location">
-            {{ random_bikes.2.location | default:"Location not available" }}
-          </p>
+    <!-- Recently Booked -->
+    <section class="bikes-section">
+      <h2>Recently Booked</h2>
+      <div class="card-container">
+        <!-- Card 1 -->
+        <div class="card">
+          {% if random_bikes|length > 0 %}
+          <a
+            href="{% url 'Booking' random_bikes.0.id %}"
+            style="text-decoration: none; color: inherit"
+          >
+            <img
+              src="{{ random_bikes.0.image.url }}"
+              alt="{{ random_bikes.0.name }}"
+            />
+            <div class="card-content">
+              <h3>{{ random_bikes.0.name }}</h3>
+              <p>
+                {{ random_bikes.0.short_description | default:"No description
+                available." }}
+              </p>
+              <p class="price">
+                Rs. {{ random_bikes.0.daily_rate }} /day | Rs. {{
+                random_bikes.0.weekly_rate }} /week
+              </p>
+              <p class="rating">
+                ⭐ {{ random_bikes.0.rating | default:"N/A" }} ({{
+                random_bikes.0.reviews_count }} reviews)
+              </p>
+              <p class="location">
+                {{ random_bikes.0.location | default:"Location not available" }}
+              </p>
+            </div>
+          </a>
+          {% else %}
+          <p>No bike data available.</p>
+          {% endif %}
         </div>
-        </a>
-        {% else %}
-        <p>No bike data available.</p>
-        {% endif %}
-      </div>
 
-      <!-- Card 4 -->
-      <div class="card">
-        <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes|length > 3 %}
-        <a href="{% url 'Booking' random_bikes.3.id %}"style="text-decoration: none; color: inherit;">
-        <img src="{{ random_bikes.3.image.url }}" alt="{{ random_bikes.3.name }}" />
+        <!-- Card 2 -->
+        <div class="card">
+          <!-- Check if there are bikes and use the first one (random_bike.0) -->
+          {% if random_bikes|length > 1 %}
+          <a
+            href="{% url 'Booking' random_bikes.1.id %}"
+            style="text-decoration: none; color: inherit"
+          >
+            <img
+              src="{{ random_bikes.1.image.url }}"
+              alt="{{ random_bikes.1.name }}"
+            />
 
-        <div class="card-content">
-          <h3>{{ random_bikes.3.name }}</h3>
+            <div class="card-content">
+              <h3>{{ random_bikes.1.name }}</h3>
 
-          <!-- Bike description, with a default message if not available -->
-          <p>{{ random_bikes.3.short_description | default:"No description available." }}</p>
+              <!-- Bike description, with a default message if not available -->
+              <p>
+                {{ random_bikes.1.short_description | default:"No description
+                available." }}
+              </p>
 
-          <p class="price">
-            Rs. {{ random_bikes.3.daily_rate }} /day | Rs. {{ random_bikes.3.weekly_rate }} /week
-          </p>
+              <p class="price">
+                Rs. {{ random_bikes.1.daily_rate }} /day | Rs. {{
+                random_bikes.1.weekly_rate }} /week
+              </p>
 
-          <!-- Rating -->
-          <p class="rating">
-            ⭐ {{ random_bikes.3.rating | default:"N/A" }} ({{ random_bikes.3.reviews_count }} reviews)
-          </p>
+              <!-- Rating -->
+              <p class="rating">
+                ⭐ {{ random_bikes.1.rating | default:"N/A" }} ({{
+                random_bikes.1.reviews_count }} reviews)
+              </p>
 
-          <p class="location">
-            {{ random_bikes.3.location | default:"Location not available" }}
-          </p>
+              <p class="location">
+                {{ random_bikes.1.location | default:"Location not available" }}
+              </p>
+            </div>
+          </a>
+          {% else %}
+          <p>No bike data available.</p>
+          {% endif %}
         </div>
-        </a>
-        {% else %}
-        <p>No bike data available.</p>
-        {% endif %}
-      </div>
 
-      <!-- Card 5 -->
-      <div class="card">
-        <!-- Check if there are bikes and use the first one (random_bike.0) -->
-        {% if random_bikes|length > 4 %}
-        <a href="{% url 'Booking' random_bikes.4.id %}"style="text-decoration: none; color: inherit;">
-        <img src="{{ random_bikes.4.image.url }}" alt="{{ random_bikes.1.name }}" />
+        <!-- Card 3 -->
+        <div class="card">
+          <!-- Check if there are bikes and use the first one (random_bike.0) -->
+          {% if random_bikes|length > 2 %}
+          <a
+            href="{% url 'Booking' random_bikes.2.id %}"
+            style="text-decoration: none; color: inherit"
+          >
+            <img
+              src="{{ random_bikes.2.image.url }}"
+              alt="{{ random_bikes.2.name }}"
+            />
 
-        <div class="card-content">
-          <h3>{{ random_bikes.4.name }}</h3>
-          <!-- Bike description, with a default message if not available -->
-          <p>{{ random_bikes.4.short_description | default:"No description available." }}</p>
+            <div class="card-content">
+              <h3>{{ random_bikes.2.name }}</h3>
 
-          <p class="price">
-            Rs. {{ random_bikes.4.daily_rate }} /day | Rs. {{ random_bikes.4.weekly_rate }} /week
-          </p>
+              <!-- Bike description, with a default message if not available -->
+              <p>
+                {{ random_bikes.2.short_description | default:"No description
+                available." }}
+              </p>
 
-          <!-- Rating -->
-          <p class="rating">
-            ⭐ {{ random_bikes.4.rating | default:"N/A" }} ({{ random_bikes.4.reviews_count }} reviews)
-          </p>
+              <p class="price">
+                Rs. {{ random_bikes.2.daily_rate }} /day | Rs. {{
+                random_bikes.2.weekly_rate }} /week
+              </p>
 
-          <p class="location">
-            {{ random_bikes.4.location | default:"Location not available" }}
-          </p>
+              <!-- Rating -->
+              <p class="rating">
+                ⭐ {{ random_bikes.2.rating | default:"N/A" }} ({{
+                random_bikes.2.reviews_count }} reviews)
+              </p>
+
+              <p class="location">
+                {{ random_bikes.2.location | default:"Location not available" }}
+              </p>
+            </div>
+          </a>
+          {% else %}
+          <p>No bike data available.</p>
+          {% endif %}
         </div>
-        </a>
-        {% else %}
-        <p>No bike data available.</p>
-        {% endif %}
-      </div>
-    </div>
-  </section>
 
-  <!-- Live Chat Button -->
-  <!-- <button class="chat-button" onclick="toggleChat()">
+        <!-- Card 4 -->
+        <div class="card">
+          <!-- Check if there are bikes and use the first one (random_bike.0) -->
+          {% if random_bikes|length > 3 %}
+          <a
+            href="{% url 'Booking' random_bikes.3.id %}"
+            style="text-decoration: none; color: inherit"
+          >
+            <img
+              src="{{ random_bikes.3.image.url }}"
+              alt="{{ random_bikes.3.name }}"
+            />
+
+            <div class="card-content">
+              <h3>{{ random_bikes.3.name }}</h3>
+
+              <!-- Bike description, with a default message if not available -->
+              <p>
+                {{ random_bikes.3.short_description | default:"No description
+                available." }}
+              </p>
+
+              <p class="price">
+                Rs. {{ random_bikes.3.daily_rate }} /day | Rs. {{
+                random_bikes.3.weekly_rate }} /week
+              </p>
+
+              <!-- Rating -->
+              <p class="rating">
+                ⭐ {{ random_bikes.3.rating | default:"N/A" }} ({{
+                random_bikes.3.reviews_count }} reviews)
+              </p>
+
+              <p class="location">
+                {{ random_bikes.3.location | default:"Location not available" }}
+              </p>
+            </div>
+          </a>
+          {% else %}
+          <p>No bike data available.</p>
+          {% endif %}
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card">
+          <!-- Check if there are bikes and use the first one (random_bike.0) -->
+          {% if random_bikes|length > 4 %}
+          <a
+            href="{% url 'Booking' random_bikes.4.id %}"
+            style="text-decoration: none; color: inherit"
+          >
+            <img
+              src="{{ random_bikes.4.image.url }}"
+              alt="{{ random_bikes.1.name }}"
+            />
+
+            <div class="card-content">
+              <h3>{{ random_bikes.4.name }}</h3>
+              <!-- Bike description, with a default message if not available -->
+              <p>
+                {{ random_bikes.4.short_description | default:"No description
+                available." }}
+              </p>
+
+              <p class="price">
+                Rs. {{ random_bikes.4.daily_rate }} /day | Rs. {{
+                random_bikes.4.weekly_rate }} /week
+              </p>
+
+              <!-- Rating -->
+              <p class="rating">
+                ⭐ {{ random_bikes.4.rating | default:"N/A" }} ({{
+                random_bikes.4.reviews_count }} reviews)
+              </p>
+
+              <p class="location">
+                {{ random_bikes.4.location | default:"Location not available" }}
+              </p>
+            </div>
+          </a>
+          {% else %}
+          <p>No bike data available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Chat Button -->
+    <!-- <button class="chat-button" onclick="toggleChat()">
     <span style="margin-right: 8px">🚴‍♂️</span> Bikeeez Support
   </button> -->
 
-  <!-- Live Chat Container -->
-  <!-- <div class="chat-container" id="chatContainer">
+    <!-- Live Chat Container -->
+    <!-- <div class="chat-container" id="chatContainer">
     <div class="chat-header">
       <span><span style="margin-right: 8px">🚴‍♂️</span> Bikeeez Support</span>
       <span class="close-chat" onclick="toggleChat()">×</span>
@@ -1283,97 +1419,97 @@ h2:after {
     </div>
   </div> -->
 
-  <script>
-    // Toggle chat visibility
-    // function toggleChat() {
-    //   const chatContainer = document.getElementById("chatContainer");
-    //   if (chatContainer.style.display === "flex") {
-    //     chatContainer.style.display = "none";
-    //   } else {
-    //     chatContainer.style.display = "flex";
-    //     document.getElementById("chatInput").focus();
-    //   }
-    // }
+    <script>
+      // Toggle chat visibility
+      // function toggleChat() {
+      //   const chatContainer = document.getElementById("chatContainer");
+      //   if (chatContainer.style.display === "flex") {
+      //     chatContainer.style.display = "none";
+      //   } else {
+      //     chatContainer.style.display = "flex";
+      //     document.getElementById("chatInput").focus();
+      //   }
+      // }
 
-    // Show typing indicator
-    // function showTyping() {
-    //   const typing = document.getElementById("typingIndicator");
-    //   typing.style.display = "block";
+      // Show typing indicator
+      // function showTyping() {
+      //   const typing = document.getElementById("typingIndicator");
+      //   typing.style.display = "block";
       // Scroll to bottom
-    //   document.getElementById("chatBody").scrollTop =
-    //     document.getElementById("chatBody").scrollHeight;
-    // }
+      //   document.getElementById("chatBody").scrollTop =
+      //     document.getElementById("chatBody").scrollHeight;
+      // }
 
-    // Hide typing indicator
-    // function hideTyping() {
-    //   document.getElementById("typingIndicator").style.display = "none";
-    // }
+      // Hide typing indicator
+      // function hideTyping() {
+      //   document.getElementById("typingIndicator").style.display = "none";
+      // }
 
-    // Send a message from the input field
-    // function sendMessage() {
-    //   const input = document.getElementById("chatInput");
-    //   const message = input.value.trim();
+      // Send a message from the input field
+      // function sendMessage() {
+      //   const input = document.getElementById("chatInput");
+      //   const message = input.value.trim();
 
       // if (message) {
       //   addMessage(message, "user");
       //   input.value = "";
 
-        // Show typing indicator
-        // showTyping();
+      // Show typing indicator
+      // showTyping();
 
-        // Simulate bot response after a short delay
-        // setTimeout(() => {
-        //   hideTyping();
-        //   const responses = [
-        //     "I can help with your bike rental question about '" +
-        //     message +
-        //     "'. Let me check that for you.",
-        //     "Thanks for your message! Our bike specialists will get back to you shortly.",
-        //     "Great question about bike rentals! Here's what I know...",
-        //     "I'll find the best bike rental information for you. One moment please.",
-        //   ];
-        //   const randomResponse =
-        //     responses[Math.floor(Math.random() * responses.length)];
-        //   addMessage(randomResponse, "bot");
-        // }, 1500 + Math.random() * 2000); // Random delay between 1.5-3.5 seconds
-    //   }
-    // }
+      // Simulate bot response after a short delay
+      // setTimeout(() => {
+      //   hideTyping();
+      //   const responses = [
+      //     "I can help with your bike rental question about '" +
+      //     message +
+      //     "'. Let me check that for you.",
+      //     "Thanks for your message! Our bike specialists will get back to you shortly.",
+      //     "Great question about bike rentals! Here's what I know...",
+      //     "I'll find the best bike rental information for you. One moment please.",
+      //   ];
+      //   const randomResponse =
+      //     responses[Math.floor(Math.random() * responses.length)];
+      //   addMessage(randomResponse, "bot");
+      // }, 1500 + Math.random() * 2000); // Random delay between 1.5-3.5 seconds
+      //   }
+      // }
 
-    // Send a suggested message
-    // function sendSuggestedMessage(message) {
-    //   addMessage(message, "user");
+      // Send a suggested message
+      // function sendSuggestedMessage(message) {
+      //   addMessage(message, "user");
 
       // Show typing indicator
       // showTyping();
 
       // Simulate bot response after a short delay
-    //   setTimeout(() => {
-    //     hideTyping();
-    //     let response;
+      //   setTimeout(() => {
+      //     hideTyping();
+      //     let response;
 
-    //     if (message.includes("types of bikes")) {
-    //       response =
-    //         "We offer mountain bikes, road bikes, hybrid bikes, and e-bikes. Our premium models include the Trek Fuel EX and Specialized Turbo Levo for e-bikes. All bikes are serviced regularly for your safety!";
-    //     } else if (message.includes("rental rates")) {
-    //       response =
-    //         "Our rates start at ₨5650/day for standard bikes. E-bikes are ₨6500/day. Weekly discounts available! Check our website for current promotions and package deals."; // Updated to NPR
-    //     } else if (message.includes("pickup locations")) {
-    //       response =
-    //         "We have convenient locations in Kathmandu, Nepal. Check our website for exact addresses and opening hours."; // Updated to Nepal
-    //     } else {
-    //       response =
-    //         "Thanks for your bike rental question! Let me connect you with the best information.";
-    //     }
+      //     if (message.includes("types of bikes")) {
+      //       response =
+      //         "We offer mountain bikes, road bikes, hybrid bikes, and e-bikes. Our premium models include the Trek Fuel EX and Specialized Turbo Levo for e-bikes. All bikes are serviced regularly for your safety!";
+      //     } else if (message.includes("rental rates")) {
+      //       response =
+      //         "Our rates start at ₨5650/day for standard bikes. E-bikes are ₨6500/day. Weekly discounts available! Check our website for current promotions and package deals."; // Updated to NPR
+      //     } else if (message.includes("pickup locations")) {
+      //       response =
+      //         "We have convenient locations in Kathmandu, Nepal. Check our website for exact addresses and opening hours."; // Updated to Nepal
+      //     } else {
+      //       response =
+      //         "Thanks for your bike rental question! Let me connect you with the best information.";
+      //     }
 
-    //     addMessage(response, "bot");
-    //   }, 1000 + Math.random() * 1500); // Random delay between 1-2.5 seconds
-    // }
+      //     addMessage(response, "bot");
+      //   }, 1000 + Math.random() * 1500); // Random delay between 1-2.5 seconds
+      // }
 
-    // Add a message to the chat
-    // function addMessage(text, sender) {
-    //   const chatBody = document.getElementById("chatBody");
-    //   const messageDiv = document.createElement("div");
-    //   messageDiv.classList.add("chat-message", sender);
+      // Add a message to the chat
+      // function addMessage(text, sender) {
+      //   const chatBody = document.getElementById("chatBody");
+      //   const messageDiv = document.createElement("div");
+      //   messageDiv.classList.add("chat-message", sender);
 
       // Add bike emoji for bot messages
       // if (sender === "bot") {
@@ -1386,94 +1522,94 @@ h2:after {
       // chatBody.appendChild(messageDiv);
 
       // Scroll to the bottom of the chat
-    //   chatBody.scrollTop = chatBody.scrollHeight;
-    // }
+      //   chatBody.scrollTop = chatBody.scrollHeight;
+      // }
 
-    // Initialize with a welcome message if chat is empty
-  //   document.addEventListener("DOMContentLoaded", function () {
-  //     const chatBody = document.getElementById("chatBody");
-  //     if (chatBody.children.length === 0) {
-  //       addMessage(
-  //         "Hello! I'm here to help with your bike rental questions. What do you need assistance with today?",
-  //         "bot"
-  //       );
-  //     }
-  //   });
-  // </script>
+      // Initialize with a welcome message if chat is empty
+      //   document.addEventListener("DOMContentLoaded", function () {
+      //     const chatBody = document.getElementById("chatBody");
+      //     if (chatBody.children.length === 0) {
+      //       addMessage(
+      //         "Hello! I'm here to help with your bike rental questions. What do you need assistance with today?",
+      //         "bot"
+      //       );
+      //     }
+      //   });
+      //
+    </script>
 
-  <!-- Footer -->
-  <footer class="footer" style="width: 100%">
-    <div class="footer-container">
-      <!-- Logo Section -->
-      <div class="footer-logo">
-        <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
-        <p>Kathmandu's premier bike rental platform</p>
+    <!-- Footer -->
+    <footer class="footer" style="width: 100%">
+      <div class="footer-container">
+        <!-- Logo Section -->
+        <div class="footer-logo">
+          <div class="logo">🚴‍♂️ <b>Bikeeez</b></div>
+          <p>Kathmandu's premier bike rental platform</p>
+        </div>
+
+        <!-- Quick Links Section -->
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'aboutus' %}">About Us</a></li>
+            <li><a href="{% url 'contactus' %}">Contact Us</a></li>
+            <!-- <li><a href="/admin/adminlogin.html">Admin</a></li> -->
+            <li><a href="/privacy">Privacy</a></li>
+          </ul>
+        </div>
+
+        <!-- Top Places Section -->
+        <div class="footer-links">
+          <h3>Top Places</h3>
+          <ul>
+            <li><a href="#">Thamel</a></li>
+            <li><a href="#">Jhamsikhel</a></li>
+            <li><a href="#">Boudha</a></li>
+            <li><a href="#">Patan</a></li>
+            <li><a href="#">Bhaktapur</a></li>
+          </ul>
+        </div>
       </div>
 
-      <!-- Quick Links Section -->
-      <div class="footer-links">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="{% url 'aboutus' %}">About Us</a></li>
-          <li><a href="{% url 'contactus' %}">Contact Us</a></li>
-          <!-- <li><a href="/admin/adminlogin.html">Admin</a></li> -->
-          <li><a href="/privacy">Privacy</a></li>
-        </ul>
+      <!-- Copyright Section -->
+      <div class="footer-bottom">
+        <p>© 2025 Bikeeez Nepal. All rights reserved.</p>
       </div>
-
-      <!-- Top Places Section -->
-      <div class="footer-links">
-        <h3>Top Places</h3>
-        <ul>
-          <li><a href="#">Thamel</a></li>
-          <li><a href="#">Jhamsikhel</a></li>
-          <li><a href="#">Boudha</a></li>
-          <li><a href="#">Patan</a></li>
-          <li><a href="#">Bhaktapur</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Copyright Section -->
-    <div class="footer-bottom">
-      <p>© 2025 Bikeeez Nepal. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script>
-    // Initialize date picker
-    flatpickr("#dateRange", {
-      mode: "range",
-      minDate: "today",
-      dateFormat: "M j, Y",
-      altInput: true,
-      altFormat: "M j, Y",
-      onChange: function (selectedDates, dateStr, instance) {
-        if (selectedDates.length === 2) {
-          const start = instance.formatDate(selectedDates[0], "M j");
-          const end = instance.formatDate(selectedDates[1], "M j");
-          instance.input.value = `${start} - ${end}`;
-        }
-      },
-    });
-
-    // Login button functionality
-    document
-      .getElementById("loginBtn")
-      .addEventListener("click", function () {
-        window.location.href = "/login";
+    </footer>
+    <!-- Importing Calander -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+      // Initialize date picker
+      flatpickr("#dateRange", {
+        mode: "range",
+        minDate: "today",
+        dateFormat: "M j, Y",
+        altInput: true,
+        altFormat: "M j, Y",
+        onChange: function (selectedDates, dateStr, instance) {
+          if (selectedDates.length === 2) {
+            const start = instance.formatDate(selectedDates[0], "M j");
+            const end = instance.formatDate(selectedDates[1], "M j");
+            instance.input.value = `${start} - ${end}`;
+          }
+        },
       });
 
-    // Place click handlers
-    document.querySelectorAll(".places-container span").forEach((place) => {
-      place.addEventListener("click", function () {
-        document.querySelector('input[type="text"]').value = this.textContent;
-      });
-    });
-  </script>
-  {{ bikes_json|safe }}
-</body>
+      // Login button functionality
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", function () {
+          window.location.href = "/login";
+        });
 
+      // Place click handlers
+      document.querySelectorAll(".places-container span").forEach((place) => {
+        place.addEventListener("click", function () {
+          document.querySelector('input[type="text"]').value = this.textContent;
+        });
+      });
+    </script>
+    {{ bikes_json|safe }}
+  </body>
 </html>
