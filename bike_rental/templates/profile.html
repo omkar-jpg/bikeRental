@@ -565,102 +565,65 @@
   .proceed-payment-btn:hover {
     background-color: #f57c00;
   }
-      /* Footer Styles */
-      .footer {
-        background-color: #fbebd9;
-        padding: 40px 20px;
-        width: 1800px;
-        margin-top: 50px;
-        /* margin-left: -250px; */
-        margin-bottom: -50px;
-        margin-right: -250px;
-        border-top: 1px solid #ffe0b2;
-      }
+  /* Existing Star Rating Styles */
+  .star-rating {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+  }
 
-      .footer-container {
-        display: flex;
-        flex-wrap: wrap;
-        max-width: 1500px;
-        margin: 0 auto;
-        gap: 40px;
-        justify-content: space-between;
-      }
+  .star-rating input {
+    display: none;
+  }
 
-      /* Logo Section */
-      .footer-logo {
-        flex: 0 0 200px;
-      }
+  .star-rating label {
+    font-size: 20px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
 
-      .footer-logo .logo {
-        font-size: 1.8rem;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        color: #ff6b00;
-      }
+  .star-rating input:checked ~ label,
+  .star-rating label:hover,
+  .star-rating label:hover ~ label {
+    color: #ff6b00;
+  }
 
-      .footer-logo p {
-        line-height: 1.6;
-        color: #666;
-      }
+  /* Existing Comment Textarea Styles */
+  .comment-textarea {
+    width: 100%;
+    min-height: 60px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 14px;
+    color: #333;
+    resize: vertical;
+    box-sizing: border-box;
+  }
 
-      /* Links Sections */
-      .footer-links {
-        min-width: 150px;
-      }
+  .comment-textarea:focus {
+    outline: none;
+    border-color: #ff6b00;
+    box-shadow: 0 0 5px rgba(255, 107, 0, 0.3);
+  }
 
-      .footer-links h3 {
-        color: #ff6b00;
-        margin-top: 0;
-        margin-bottom: 20px;
-        font-size: 1.1rem;
-      }
+  /* Submit Review Button Styles */
+  .submit-review-btn {
+    background-color: #ff6b00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
 
-      .footer-links ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
+  .submit-review-btn:hover {
+    background-color: #f57c00;
+  }
 
-      .footer-links li {
-        margin-bottom: 8px;
-      }
-
-      .footer-links a {
-        color: #666;
-        text-decoration: none;
-        transition: color 0.3s;
-      }
-
-      .footer-links a:hover {
-        color: #ff6b00;
-      }
-
-      /* Copyright Section */
-      .footer-bottom {
-        text-align: center;
-        margin-top: 40px;
-        padding-top: 20px;
-        border-top: 1px solid #ffe0b2;
-        color: #999;
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 768px) {
-        .footer-container {
-          flex-direction: column;
-          gap: 30px;
-        }
-
-        .footer-logo {
-          flex: 1;
-          text-align: center;
-        }
-
-        .footer-links {
-          text-align: center;
-        }
-      }
     </style>
   </head>
 
@@ -897,35 +860,37 @@ document.addEventListener("click", function (e) {
             <div class="popup-detail">
               <span>Status:</span> {{ booking.status }}
             </div>
+            <div class="popup-detail">
+              <span>Rating:</span>
+              <div class="star-rating" data-booking-id="{{ booking.id }}">
+                <input type="radio" name="rating-{{ booking.id }}" id="rating-{{ booking.id }}-5" value="5">
+                <label for="rating-{{ booking.id }}-5" class="star">★</label>
+                <input type="radio" name="rating-{{ booking.id }}" id="rating-{{ booking.id }}-4" value="4">
+                <label for="rating-{{ booking.id }}-4" class="star">★</label>
+                <input type="radio" name="rating-{{ booking.id }}" id="rating-{{ booking.id }}-3" value="3">
+                <label for="rating-{{ booking.id }}-3" class="star">★</label>
+                <input type="radio" name="rating-{{ booking.id }}" id="rating-{{ booking.id }}-2" value="2">
+                <label for="rating-{{ booking.id }}-2" class="star">★</label>
+                <input type="radio" name="rating-{{ booking.id }}" id="rating-{{ booking.id }}-1" value="1">
+                <label for="rating-{{ booking.id }}-1" class="star">★</label>
+              </div>
+            </div>
+            <div class="popup-detail">
+              <span>Comment:</span>
+              <textarea name="comment" class="comment-textarea" data-booking-id="{{ booking.id }}"
+                        placeholder="Leave a comment..."></textarea>
+            </div>
+            <div class="button-container">
+              <button class="submit-review-btn" data-booking-id="{{ booking.id }}">Submit Review</button>
+            </div>
             <div class="button-container">
               <button class="cancel-btn" data-booking-id="{{ booking.id }}">Cancel Booking</button>
               {% if booking.status == "Pending" %}
               <button class="proceed-payment-btn">Proceed Payment</button>
               {% endif %}
             </div>
-      
-            <script>
-              document.addEventListener('DOMContentLoaded', function() {
-                const cancelButtons = document.querySelectorAll('.cancel-btn');
-                cancelButtons.forEach(button => {
-                  button.addEventListener('click', function() {
-                    const bookingId = this.getAttribute('data-booking-id');
-                    if (confirm('Are you sure you want to cancel this booking?')) {
-                      // Add your cancellation logic here, e.g., an AJAX call to the backend
-                      console.log('Cancelling booking with ID: ' + bookingId);
-                      // Close the popup
-                      const popup = this.closest('.popup-overlay');
-                      popup.style.display = 'none';
-                      document.body.classList.remove('popup-active');
-                    }
-                  });
-                });
-              });
-            </script>
           </div>
         </div>
-        {% empty %}
-        <p>No booked bikes found.</p>
         {% endfor %}
       </div>
       
@@ -939,6 +904,47 @@ document.addEventListener("click", function (e) {
           document.getElementById(popupId).style.display = 'none';
           document.body.classList.remove('popup-active');
         }
+      
+        document.addEventListener('DOMContentLoaded', function() {
+          const cancelButtons = document.querySelectorAll('.cancel-btn');
+          cancelButtons.forEach(button => {
+            button.addEventListener('click', function() {
+              const bookingId = this.getAttribute('data-booking-id');
+              if (confirm('Are you sure you want to cancel this booking?')) {
+                console.log('Cancelling booking with ID: ' + bookingId);
+                const popup = this.closest('.popup-overlay');
+                popup.style.display = 'none';
+                document.body.classList.remove('popup-active');
+              }
+            });
+          });
+      
+          const submitReviewButtons = document.querySelectorAll('.submit-review-btn');
+          submitReviewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+              const bookingId = this.getAttribute('data-booking-id');
+              const ratingElement = document.querySelector(`input[name="rating-${bookingId}"]:checked`);
+              const rating = ratingElement ? ratingElement.value : null;
+              const comment = document.querySelector(`textarea[data-booking-id="${bookingId}"]`).value;
+      
+              if (!rating) {
+                alert('Please select a rating.');
+                return;
+              }
+      
+              // Simulate saving the review (no backend)
+              console.log(`Review submitted for booking ID: ${bookingId}`);
+              console.log(`Rating: ${rating} stars`);
+              console.log(`Comment: ${comment}`);
+              alert('Review submitted successfully!');
+      
+              // Close the popup
+              const popup = this.closest('.popup-overlay');
+              popup.style.display = 'none';
+              document.body.classList.remove('popup-active');
+            });
+          });
+        });
       </script>
     </div>
   </body>
