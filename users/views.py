@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from booking.models import Booking
 from bikes.models import BikeRating
-
+# Ensures that only logged-in users can access the profile view
 @login_required
 def profile_view(request):
     user = request.user
