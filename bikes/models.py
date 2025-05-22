@@ -72,7 +72,7 @@ class BikeRating(models.Model):
         super().save(*args, **kwargs)
         self.bike.update_rating()
 
-    def delete(self, *args, **kwargs):
+    def delete(self, *args, **kwargs):  # Automatically update average rating on delete
         bike = self.bike
         super().delete(*args, **kwargs)
         bike.update_rating()
