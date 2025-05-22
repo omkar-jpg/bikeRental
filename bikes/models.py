@@ -26,7 +26,7 @@ class Bikes(models.Model):
 
     is_available = models.BooleanField(default = True)
 
-    location = models.CharField(max_length=100, blank=True)
+    location = models.CharField(max_length=100, blank=True)        #Optional location details
 
     latitude = models.FloatField(default=80)
     longitude = models.FloatField(default=80)
