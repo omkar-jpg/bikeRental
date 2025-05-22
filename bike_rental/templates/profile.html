@@ -767,152 +767,146 @@
       </div>
     </form>
 
-    <h3>Booked Bikes</h3>
-    <div class="booked-bikes-container">
-      {% for booking in user_rentals %}
-      <div class="bike-card" onclick="openPopup('popup-{{ booking.id }}')">
-        <div class="bike-card-header">
-          <h4>{{ booking.bike.name }}</h4>
-          <span class="status-{{ booking.status }}">{{ booking.status }}</span>
-        </div>
-        <div class="bike-card-details">
-          <span>Quantity: {{ booking.quantity }}</span>
-          <span>Price: Rs.{{ booking.total_price }}</span>
-        </div>
-      </div>
-
-      <!-- Popup for each booking -->
-      <div id="popup-{{ booking.id }}" class="popup-overlay">
-        <div class="popup">
-          <div class="popup-header">
-            <h4>{{ booking.bike.name }}</h4>
-            <button class="popup-close" onclick="closePopup('popup-{{ booking.id }}')">✕</button>
-          </div>
-          <div class="popup-detail">
-            <span>Model:</span> {{ booking.bike.name }}
-          </div>
-          <div class="popup-detail">
-            <span>Quantity:</span> {{ booking.quantity }}
-          </div>
-          <div class="popup-detail">
-            <span>Price:</span> Rs.{{ booking.total_price }}
-          </div>
-          <div class="popup-detail">
-            <span>Contact/Pickup:</span> +977-984-123-4567
-          </div>
-          <div class="popup-detail">
-            <span>Status:</span> {{ booking.status }}
-          </div>
-          <form method="POST" action="{% url 'rate_bike' booking.bike.id %}">
-            {% csrf_token %}
-
-            <div class="popup-detail">
-              <span>Rating:</span>
-              <div class="star-rating" data-booking-id="{{ booking.id }}">
-                {% for i in "54321" %}
-                <input type="radio" name="rating" id="rating-{{ booking.id }}-{{ i }}" value="{{ i }}">
-                <label for="rating-{{ booking.id }}-{{ i }}" class="star">★</label>
-                {% endfor %}
-              </div>
-            </div>
-
-            <div class="popup-detail">
-              <span>Comment:</span>
-              <textarea name="comment" class="comment-textarea" data-booking-id="{{ booking.id }}"
-                placeholder="Leave a comment..."></textarea>
-            </div>
-
-
-
-            <button type="button" d id="submitReviewButton" class="submit-review-btn"
-              data-booking-id="{{ booking.id }}">
-              Submit Review
-            </button>
-          </form>
-          <div class="button-container">
-            <button class="cancel-btn" data-booking-id="{{ booking.id }}">Cancel Booking</button>
-            {% if booking.status == "Pending" %}
-            <button class="proceed-payment-btn">Proceed Payment</button>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-      {% endfor %}
+<h3>Booked Bikes</h3>
+<div class="booked-bikes-container">
+  {% for booking in user_rentals %}
+  <div class="bike-card" onclick="openPopup('popup-{{ booking.id }}')">
+    <div class="bike-card-header">
+      <h4>{{ booking.bike.name }}</h4>
+      <span class="status-{{ booking.status }}">{{ booking.status }}</span>
     </div>
+    <div class="bike-card-details">
+      <span>Quantity: {{ booking.quantity }}</span>
+      <span>Price: Rs.{{ booking.total_price }}</span>
+    </div>
+  </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
+  <!-- Popup for each booking -->
+  <div id="popup-{{ booking.id }}" class="popup-overlay">
+    <div class="popup">
+      <div class="popup-header">
+        <h4>{{ booking.bike.name }}</h4>
+        <button class="popup-close" onclick="closePopup('popup-{{ booking.id }}')">✕</button>
+      </div>
+      <div class="popup-detail">
+      <span>Model:</span> {{ booking.bike.name }}
+      </div>
+      <div class="popup-detail">
+      <span>Quantity:</span> {{ booking.quantity }}
+      </div>
+      <div class="popup-detail">
+      <span>Price:</span> Rs.{{ booking.total_price }}
+      </div>
+      <div class="popup-detail">
+      <span>Contact/Pickup:</span> +977-984-123-4567
+      </div>
+      <div class="popup-detail">
+      <span>Status:</span> {{ booking.status }}
+      </div>
+      <form method="POST" action="{% url 'rate_bike' booking.bike.id %}">
+        {% csrf_token %}
+        {% if booking.status == "Paid" %}
+        <div class="popup-detail">
+          <span>Rating:</span>
+          <div class="star-rating" data-booking-id="{{ booking.id }}">
+            {% for i in "54321" %}
+            <input type="radio" name="rating" id="rating-{{ booking.id }}-{{ i }}" value="{{ i }}">
+            <label for="rating-{{ booking.id }}-{{ i }}" class="star">★</label>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="popup-detail">
+          <span>Comment:</span>
+          <textarea name="comment" class="comment-textarea" data-booking-id="{{ booking.id }}"
+            placeholder="Leave a comment..."></textarea>
+        </div>
+        <button type="button" id="submitReviewButton" class="submit-review-btn"
+          data-booking-id="{{ booking.id }}">
+          Submit Review
+        </button>
+        {% endif %}
+      </form>
+      <div class="button-container">
+        <button class="cancel-btn" data-booking-id="{{ booking.id }}">Cancel Booking</button>
+        {% if booking.status == "Pending" %}
+        <button class="proceed-payment-btn">Proceed Payment</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 
+<script>
+  function redirectToHome() {
+    var homeUrl = document
+      .querySelector(".logo")
+      .getAttribute("data-url");
+    setTimeout(() => {
+      window.location.href = homeUrl;
+    }, 500);
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    const submitReviewButtons = document.querySelectorAll('.submit-review-btn');
 
-        const submitReviewButtons = document.querySelectorAll('.submit-review-btn');
+    submitReviewButtons.forEach(button => {
+      button.addEventListener('click', function (e) {
+        e.preventDefault();
 
-        submitReviewButtons.forEach(button => {
-          button.addEventListener('click', function (e) {
-            e.preventDefault();
+        const bookingId = this.getAttribute('data-booking-id');
+        const reviewForm = this.closest('form');
 
-            const bookingId = this.getAttribute('data-booking-id');
-            const reviewForm = this.closest('form');
+        const ratingElement = reviewForm.querySelector(`.star-rating[data-booking-id="${bookingId}"] input[name="rating"]:checked`);
+        const rating = ratingElement ? ratingElement.value : null;
 
-            const ratingElement = reviewForm.querySelector(`.star-rating[data-booking-id="${bookingId}"] input[name="rating"]:checked`);
-            const rating = ratingElement ? ratingElement.value : null;
+        const commentElement = reviewForm.querySelector(`textarea.comment-textarea[data-booking-id="${bookingId}"]`);
+        const comment = commentElement ? commentElement.value.trim() : '';
 
-            const commentElement = reviewForm.querySelector(`textarea.comment-textarea[data-booking-id="${bookingId}"]`);
-            const comment = commentElement ? commentElement.value.trim() : '';
-
-            if (!rating) {
-              alert('Rating is not filled.');
-              return;
-            }
-
-            else if (!comment) {
-              alert('Comment is not filled.');
-              return;
-            } else {
-              // Optionally close popup here if needed
-              const popup = this.closest('.popup-overlay');
-              if (popup) {
-                popup.style.display = 'none';
-                document.body.classList.remove('popup-active');
-                setTimeout(() => reviewForm.submit(), 100);
-              }
-
-            }
-
-            // All good, submit the form normally
-            
-          });
-        });
-
-
-
-
-        // ----- Cancel Button -----
-        const cancelButtons = document.querySelectorAll('.cancel-btn');
-        cancelButtons.forEach(button => {
-          button.addEventListener('click', function () {
-            const bookingId = this.getAttribute('data-booking-id');
-            if (confirm('Are you sure you want to cancel this booking?')) {
-              const popup = this.closest('.popup-overlay');
-              if (popup) {
-                popup.style.display = 'none';
-                document.body.classList.remove('popup-active');
-              }
-            }
-          });
-        });
+        if (!rating) {
+          alert('Rating is not filled.');
+          return;
+        }
+        else if (!comment) {
+          alert('Comment is not filled.');
+          return;
+        } else {
+          const popup = this.closest('.popup-overlay');
+          if (popup) {
+            popup.style.display = 'none';
+            document.body.classList.remove('popup-active');
+            setTimeout(() => reviewForm.submit(), 100);
+          }
+        }
       });
+    });
 
-      // ----- Open & Close Popup Functions -----
-      function openPopup(popupId) {
-        document.getElementById(popupId).style.display = 'flex';
-        document.body.classList.add('popup-active');
-      }
+    // ----- Cancel Button -----
+    const cancelButtons = document.querySelectorAll('.cancel-btn');
+    cancelButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const bookingId = this.getAttribute('data-booking-id');
+        if (confirm('Are you sure you want to cancel this booking?')) {
+          const popup = this.closest('.popup-overlay');
+          if (popup) {
+            popup.style.display = 'none';
+            document.body.classList.remove('popup-active');
+          }
+        }
+      });
+    });
+  });
 
-      function closePopup(popupId) {
-        document.getElementById(popupId).style.display = 'none';
-        document.body.classList.remove('popup-active');
-      }
-    </script>
+  // ----- Open & Close Popup Functions -----
+  function openPopup(popupId) {
+    document.getElementById(popupId).style.display = 'flex';
+    document.body.classList.add('popup-active');
+  }
+
+  function closePopup(popupId) {
+    document.getElementById(popupId).style.display = 'none';
+    document.body.classList.remove('popup-active');
+  }
+</script>
 
   </div>
 </body>

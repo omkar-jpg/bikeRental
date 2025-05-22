@@ -605,6 +605,14 @@ document.addEventListener("click", function (e) {
     </footer>
 
     <script>
+       function redirectToHome() {
+        var homeUrl = document
+          .querySelector(".logo")
+          .getAttribute("data-url");
+        setTimeout(() => {
+          window.location.href = homeUrl;
+        }, 500);
+      }
       // Form Submission
       document
         .getElementById("contactForm")
