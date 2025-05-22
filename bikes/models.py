@@ -61,7 +61,7 @@ class Bikes(models.Model):
 class BikeRating(models.Model):
     bike = models.ForeignKey(Bikes, related_name='bike_ratings', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='bike_ratings', on_delete=models.CASCADE)
-    rating = models.IntegerField(choices=[(i, f'{i} Stars') for i in range(1, 6)])
+    rating = models.IntegerField(choices=[(i, f'{i} Stars') for i in range(1, 6)])          #Rating value from 1 to 5 stars
     comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
