@@ -8,6 +8,7 @@ from datetime import timedelta
 import random
 from django.http import HttpResponse
 from decimal import Decimal
+from django.db import transaction
 
 
 def booking_confirmation(request, booking_id):
@@ -15,16 +16,14 @@ def booking_confirmation(request, booking_id):
     return render(request, 'booking_confirmation.html', {'booking': booking})  # Render confirmation page
 
 @login_required  # Ensure the user is logged in
-def book_bike(request, bike_id):
-
-    
+def book_bike(request, bike_id):   
 
     bike = get_object_or_404(Bikes, id=bike_id)  # Get the specific bike
     bikes = Bikes.objects.all()  # Retrieve all bikes
     random_bikes = random.sample(list(bikes), min(5, len(bikes)))  # Pick 3 random bikes
 
     form = BookingForm(request.POST or None)  # Initialize form with POST data if available
-    ratings = BikeRating.objects.filter(bike=bike).select_related('user')
+    ratings = BikeRating.objects.filter(bike=bike).select_related('user__userprofile').order_by('-created_at')
 
     if request.method == 'POST':  # If form is submitted
         print("POST data:", dict(request.POST))
@@ -61,3 +60,24 @@ def book_bike(request, bike_id):
                  return redirect('booking_confirmation', booking_id=booking.id)
     return render(request, 'booking.html', {'form': form, 'bike': bike, 'random_bikes': random_bikes, 'reviews': ratings})
 
+@login_required
+def cancel_booking(request, booking_id):
+    if request.method == 'POST':
+        try:
+            booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+
+            with transaction.atomic():
+                bike = booking.bike
+                bike.quantity += booking.quantity
+                bike.save()
+                booking.delete()
+
+            return redirect('profile')
+
+        except Booking.DoesNotExist:
+            return redirect('profile')
+        except Exception as e:
+            print(f"Error cancelling booking {booking_id}: {e}")
+            return redirect('profile')
+    else:
+        return redirect('profile')

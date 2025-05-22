@@ -6,6 +6,7 @@ from .forms import SignUpForm
 from bikes.views import bike_list
 from users.models import UserProfile
 from django.middleware.csrf import get_token
+from django.core.cache import cache
 
 
 # Home page view - protected by login_required
@@ -70,4 +71,5 @@ def login_view(request):
 # Logout view
 def logout_view(request):
     logout(request)
+    cache.clear()
     return redirect('login')
