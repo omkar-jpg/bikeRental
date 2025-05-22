@@ -895,9 +895,8 @@
     <button class="notification-close" onclick="toggleNotificationPopup()">✕</button>
   </div>
   <div class="notification-content">
-    <p><strong>New Booking!</strong> Your bike rental for May 23, 2025, is confirmed.</p>
-    <p><strong>Payment Due:</strong> Please complete payment for booking #123 by May 24, 2025.</p>
-    <p><strong>Special Offer:</strong> Get 15% off your next rental this week!</p>
+    <p><strong>🔥 Just In:</strong> New bikes have hit the rack! Find your perfect ride and book it now!</p>
+    <p><strong>Special Offer:</strong> Get 20% off if you rent from this website</p>
   </div>
 </div>
 </div>
@@ -1561,7 +1560,6 @@ document.addEventListener("click", function (e) {
           <li><a href="{% url 'aboutus' %}">About Us</a></li>
           <li><a href="{% url 'contactus' %}">Contact Us</a></li>
           <!-- <li><a href="/admin/adminlogin.html">Admin</a></li> -->
-          <li><a href="/privacy">Privacy</a></li>
         </ul>
       </div>
 
@@ -1569,11 +1567,11 @@ document.addEventListener("click", function (e) {
       <div class="footer-links">
         <h3>Top Places</h3>
         <ul>
-          <li><a href="#">Thamel</a></li>
-          <li><a href="#">Jhamsikhel</a></li>
-          <li><a href="#">Boudha</a></li>
-          <li><a href="#">Patan</a></li>
-          <li><a href="#">Bhaktapur</a></li>
+          <li><a href="{% url 'home' %}#rental-location">Thamel</a></li>
+          <li><a href="{% url 'home' %}#rental-location">Jhamsikhel</a></li>
+          <li><a href="{% url 'home' %}#rental-location">Boudha</a></li>
+          <li><a href="{% url 'home' %}#rental-location">Patan</a></li>
+          <li><a href="{% url 'home' %}#rental-location">Bhaktapur</a></li>
         </ul>
       </div>
     </div>
