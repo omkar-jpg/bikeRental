@@ -14,7 +14,7 @@ def profile_view(request):
 
     # Fetch all bookings made by the user
     booked_bikes = Booking.objects.filter(user=user)  # Fetching all bookings made by the user
-
+    #error handling
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=profile, user=user)
         if form.is_valid():
