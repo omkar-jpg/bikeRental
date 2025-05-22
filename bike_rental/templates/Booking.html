@@ -1147,8 +1147,8 @@ document.addEventListener("click", function (e) {
             <button class="popup-close" id="reviews-popup-close">✕</button>
           </div>
           <div class="popup-content">
-            {% if bike.reviews %}
-              {% for review in bike.reviews %}
+            {% if reviews %}
+              {% for review in reviews %}
                 <div class="review-item">
                   <div class="user-name">{{ review.user.name }}</div>
                   <div class="review-comment">{{ review.comment }}</div>

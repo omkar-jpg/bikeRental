@@ -841,6 +841,14 @@
     </div>
 
     <script>
+       function redirectToHome() {
+        var homeUrl = document
+          .querySelector(".logo")
+          .getAttribute("data-url");
+        setTimeout(() => {
+          window.location.href = homeUrl;
+        }, 500);
+      }
       document.addEventListener('DOMContentLoaded', function () {
 
 

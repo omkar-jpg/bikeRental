@@ -27,6 +27,7 @@ def book_bike(request, bike_id):
             booking = form.save(commit=False)  # Create booking object without saving
             booking.user = request.user  # Assign the logged-in user
             booking.bike = bike  # Assign the selected bike
+            ratings = BikeRating.objects.filter(bike=bike).select_related('user')
 
             start_date = form.cleaned_data['start_date']
             end_date = form.cleaned_data['end_date']
@@ -54,5 +55,5 @@ def book_bike(request, bike_id):
                 
             else:
                  return redirect('booking_confirmation', booking_id=booking.id)
-    return render(request, 'booking.html', {'form': form, 'bike': bike, 'random_bikes': random_bikes})
+    return render(request, 'booking.html', {'form': form, 'bike': bike, 'random_bikes': random_bikes, 'review': ratings})
 
