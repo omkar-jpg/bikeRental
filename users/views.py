@@ -12,7 +12,7 @@ def profile_view(request):
     user_ratings = BikeRating.objects.filter(user=user)
     user_ratings_by_bike = {r.bike.id: r for r in user_ratings}
 
-
+    # Fetch all bookings made by the user
     booked_bikes = Booking.objects.filter(user=user)  # Fetching all bookings made by the user
 
     if request.method == 'POST':
