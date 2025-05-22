@@ -26,7 +26,7 @@ def profile_view(request):
             return redirect('profile')
     else:
         form = UserProfileForm(instance=profile, user=user)
-
+    # Render the profile page with form, profile info, bookings, and ratings
     return render(request, 'profile.html', {
     'form': form,
     'profile': profile,
