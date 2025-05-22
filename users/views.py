@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from booking.models import Booking
 from bikes.models import BikeRating
-
+# Ensures that only logged-in users can access the profile view
 @login_required
 def profile_view(request):
     user = request.user
@@ -12,9 +12,9 @@ def profile_view(request):
     user_ratings = BikeRating.objects.filter(user=user)
     user_ratings_by_bike = {r.bike.id: r for r in user_ratings}
 
-
+    # Fetch all bookings made by the user
     booked_bikes = Booking.objects.filter(user=user)  # Fetching all bookings made by the user
-
+    #error handling
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=profile, user=user)
         if form.is_valid():

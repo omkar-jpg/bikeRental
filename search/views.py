@@ -5,7 +5,7 @@ def search_bikes(request):
     location = request.GET.get('places')
     quantity = request.GET.get('quantity', 1)
     print("Location:", location)  # Debugging
-
+#error handling
     try:
         quantity = int(quantity)
     except ValueError:
@@ -18,7 +18,7 @@ def search_bikes(request):
     print("Location received from form:", location)  # This will print in the console/log
 
     return render(request, 'bikelist.html', {
-        'filtered_bikes': bikes,
+        'filtered_bikes': bikes, 
         'location': location,
         'quantity': quantity,
     })
