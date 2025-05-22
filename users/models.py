@@ -22,4 +22,4 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True, null = True)
 
     def __str__(self):
-        return self.user.username
+        return self.user.username   # Return the username associated with the profile for easy identification

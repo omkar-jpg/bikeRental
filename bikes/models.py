@@ -26,7 +26,7 @@ class Bikes(models.Model):
 
     is_available = models.BooleanField(default = True)
 
-    location = models.CharField(max_length=100, blank=True)
+    location = models.CharField(max_length=100, blank=True)        #Optional location details
 
     latitude = models.FloatField(default=80)
     longitude = models.FloatField(default=80)
@@ -61,7 +61,7 @@ class Bikes(models.Model):
 class BikeRating(models.Model):
     bike = models.ForeignKey(Bikes, related_name='bike_ratings', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='bike_ratings', on_delete=models.CASCADE)
-    rating = models.IntegerField(choices=[(i, f'{i} Stars') for i in range(1, 6)])
+    rating = models.IntegerField(choices=[(i, f'{i} Stars') for i in range(1, 6)])          #Rating value from 1 to 5 stars
     comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -72,7 +72,7 @@ class BikeRating(models.Model):
         super().save(*args, **kwargs)
         self.bike.update_rating()
 
-    def delete(self, *args, **kwargs):
+    def delete(self, *args, **kwargs):  # Automatically update average rating on delete
         bike = self.bike
         super().delete(*args, **kwargs)
         bike.update_rating()
