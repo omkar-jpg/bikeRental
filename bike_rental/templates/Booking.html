@@ -1141,28 +1141,36 @@ document.addEventListener("click", function (e) {
       
       <!-- Review Popup -->
       <div class="popup-overlay" id="reviews-popup-overlay">
-        <div class="popup">
-          <div class="popup-header">
-            <h3>Reviews for {{ bike.name }}</h3>
-            <button class="popup-close" id="reviews-popup-close">✕</button>
+  <div class="popup">
+    <div class="popup-header">
+      <h3>Reviews for {{ bike.name }}</h3>
+      <button class="popup-close" id="reviews-popup-close">✕</button>
+    </div>
+    <div class="popup-content">
+      {% if reviews %} {# Check if the 'reviews' list is not empty #}
+        {% for review in reviews %}
+          <div class="review-item">
+            <div class="user-info">
+              {# Access the user's username or full name #}
+              <span class="user-name">{{ review.user.username }}</span>
+              {# You can add the rating stars here #}
+              <span class="review-rating">
+                {% for _ in "x"|ljust:review.rating %}⭐{% endfor %} {# Displays stars based on the rating number #}
+              </span>
+              <span class="review-date">{{ review.created_at|date:"M d, Y" }}</span> {# Format the date #}
+            </div>
+            <div class="review-comment">
+              <p>{{ review.comment }}</p>
+            </div>
+            <hr style="margin: 10px 0;"> {# A separator for each review #}
           </div>
-          <div class="popup-content">
-            {% if reviews %}
-              {% for review in reviews %}
-                <div class="review-item">
-                  <div class="user-name">{{ review.user.name }}</div>
-                  <div class="review-comment">{{ review.comment }}</div>
-                  <hr style="margin: 10px 0;">
-                </div>
-              {% empty %}
-                <p>No reviews available for this bike.</p>
-              {% endfor %}
-            {% else %}
-              <p>No reviews available for this bike.</p>
-            {% endif %}
-          </div>
-        </div>
-      </div>
+        {% endfor %}
+      {% else %}
+        <p>No reviews available for this bike yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
       
       <style>
       .review-item {
