@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
 from .models import Bikes, BikeRating
 from .form import BikeRatingForm
 import random
@@ -30,25 +31,33 @@ def bike_list(request):
     })
 
 
+from django.http import HttpResponse, HttpResponseBadRequest
+
+from django.http import HttpResponse, HttpResponseBadRequest
+
 def rate_bike(request, bike_id):
     bike = get_object_or_404(Bikes, id=bike_id)
+
     try:
-        existing_rating = BikeRating.objects.get(bike=bike, user=request.user)
+        existing_review = BikeRating.objects.get(bike=bike, user=request.user)
     except BikeRating.DoesNotExist:
-        existing_rating = None
+        existing_review = None
 
     if request.method == 'POST':
-        form = BikeRatingForm(request.POST, instance = existing_rating)
+        form = BikeRatingForm(request.POST, instance=existing_review)
         if form.is_valid():
-            rating = form.save(commit = False)
-            rating.bike = bike
-            rating.user = request.user
-            rating.save()
-            return redirect('Booking', bike_id=bike.id)
-    else:
-        form = BikeRatingForm(instance = existing_rating)
-    
-    return render(request, 'rate_bike.html',{'form': form, 'bike': bike})
+            review = form.save(commit=False)
+            review.bike = bike
+            review.user = request.user
+            review.save()
+            # Return empty response with 204 No Content status
+            return HttpResponse(status=204)
+
+        else:
+            return HttpResponseBadRequest("Invalid data submitted.")
+
+    return HttpResponseBadRequest("Invalid request method.")
+
 
 from django.shortcuts import render
 

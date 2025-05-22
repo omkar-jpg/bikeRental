@@ -3,11 +3,15 @@ from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from booking.models import Booking
+from bikes.models import BikeRating
 
 @login_required
 def profile_view(request):
     user = request.user
     profile, created = UserProfile.objects.get_or_create(user=user)
+    user_ratings = BikeRating.objects.filter(user=user)
+    user_ratings_by_bike = {r.bike.id: r for r in user_ratings}
+
 
     booked_bikes = Booking.objects.filter(user=user)  # Fetching all bookings made by the user
 
@@ -24,8 +28,10 @@ def profile_view(request):
         form = UserProfileForm(instance=profile, user=user)
 
     return render(request, 'profile.html', {
-        'form': form,
-        'profile': profile,
-        'user_rentals': booked_bikes,
-        'user_profile': profile,  # ✅ Added for template use (like in the payment form)
-    })
+    'form': form,
+    'profile': profile,
+    'user_rentals': booked_bikes,
+    'user_profile': profile,
+    'user_ratings': user_ratings_by_bike,  # ✅ New line
+})
+
