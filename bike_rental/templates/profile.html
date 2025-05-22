@@ -656,10 +656,8 @@
         <button class="notification-close" onclick="toggleNotificationPopup()">✕</button>
       </div>
       <div class="notification-content">
-        <p><strong>New Booking!</strong> Your bike rental for May 23, 2025, is confirmed.</ <p><strong>Payment
-            Due:</strong> Please complete payment for booking #123 by May 24, 2025.</p>
-        <p><strong>Special Offer:</strong> Get 15% off your next rental this week!</p>
-      </div>
+    <p><strong>Special Offer:</strong> Get 20% off if you rent from this website</p>
+  </div>
     </div>
   </div>
 
@@ -767,146 +765,172 @@
       </div>
     </form>
 
-<h3>Booked Bikes</h3>
-<div class="booked-bikes-container">
-  {% for booking in user_rentals %}
-  <div class="bike-card" onclick="openPopup('popup-{{ booking.id }}')">
-    <div class="bike-card-header">
-      <h4>{{ booking.bike.name }}</h4>
-      <span class="status-{{ booking.status }}">{{ booking.status }}</span>
-    </div>
-    <div class="bike-card-details">
-      <span>Quantity: {{ booking.quantity }}</span>
-      <span>Price: Rs.{{ booking.total_price }}</span>
-    </div>
-  </div>
+    <h3>Booked Bikes</h3>
+    <div class="booked-bikes-container">
+      {% for booking in user_rentals %}
+      <div class="bike-card" onclick="openPopup('popup-{{ booking.id }}')">
+        <div class="bike-card-header">
+          <h4>{{ booking.bike.name }}</h4>
+          <span class="status-{{ booking.status }}">{{ booking.status }}</span>
+        </div>
+        <div class="bike-card-details">
+          <span>Quantity: {{ booking.quantity }}</span>
+          <span>Price: Rs.{{ booking.total_price }}</span>
+        </div>
+      </div>
 
-  <!-- Popup for each booking -->
-  <div id="popup-{{ booking.id }}" class="popup-overlay">
-    <div class="popup">
-      <div class="popup-header">
-        <h4>{{ booking.bike.name }}</h4>
-        <button class="popup-close" onclick="closePopup('popup-{{ booking.id }}')">✕</button>
-      </div>
-      <div class="popup-detail">
-      <span>Model:</span> {{ booking.bike.name }}
-      </div>
-      <div class="popup-detail">
-      <span>Quantity:</span> {{ booking.quantity }}
-      </div>
-      <div class="popup-detail">
-      <span>Price:</span> Rs.{{ booking.total_price }}
-      </div>
-      <div class="popup-detail">
-      <span>Contact/Pickup:</span> +977-984-123-4567
-      </div>
-      <div class="popup-detail">
-      <span>Status:</span> {{ booking.status }}
-      </div>
-      <form method="POST" action="{% url 'rate_bike' booking.bike.id %}">
-        {% csrf_token %}
-        {% if booking.status == "Paid" %}
-        <div class="popup-detail">
-          <span>Rating:</span>
-          <div class="star-rating" data-booking-id="{{ booking.id }}">
-            {% for i in "54321" %}
-            <input type="radio" name="rating" id="rating-{{ booking.id }}-{{ i }}" value="{{ i }}">
-            <label for="rating-{{ booking.id }}-{{ i }}" class="star">★</label>
-            {% endfor %}
+      <!-- Popup for each booking -->
+      <div id="popup-{{ booking.id }}" class="popup-overlay">
+        <div class="popup">
+          <div class="popup-header">
+            <h4>{{ booking.bike.name }}</h4>
+            <button class="popup-close" onclick="closePopup('popup-{{ booking.id }}')">✕</button>
+          </div>
+          <div class="popup-detail">
+            <span>Model:</span> {{ booking.bike.name }}
+          </div>
+          <div class="popup-detail">
+            <span>Quantity:</span> {{ booking.quantity }}
+          </div>
+          <div class="popup-detail">
+            <span>Price:</span> Rs.{{ booking.total_price }}
+          </div>
+          <div class="popup-detail">
+            <span>Contact/Pickup:</span> +977-984-123-4567
+          </div>
+          <div class="popup-detail">
+            <span>Status:</span> {{ booking.status }}
+          </div>
+          <form method="POST" action="{% url 'rate_bike' booking.bike.id %}">
+            {% csrf_token %}
+            {% if booking.status == "Paid" %}
+            <div class="popup-detail">
+              <span>Rating:</span>
+              <div class="star-rating" data-booking-id="{{ booking.id }}">
+                {% for i in "54321" %}
+                <input type="radio" name="rating" id="rating-{{ booking.id }}-{{ i }}" value="{{ i }}">
+                <label for="rating-{{ booking.id }}-{{ i }}" class="star">★</label>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="popup-detail">
+              <span>Comment:</span>
+              <textarea name="comment" class="comment-textarea" data-booking-id="{{ booking.id }}"
+                placeholder="Leave a comment..."></textarea>
+            </div>
+            <button type="button" id="submitReviewButton" class="submit-review-btn" data-booking-id="{{ booking.id }}">
+              Submit Review
+            </button>
+            {% endif %}
+          </form>
+          <div class="button-container">
+            <form id="cancelForm-{{ booking.id }}" action="{% url 'cancel_booking' booking.id %}" method="POST"
+              style="display: none;">
+              {% csrf_token %}
+            </form>
+            <button type="button" class="cancel-btn" data-booking-id="{{ booking.id }}">Cancel Booking</button>
+            {% if booking.status == "Pending" %}
+            <form id="paymentForm-{{ booking.id }}" action="{% url 'khalti_initiate' booking.id %}" method="POST"
+              style="display: none;">
+              {% csrf_token %}
+            </form>
+            <button type="button" class="proceed-payment-btn" data-booking-id="{{ booking.id }}">Proceed
+              Payment</button>
+            {% endif %}
           </div>
         </div>
-        <div class="popup-detail">
-          <span>Comment:</span>
-          <textarea name="comment" class="comment-textarea" data-booking-id="{{ booking.id }}"
-            placeholder="Leave a comment..."></textarea>
-        </div>
-        <button type="button" id="submitReviewButton" class="submit-review-btn"
-          data-booking-id="{{ booking.id }}">
-          Submit Review
-        </button>
-        {% endif %}
-      </form>
-      <div class="button-container">
-        <button class="cancel-btn" data-booking-id="{{ booking.id }}">Cancel Booking</button>
-        {% if booking.status == "Pending" %}
-        <button class="proceed-payment-btn">Proceed Payment</button>
-        {% endif %}
       </div>
+      {% endfor %}
     </div>
-  </div>
-  {% endfor %}
-</div>
 
-<script>
-  function redirectToHome() {
-    var homeUrl = document
-      .querySelector(".logo")
-      .getAttribute("data-url");
-    setTimeout(() => {
-      window.location.href = homeUrl;
-    }, 500);
-  }
-  document.addEventListener('DOMContentLoaded', function () {
-    const submitReviewButtons = document.querySelectorAll('.submit-review-btn');
+    <script>
+      function redirectToHome() {
+        var homeUrl = document
+          .querySelector(".logo")
+          .getAttribute("data-url");
+        setTimeout(() => {
+          window.location.href = homeUrl;
+        }, 500);
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        const submitReviewButtons = document.querySelectorAll('.submit-review-btn');
 
-    submitReviewButtons.forEach(button => {
-      button.addEventListener('click', function (e) {
-        e.preventDefault();
+        submitReviewButtons.forEach(button => {
+          button.addEventListener('click', function (e) {
+            e.preventDefault();
 
-        const bookingId = this.getAttribute('data-booking-id');
-        const reviewForm = this.closest('form');
+            const bookingId = this.getAttribute('data-booking-id');
+            const reviewForm = this.closest('form');
 
-        const ratingElement = reviewForm.querySelector(`.star-rating[data-booking-id="${bookingId}"] input[name="rating"]:checked`);
-        const rating = ratingElement ? ratingElement.value : null;
+            const ratingElement = reviewForm.querySelector(`.star-rating[data-booking-id="${bookingId}"] input[name="rating"]:checked`);
+            const rating = ratingElement ? ratingElement.value : null;
 
-        const commentElement = reviewForm.querySelector(`textarea.comment-textarea[data-booking-id="${bookingId}"]`);
-        const comment = commentElement ? commentElement.value.trim() : '';
+            const commentElement = reviewForm.querySelector(`textarea.comment-textarea[data-booking-id="${bookingId}"]`);
+            const comment = commentElement ? commentElement.value.trim() : '';
 
-        if (!rating) {
-          alert('Rating is not filled.');
-          return;
-        }
-        else if (!comment) {
-          alert('Comment is not filled.');
-          return;
-        } else {
-          const popup = this.closest('.popup-overlay');
-          if (popup) {
-            popup.style.display = 'none';
-            document.body.classList.remove('popup-active');
-            setTimeout(() => reviewForm.submit(), 100);
-          }
-        }
-      });
-    });
+            if (!rating) {
+              alert('Rating is not filled.');
+              return;
+            }
+            else if (!comment) {
+              alert('Comment is not filled.');
+              return;
+            } else {
+              const popup = this.closest('.popup-overlay');
+              if (popup) {
+                popup.style.display = 'none';
+                document.body.classList.remove('popup-active');
+                setTimeout(() => reviewForm.submit(), 100);
+              }
+            }
+          });
+        });
 
-    // ----- Cancel Button -----
-    const cancelButtons = document.querySelectorAll('.cancel-btn');
-    cancelButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const bookingId = this.getAttribute('data-booking-id');
-        if (confirm('Are you sure you want to cancel this booking?')) {
-          const popup = this.closest('.popup-overlay');
-          if (popup) {
-            popup.style.display = 'none';
-            document.body.classList.remove('popup-active');
-          }
-        }
-      });
-    });
-  });
+        // ----- Cancel Button -----
+        const cancelButtons = document.querySelectorAll('.cancel-btn');
+        cancelButtons.forEach(button => {
+          button.addEventListener('click', function () {
+            const bookingId = this.getAttribute('data-booking-id');
+            if (confirm('Are you sure you want to cancel this booking?')) {
+              const popup = this.closest('.popup-overlay');
+              if (popup) {
+                popup.style.display = 'none';
+                document.body.classList.remove('popup-active');
+              }
+              // Find the specific hidden form for this booking and submit it
+              const cancelForm = document.getElementById(`cancelForm-${bookingId}`);
+              if (cancelForm) {
+                cancelForm.submit(); // This sends the POST request to Django
+              }
+            }
+          });
+        });
+        const proceedPaymentButtons = document.querySelectorAll('.proceed-payment-btn');
+        proceedPaymentButtons.forEach(button => {
+          button.addEventListener('click', function () {
+            const bookingId = this.getAttribute('data-booking-id');
+            // No confirmation for payment, directly submit
+            const paymentForm = document.getElementById(`paymentForm-${bookingId}`);
+            if (paymentForm) {
+              paymentForm.submit(); // Submit the payment form
+            }
+          });
+        });
+      }); // End of DOMContentLoaded
+        
+     
 
-  // ----- Open & Close Popup Functions -----
-  function openPopup(popupId) {
-    document.getElementById(popupId).style.display = 'flex';
-    document.body.classList.add('popup-active');
-  }
+      // ----- Open & Close Popup Functions -----
+      function openPopup(popupId) {
+        document.getElementById(popupId).style.display = 'flex';
+        document.body.classList.add('popup-active');
+      }
 
-  function closePopup(popupId) {
-    document.getElementById(popupId).style.display = 'none';
-    document.body.classList.remove('popup-active');
-  }
-</script>
+      function closePopup(popupId) {
+        document.getElementById(popupId).style.display = 'none';
+        document.body.classList.remove('popup-active');
+      }
+    </script>
 
   </div>
 </body>
